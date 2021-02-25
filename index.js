@@ -8,6 +8,9 @@ app.use(express.static('./assets'));
 
 // Setting layouts for our page
 app.use(expressLayouts);
+// Extract styles and scripts from sub pages into the layout
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 // use express router
 app.use('/', require('./routes'));  // OR  (./routes/index.js)  -->> /index.js is added by default :)
