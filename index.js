@@ -3,7 +3,10 @@ const app = express();
 const port = 800;
 const expressLayouts = require('express-ejs-layouts');
 
+//Setting static files
+app.use(express.static('./assets'));
 
+// Setting layouts for our page
 app.use(expressLayouts);
 
 // use express router
