@@ -1,8 +1,7 @@
 module.exports.home = function(req, res){
-    // Before settingup view engine
-    // return res.end('<h1>Express is up for Codeial!</h1>');
-
-    // After settingup view engine
+    console.log(req.cookies);
+    res.cookie('user_id', 25);
+    res.cookie('new_id', '500');
     return res.render('home', {
         title: "Home"
     });
