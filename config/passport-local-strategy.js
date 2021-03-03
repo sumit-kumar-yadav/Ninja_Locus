@@ -1,5 +1,5 @@
 const passport = require('passport');
-
+console.log('passport is loaded now');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
@@ -9,7 +9,7 @@ const User = require('../models/user');
 passport.use(new LocalStrategy({
         usernameField: 'email'
     },
-    function(email, password, done){
+    function(email, password, done){  // email and password are automatically passed
         // find a user and establish the identity
         User.findOne({email: email}, function(err, user)  {
             if (err){
@@ -17,12 +17,13 @@ passport.use(new LocalStrategy({
                 return done(err);
             }
 
+            console.log(`############## ${user}`);
             if (!user || user.password != password){
                 console.log('Invalid Username/Password');
-                return done(null, false);
+                return done(null, false);  // returned to failureRedirect in users.js
             }
 
-            return done(null, user);
+            return done(null, user);  // user is returned to passport.serializeUser()
         });
     }
 
@@ -32,7 +33,9 @@ passport.use(new LocalStrategy({
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function(user, done){
-    done(null, user.id);
+    console.log(`************** ${user}`);
+    console.log(user.id, 'and   ', user._id);  // both are same
+    done(null, user.id);   // user.id is sent to session in index.js to encript cookie
 });
 
 
