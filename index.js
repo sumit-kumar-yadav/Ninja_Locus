@@ -8,6 +8,8 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo').default;
+
 
 
 app.use(express.urlencoded());
@@ -29,17 +31,26 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 
-
+// mongo-session is used to store the session cookie iin the db
 app.use(session({
     name: 'codeial',
     // TODO change the secret before deployment in production mode
     secret: 'blahsomething',
     saveUninitialized: false,    
     resave: false,  // Don't save same data again and again
-    cookie: {   // Timeout of the session in millisec
+    cookie: {   // Timeout of the session in millisec, bro try kroo save krke.... ok____ it's still throwing error
         maxAge: (1000 * 60 * 100)
-    }
+    },
+    store: MongoStore.create(
+        {
+            mongoUrl: 'mongodb://localhost/codeial_development',
+            autoRemove: 'disabled'
+        },
+        function(err){
+            console.log(err || 'connect-mongo setup ok');
+        })
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
