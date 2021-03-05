@@ -9,6 +9,16 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo').default;
+const sassMiddleware =require('node-sass-middleware');
+
+// Note: you must place sass-middleware *before* `express.static` or else it will not work.
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,  //  Put false in production mode
+    outputStyle: 'extended',  // To not show in one line
+    prefix: '/css'   // Important --- Where prefix is at <link rel="stylesheets" href="/css/style.css"/>
+}));
 
 
 
