@@ -1,7 +1,7 @@
 <header>
-    Page Header
+    <span id="app-name">Codial</span>
 
-    <ul>
+    <ul type = "none">
         <% if (locals.user){ %>
             <li>
                 <a href="/users/profile">
@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li>
-                <a href="/users/sign-out">Sign Out</a>
+                <a href="/users/sign-out" id="sign-out">Sign Out</a>
             </li>
         <% }else{ %>
 

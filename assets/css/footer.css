@@ -1,0 +1,10 @@
+footer {
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  color: white; }
+  footer a {
+    text-decoration: none;
+    color: white; }
+    footer a:hover {
+      color: orange; }

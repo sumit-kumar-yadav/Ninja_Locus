@@ -1,0 +1,47 @@
+// variables
+$white-text: white;
+
+header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    background-color: blue;
+    color: $white-text;
+    font-size: 1.5rem;
+    // line-height: 10px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+
+    ul{
+        display: flex;
+        li{
+            margin-right: 10px;
+
+            a{
+                text-decoration: none;
+                color: $white-text;
+                transition: color 0.3s ease-in-out;
+
+                &:hover{
+                    // text-shadow: 2px;
+                    color: orange;
+                }
+            }
+        }
+    }
+}
+
+#app-name{
+    font-weight: bolder;
+    letter-spacing: 2px;
+}
+
+#sign-out{
+    color: rgb(193, 243, 243);
+    &:hover{
+        color: orange;
+    }
+}
