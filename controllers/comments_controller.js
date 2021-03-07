@@ -14,7 +14,7 @@ module.exports.create = function(req, res){
 
                 // console.log(comment);
                 post.comments.push(comment); // mongoose will automatically extract id from it
-                post.save();       // We need to call save() everytime post is updated to save it in db
+                post.save();       // We need to call save() after post is updated to save it in db
 
                 res.redirect('/');
             });
