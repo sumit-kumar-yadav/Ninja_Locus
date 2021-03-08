@@ -25,13 +25,13 @@ module.exports.create = function(req, res){
 
 // Action for deleting a comment by commenter
 module.exports.destroy = function(req, res){
-    Comment.findById(req.params.id, function(err, comment){
-        if (comment.user == req.user.id){   //  TODO -->>  || req.params.post_user_id == req.user.id
+    Comment.findById(req.query.id, function(err, comment){
+        if (comment.user == req.user.id || req.query.post_user_id == req.user.id){   
 
             let postId = comment.post;
             comment.remove();
 
-            Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}, function(err, post){
+            Post.findByIdAndUpdate(postId, { $pull: {comments: req.query.id}}, function(err, post){
                 return res.redirect('back');
             })
         }else{
