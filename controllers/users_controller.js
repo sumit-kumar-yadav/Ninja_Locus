@@ -15,9 +15,11 @@ module.exports.profile = function(req, res){
 module.exports.update = function(req, res){
     if(req.user.id == req.params.id){
         User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            req.flash('success', 'Updated!');
             return res.redirect('back');
         });
     }else{
+        req.flash('error', 'Unauthorized!');
         return res.status(401).send('Unauthorized');
     }
 }
@@ -51,22 +53,26 @@ module.exports.signIn = function(req, res){
 module.exports.create = function(req, res){
     if (req.body.password != req.body.confirm_password){
         console.log('Password is incorrect');
+        req.flash('error', 'Passwords did not match');
         return res.redirect('back');
     }
 
     User.findOne({email: req.body.email}, function(err, user){
-        if(err){console.log('error in finding user in signing up'); return}
+        if(err){req.flash('error', err); return}
 
         console.log(user, typeof(user));
         if (!user){
             User.create(req.body, function(err, user){
-                if(err){console.log('error in creating user while signing up'); return}
+                if(err){req.flash('error', err); return}
 
                 console.log(`New user created ${user}`);
+                req.flash('success', 'You have signed up, login to continue!');
                 return res.redirect('/users/sign-in');
             })
         }else{
             console.log('User is already Signed Up');
+            
+            req.flash('success', 'User id already exist');
             return res.redirect('back');
         }
 

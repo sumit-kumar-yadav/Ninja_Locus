@@ -16,12 +16,14 @@ module.exports.create = async function(req, res){
             // push comment id in the array of comments in post
             post.comments.push(comment); // mongoose will automatically extract id from it
             post.save();       // We need to call save() after post is updated to save it in db
+            req.flash('success', 'Comment published!');
 
             res.redirect('/');
         }
 
     }catch(err){
         console.log('Error in creating a comment -->> ', err);
+        req.flash('error', err);
         return;
     }
 }
@@ -39,14 +41,19 @@ module.exports.destroy = async function(req, res){
 
             // Delete the comment id from the array of comments in the post
             let post = await Post.findByIdAndUpdate(postId, { $pull: {comments: req.query.id}});
+            req.flash('success', 'Comment deleted!');
+
             return res.redirect('back');
         }else{
             console.log('Cannot delete Comment');
+            req.flash('error', 'Unauthorized');
+
             return res.redirect('back');
         }
 
     }catch(err){
         console.log('Error in deleting a comment -->> ', err);
+        req.flash('error', err);
         return;
     }
     
