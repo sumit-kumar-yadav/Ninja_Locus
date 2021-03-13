@@ -8,6 +8,17 @@ module.exports.create = async function(req, res){
             content: req.body.content,
             user: req.user._id
         });
+
+        // If it's AJAX request
+        if (req.xhr){
+            return res.status(200).json({  // Return with JSON data
+                data: {
+                    post: post
+                },
+                message: "Post created!"
+            });
+        }
+
        
         console.log('Post Created');
 
