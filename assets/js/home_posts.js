@@ -11,9 +11,14 @@
                 url: '/posts/create',
                 data: newPostForm.serialize(),
                 success: function(data){
-                    console.log(data);
+                    // console.log(data);
                    let newPost = newPostDom(data.data.post);
                    $('#posts-list-container>ul').prepend(newPost);
+                   
+                   deletePost($(' .delete-post-button', newPost));   
+                   // jQuery Object (newPost) having class = .delete-post-button is written like this in jquery -->> $(' .delete-post-button', newPost)
+                   // This will pass the <a> tag to the function deletePost
+                   // Note:  space is required here before .delete-post-button
                 }, error: function(error){
                     console.log(error.responseText);
                 }
@@ -21,7 +26,6 @@
         });
     }
 
-    createPost();
 
     // method to create a post in DOM
     let newPostDom = function(post){
@@ -29,7 +33,7 @@
                     <p>
                         
                         <small>
-                            <a class="delete-post-button"  href="/posts/destroy/${ post.id }">X</a>
+                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
                         </small>
                        
                         ${ post.content }
@@ -57,7 +61,29 @@
                 </li>`)
     }
 
+
+    // method to delete a post from DOM
+    let deletePost = function(deleteLink){
+        $(deleteLink).click(function(e){  // Even this works -->> deleteLink.click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    $(`#post-${data.data.post_id}`).remove();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            });
+
+        });
+    }
+
+
+
     
+    createPost();
 
     
 }
