@@ -19,6 +19,21 @@
                    // jQuery Object (newPost) having class = .delete-post-button is written like this in jquery -->> $(' .delete-post-button', newPost)
                    // This will pass the <a> tag to the function deletePost
                    // Note:  space is required here before .delete-post-button
+
+
+                    // call the create comment class
+                    new PostComments(data.data.post._id);
+
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
+
                 }, error: function(error){
                     console.log(error.responseText);
                 }
@@ -44,7 +59,7 @@
                     </p>
                     <div class="post-comments">
                         
-                            <form action="/comments/create" method="POST">
+                            <form id="post-${post._id}-comments-form" action="/comments/create" method="POST">
                                 <input type="text" name="content" placeholder="Type Here to add comment..." required>
                                 <input type="hidden" name="post" value="${ post._id }" >
                                 <input type="submit" value="Add Comment">
@@ -72,6 +87,15 @@
                 url: $(deleteLink).prop('href'),
                 success: function(data){
                     $(`#post-${data.data.post_id}`).remove();
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post Deleted",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                 },error: function(error){
                     console.log(error.responseText);
                 }
