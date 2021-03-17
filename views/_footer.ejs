@@ -9,9 +9,11 @@
         <li>
             <a href="/">Home</a>
         </li>
+        <% if(locals.user){ %> 
         <li>
-            <a href="/users/profile">Profile</a>
+            <a href="/users/profile/<%= user._id %>">Profile</a>
         </li>
+        <% } %>
     </ul>
 
 </footer>
