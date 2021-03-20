@@ -6,7 +6,7 @@ const User = require('../models/user');
 
 
 let opts = {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken,  // To extract the token
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),  // To extract the token
     secretOrKey: 'codeial'               // To decript the token
 }
 
