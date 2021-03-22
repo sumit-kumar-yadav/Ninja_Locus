@@ -1,5 +1,7 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer = require('../mailers/comments_mailer');
+
 
 // Action for creating a comment
 module.exports.create = async function(req, res){
@@ -17,10 +19,14 @@ module.exports.create = async function(req, res){
             post.comments.push(comment); // mongoose will automatically extract id from it
             post.save();       // We need to call save() after post is updated to save it in db
 
+            // populating comment with username and email only
+            comment = await comment.populate('user', 'name email').execPopulate();
+            commentsMailer.newComment(comment);  // Sending mail after a comment is published
+
             // If it's Ajax request
             if (req.xhr){
                 // Similar for comments to fetch the user's id!
-                comment = await comment.populate('user', 'name').execPopulate();
+                // comment = await comment.populate('user', 'name').execPopulate();
     
                 return res.status(200).json({
                     data: {
