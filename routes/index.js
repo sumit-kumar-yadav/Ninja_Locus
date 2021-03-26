@@ -13,8 +13,7 @@ router.use('/comments', require('./comments'));
 
 router.use('/api', require('./api'));   // ./api/index is required by default
 
-// for any further routes, access from here
-// router.use('/routerName', require('./routerfile));
+router.use('/password', require('./password'));
 
 
 module.exports = router;
