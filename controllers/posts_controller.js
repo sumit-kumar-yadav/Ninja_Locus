@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 // Creating a post
 module.exports.create = async function(req, res){
@@ -43,6 +44,12 @@ module.exports.destroy = async function(req, res){
 
         // Verify the poster is deleting the post
         if (post.user == req.user.id){  // .id means converting the object id into string
+
+            // CHANGE :: delete the associated likes for the post and all its comments' likes too
+            await Like.deleteMany({likeable: post, onModel: 'Post'});
+            await Like.deleteMany({likeable: {$in: post.comments}, onModel: 'Comment'});
+            // await Like.deleteMany({_id: {$in: post.comments}});   -->> They coded, (But was not deleted when checked)  :(
+
             post.remove();  // delete the post
 
             await Comment.deleteMany({post: req.params.id});  // delete it's comments
