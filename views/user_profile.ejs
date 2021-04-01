@@ -21,4 +21,19 @@
     <!-- else show only the profile info -->
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
+
+    <!-- Add or remove friend button -->
+    <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
+        <button type="submit">
+            <% if(friendship){ %>
+                Remove Friend  
+            <% }else{ %>
+                Add Friend
+            <% } %>
+        </button>
+    </a>
+
 <%} %>
+
+
+<script src="/js/toggle_friendship.js"></script>

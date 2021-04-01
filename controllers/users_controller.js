@@ -1,14 +1,32 @@
 const User = require('../models/user');
 const path = require('path');
 const fs = require('fs');
+const Friendship = require('../models/friendship');
 
 // Render the profile
-module.exports.profile = function(req, res){
-    User.findById(req.params.id, function(err, user){
-        return res.render('user_profile', {
-            title: 'User Profile',
-            profile_user: user
-        });
+module.exports.profile = async function(req, res){
+    let user = await User.findById(req.params.id);
+
+    // Check if current user and the profile_user are friends or not
+    let friend = false;
+    let friendship = await Friendship.findOne({
+        from_user: req.user._id,
+        to_user: req.params.id
+    });
+    let friendshipReverse = await Friendship.findOne({
+        from_user: req.params.id,
+        to_user: req.user._id
+    });
+
+    // If they are friends
+    if(friendship || friendshipReverse){
+        friend = true;
+    }
+
+    return res.render('user_profile', {
+        title: 'User Profile',
+        profile_user: user,
+        friendship: friend
     });
 
 }
