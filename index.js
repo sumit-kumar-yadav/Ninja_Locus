@@ -1,4 +1,5 @@
 const express = require('express');
+const env = require('./config/environment');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -23,10 +24,11 @@ chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
 
 
+const path = require('path');
 // Note: you must place sass-middleware *before* `express.static` or else it will not work.
 app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, '/scss'),
+    dest: path.join(__dirname, env.asset_path, '/css'),
     debug: true,  //  Put false in production mode
     outputStyle: 'extended',  // To not show in one line
     prefix: '/css'   // Important --- Where prefix is at <link rel="stylesheets" href="/css/style.css"/>
@@ -39,7 +41,8 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //Setting static files
-app.use(express.static('./assets'));
+// app.use(express.static('.' + env.asset_path));
+app.use(express.static(path.join(__dirname, env.asset_path)));
 
 // make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -60,10 +63,10 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',
     // TODO change the secret before deployment in production mode
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,    
     resave: false,  // Don't save same data again and again
-    cookie: {   // Timeout of the session in millisec, bro try kroo save krke.... ok____ it's still throwing error
+    cookie: {   // Timeout of the session in millisec
         maxAge: (1000 * 60 * 100)
     },
     store: MongoStore.create(

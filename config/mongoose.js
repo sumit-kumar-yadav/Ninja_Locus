@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const env = require('./environment');
 
-mongoose.connect('mongodb://localhost/codeial_development', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb://localhost/${env.db}`, {useNewUrlParser: true, useUnifiedTopology: true});
 // mongoose.set('useFindAndModify', false);   // uncomment this to avoid warning during deleting a comment
 
 const db = mongoose.connection;
