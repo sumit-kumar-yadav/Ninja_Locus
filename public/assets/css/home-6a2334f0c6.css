@@ -1,0 +1,13 @@
+#home-container {
+  display: flex;
+  height: inherit; }
+  #home-container #feed-posts {
+    width: 70%;
+    padding: 10px; }
+  #home-container #users-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-left: 1px solid lightgrey;
+    height: 100%; }

@@ -1,0 +1,31 @@
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: blue;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0px 10px;
+  box-sizing: border-box; }
+  header ul {
+    display: flex; }
+    header ul li {
+      margin-right: 10px; }
+      header ul li a {
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s ease-in-out; }
+        header ul li a:hover {
+          color: orange; }
+
+#app-name {
+  font-weight: bolder;
+  letter-spacing: 2px; }
+
+#sign-out {
+  color: #c1f3f3; }
+  #sign-out:hover {
+    color: orange; }
