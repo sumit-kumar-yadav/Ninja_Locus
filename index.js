@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -26,13 +27,15 @@ console.log('chat server is listening on port 5000');
 
 const path = require('path');
 // Note: you must place sass-middleware *before* `express.static` or else it will not work.
-app.use(sassMiddleware({
-    src: path.join(__dirname, env.asset_path, '/scss'),
-    dest: path.join(__dirname, env.asset_path, '/css'),
-    debug: true,  //  Put false in production mode
-    outputStyle: 'extended',  // To not show in one line
-    prefix: '/css'   // Important --- Where prefix is at <link rel="stylesheets" href="/css/style.css"/>
-}));
+if(env.name == 'development'){
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, '/scss'),
+        dest: path.join(__dirname, env.asset_path, '/css'),
+        debug: true,  //  Put false in production mode
+        outputStyle: 'extended',  // To not show in one line
+        prefix: '/css'   // Important --- Where prefix is at <link rel="stylesheets" href="/css/style.css"/>
+    }));
+}
 
 
 
@@ -46,6 +49,9 @@ app.use(express.static(path.join(__dirname, env.asset_path)));
 
 // make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+// Middleware for logger (morgon)
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Setting layouts for our page
 app.use(expressLayouts);

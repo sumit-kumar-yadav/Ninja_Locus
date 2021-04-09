@@ -1,0 +1,6 @@
+::1 - - [09/Apr/2021:11:16:28 +0000] "GET / HTTP/1.1" 200 4138 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [09/Apr/2021:11:16:28 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [09/Apr/2021:11:16:29 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [09/Apr/2021:11:21:48 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [09/Apr/2021:11:21:48 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [09/Apr/2021:11:21:48 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
