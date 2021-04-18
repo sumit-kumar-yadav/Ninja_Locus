@@ -25,13 +25,13 @@ const development = {
         port: 587,  // for TLS
         secure: false,
         auth: {
-            user: 'kumarsumit0375@gmail.com',
-            pass: 'codial@password'
+            user: process.env.CODEIAL_GMAIL_USERNAME,
+            pass: process.env.CODEIAL_GMAIL_PASSWORD
         }
     },
-    google_client_id: '526158861188-0n4fol3mrjhk24e8hkddp235jkrgd506.apps.googleusercontent.com', 
-    google_client_secret: '-tds3hZQljXB-U-YNsKTyfpe', 
-    google_call_back_url: "http://localhost:8000/users/auth/google/callback",   // Authorized redirect URI as filled in google credential of this project
+    google_client_id: process.env.CODEIAL_GOOGLE_CLIENT_ID, 
+    google_client_secret: process.env.CODEIAL_GOOGLE_CLIENT_SECRET, 
+    google_call_back_url: process.env.CODEIAL_GOOGLE_CALLBACK_URL,   // Authorized redirect URI as filled in google credential of this project
     jwt_secret: 'codeial',
     morgan: {
         mode: 'dev',

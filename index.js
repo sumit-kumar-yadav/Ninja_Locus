@@ -108,3 +108,11 @@ app.listen(port, function(err){
 
     console.log(`Server is running on port: ${port}`);
 });
+
+
+// For running in windows change prod_start
+// "scripts": {
+//     "start": "nodemon index.js",
+//     "test": "echo \"Error: no test specified\" && exit 1",
+//     "prod_start": "SET NODE_ENV=production&& nodemon index.js"
+//   }

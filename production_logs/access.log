@@ -155,3 +155,77 @@
 ::1 - - [10/Apr/2021:06:52:16 +0000] "GET / HTTP/1.1" 304 - "http://localhost:8000/users/sign-up" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
 ::1 - - [10/Apr/2021:06:52:16 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
 ::1 - - [10/Apr/2021:06:52:16 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+::1 - - [18/Apr/2021:15:47:35 +0000] "GET / HTTP/1.1" 200 6376 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:47:36 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:47:36 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:48:03 +0000] "GET /users/sign-in HTTP/1.1" 200 2767 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:48:06 +0000] "GET /users/auth/google HTTP/1.1" 302 0 "http://localhost:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:48:56 +0000] "GET /users/auth/google HTTP/1.1" 302 0 "http://localhost:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:18 +0000] "GET /users/auth/google/callback?code=4%2F0AY0e-g6ZjfJKrqFrNkPdtl1za1gjIvg36py3CPVf5ywAx-CA1z7ykAH4jO-Z7MMBDMTrvA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent HTTP/1.1" 302 46 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:18 +0000] "GET / HTTP/1.1" 200 9441 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:18 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:18 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:29 +0000] "GET / HTTP/1.1" 200 9141 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:29 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:49:29 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:01 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:01 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:01 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:19 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:19 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:19 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:15:50:54 +0000] "POST /comments/create HTTP/1.1" 200 380 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+[0mGET / [32m200[0m 138.047 ms - 9335[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 20.403 ms - 161[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 13.018 ms - 161[0m
+[0mGET /users/sign-in [32m200[0m 11.923 ms - 2734[0m
+[0mGET /users/auth/google [36m302[0m 9.693 ms - 0[0m
+[0mGET /users/auth/google/callback?code=4%2F0AY0e-g6taQHgnkzQ9QJ8hf4z1TLcUMCaT3faFvf1vTsvIao54CiBirrD0i0tRvg-AymGtg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent [36m302[0m 1883.915 ms - 46[0m
+[0mGET / [32m200[0m 96.442 ms - 15034[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 9.959 ms - 161[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 8.718 ms - 161[0m
+[0mGET / [32m200[0m 71.242 ms - 14734[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 10.798 ms - 161[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 8.336 ms - 161[0m
+[0mGET / [36m304[0m 69.074 ms - -[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 7.583 ms - 161[0m
+[0mGET /socket.io/socket.io.js [33m404[0m 3.860 ms - 161[0m
+[0mPOST /comments/create [32m200[0m 43.796 ms - 385[0m
+::1 - - [18/Apr/2021:16:19:35 +0000] "GET / HTTP/1.1" 200 6886 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:19:35 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:19:35 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:19:46 +0000] "GET /users/sign-in HTTP/1.1" 200 2767 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:19:48 +0000] "GET /users/auth/google HTTP/1.1" 302 0 "http://localhost:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:00 +0000] "GET /users/auth/google/callback?code=4%2F0AY0e-g4XXpktv-h2GmmnTaFkoQ160tObfCFUf4FSRlbcqT2DDMvOR6IQvdEHtAjvfeGytQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent HTTP/1.1" 302 46 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:00 +0000] "GET / HTTP/1.1" 200 10316 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:01 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:01 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:09 +0000] "GET / HTTP/1.1" 200 10016 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:09 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:10 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:22 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:22 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:22 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:27 +0000] "GET /users/sign-out HTTP/1.1" 302 46 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:27 +0000] "GET / HTTP/1.1" 200 7184 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:27 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:27 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:56 +0000] "GET / HTTP/1.1" 200 6886 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:56 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:20:56 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:05 +0000] "GET /users/sign-in HTTP/1.1" 304 - "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:07 +0000] "GET /users/auth/google HTTP/1.1" 302 0 "http://localhost:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:16 +0000] "GET /users/auth/google/callback?code=4%2F0AY0e-g6Mk0H23Y5ibmkLj9dWGmMVbY9j0R6wZPp3uPyQlDiubqaFNSnosPYt5yey9KVS0Q&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent HTTP/1.1" 302 46 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:16 +0000] "GET / HTTP/1.1" 200 10316 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:16 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:16 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:24 +0000] "GET / HTTP/1.1" 200 10016 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:24 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:24 +0000] "GET /socket.io/socket.io.js HTTP/1.1" 404 161 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:21:36 +0000] "POST /comments/create HTTP/1.1" 200 385 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:35 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 58 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:36 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 57 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:36 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 58 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:37 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 57 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:38 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 58 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
+::1 - - [18/Apr/2021:16:22:38 +0000] "POST /likes/toggle/?id=607c5c8f16a02728685efdd3&type=Comment HTTP/1.1" 200 57 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36"
