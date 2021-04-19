@@ -139,6 +139,7 @@ module.exports.createSession = function(req, res){
 
 // Log out and destroy the session
 module.exports.destroySession = function(req, res){
+    req.session.destroy();
     req.logout();  // put by passport.js for us  :)
     req.flash('success', 'You have logged out!');
 

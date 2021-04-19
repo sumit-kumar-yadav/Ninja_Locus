@@ -1,7 +1,7 @@
 
-module.exports.chatSockets = function(socketServer){
+module.exports.chatSockets = function(socketServer, options){
     // Receive a req for connection 
-    let io = require('socket.io')(socketServer);
+    let io = require('socket.io')(socketServer, options);
 
     io.sockets.on('connection', function(socket){  // and then also acknowledge to the client after connection is detected
         console.log('new connection received', socket.id);
