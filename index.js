@@ -23,7 +23,7 @@ const customMware = require('./config/middleware');
 const chatServer = require('http').createServer(app);
 const options = {
     cors: {
-        origin: "http://18.206.198.87:8000",
+        origin: "http://18.206.198.87",
         methods: ["GET", "POST"]
       }
 };
