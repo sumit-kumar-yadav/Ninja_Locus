@@ -20,10 +20,17 @@ const customMware = require('./config/middleware');
 
 
 // setup the chat server to be used with socket.io
-const chatServer = require('http').Server(app);
-const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
-chatServer.listen(5000);
-console.log('chat server is listening on port 5000');
+const chatServer = require('http').createServer(app);
+const options = {
+    cors: {
+        origin: "http://18.206.198.87:8000",
+        methods: ["GET", "POST"]
+      }
+};
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer, options);
+chatServer.listen(5000, function(){
+    console.log('chat server is listening on port 5000');
+});
 
 
 const path = require('path');
@@ -40,7 +47,7 @@ if(env.name == 'development'){
 
 
 
-app.use(express.urlencoded());
+app.use(express.urlencoded());  //app.use(express.urlencoded({extended: false}));
 
 app.use(cookieParser());
 
