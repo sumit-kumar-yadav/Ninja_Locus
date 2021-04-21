@@ -32,30 +32,69 @@
             <h4>Friends</h4>
 
             <% for(friend of logged_in_user.friendships){%>
-                <!-- if User himself had sent the request -->
-                <% if(locals.user.id == friend.from_user.id){ %>
+                <!-- If request is accepted -->
+                <% if(friend.accepted){ %>
+                    <!-- if User himself had sent the request -->
+                    <% if(locals.user.id == friend.from_user.id){ %>
+                        <!-- then friend details are in to_user object -->
+                        <p id="friend-<%= friend.to_user.id %>" class="friends-of-user">
+                            <a href="/users/profile/<%= friend.to_user.id %>"><%= friend.to_user.name %></a>
+                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
+                                <button type="button">
+                                    Remove friend
+                                </button>
+                            </a>
+                        </p>
+                    <% }else{ %>
+                        <!-- then friend details are in from_user object -->
+                        <p id="friend-<%= friend.from_user.id %>" class="friends-of-user">
+                            <a href="/users/profile/<%= friend.from_user.id %>"><%= friend.from_user.name %></a>
+                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
+                                <button type="button">
+                                    Delete friend
+                                </button>
+                            </a>
+                        </p>
+                    <% } %>
+
+                <% } %>
+                
+
+                
+            <% } %>
+        </div>
+
+        <div id="users-sent-requests">
+            <h4>Sent Requests</h4>
+            <% for(friend of logged_in_user.friendships){%>
+                <% if(!friend.accepted && locals.user.id == friend.from_user.id){ %>
                     <!-- then friend details are in to_user object -->
                     <p id="friend-<%= friend.to_user.id %>" class="friends-of-user">
                         <a href="/users/profile/<%= friend.to_user.id %>"><%= friend.to_user.name %></a>
                         <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
                             <button type="button">
-                                Delete friend
+                                Cancel Request
                             </button>
                         </a>
                     </p>
-                <% }else{ %>
+                <% } %>
+            <% } %>
+        </div>
+
+        <div id="users-received-requests">
+            <h4>Received Requests</h4>
+            <% for(friend of logged_in_user.friendships){%>
+                <% if(!friend.accepted && locals.user.id == friend.to_user.id){ %>
                     <!-- then friend details are in from_user object -->
                     <p id="friend-<%= friend.from_user.id %>" class="friends-of-user">
                         <a href="/users/profile/<%= friend.from_user.id %>"><%= friend.from_user.name %></a>
                         <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
                             <button type="button">
-                                Delete friend
+                                Delete Request
                             </button>
                         </a>
                     </p>
                 <% } %>
-
-                
             <% } %>
         </div>
         <% } %>

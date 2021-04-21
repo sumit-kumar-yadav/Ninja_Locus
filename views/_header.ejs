@@ -4,7 +4,7 @@
     <ul type = "none">
         <% if (locals.user){ %>
             <li>
-                <a href="/users/profile">
+                <a href="/users/profile/<%= locals.user.id %>">
                     <%= user.name %>
                 </a>
             </li>

@@ -19,7 +19,7 @@ class ToggleFriendship{
             .done(function(data) {
                 
                 if (data.data.friendAdded == true){
-                    $(' button', self).html(`Remove Friend`);
+                    $(' button', self).html(`Cancel Request`);
                 }else{
                     $(' button', self).html(`Add Friend`);
                 }

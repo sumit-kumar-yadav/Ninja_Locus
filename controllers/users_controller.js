@@ -5,28 +5,31 @@ const Friendship = require('../models/friendship');
 
 // Render the profile
 module.exports.profile = async function(req, res){
-    let user = await User.findById(req.params.id);
+    let profileUser = await User.findById(req.params.id);
+
+    let friendship;
 
     // Check if current user and the profile_user are friends or not
-    let friend = false;
-    let friendship = await Friendship.findOne({
-        from_user: req.user._id,
-        to_user: req.params.id
-    });
-    let friendshipReverse = await Friendship.findOne({
-        from_user: req.params.id,
-        to_user: req.user._id
-    });
+    // Find all the friendship of current user
+    let existingFriendship = await Friendship.find({_id: {$in: req.user.friendships}});
 
-    // If they are friends
-    if(friendship || friendshipReverse){
-        friend = true;
+    // If there exist atleast 1 friendship of current user
+    if(existingFriendship){
+        for(let i of existingFriendship){
+            if((i.from_user == req.user.id && i.to_user == req.params.id)
+                || (i.from_user == req.params.id && i.to_user == req.user.id)
+            ){
+                // They are friends !!
+                console.log("They are friends");
+                friendship = i;
+            }
+        }
     }
 
     return res.render('user_profile', {
         title: 'User Profile',
-        profile_user: user,
-        friendship: friend
+        profile_user: profileUser,
+        friendship: friendship
     });
 
 }
@@ -139,9 +142,9 @@ module.exports.createSession = function(req, res){
 
 // Log out and destroy the session
 module.exports.destroySession = function(req, res){
-    req.session.destroy();
     req.logout();  // put by passport.js for us  :)
     req.flash('success', 'You have logged out!');
+    req.session.destroy();
 
     return res.redirect('/');
 }

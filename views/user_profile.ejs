@@ -22,16 +22,29 @@
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
 
-    <!-- Add or remove friend button -->
-    <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
-        <button type="submit">
-            <% if(friendship){ %>
-                Remove Friend  
+    <!-- If friendship exists -->
+    <% if(friendship){ %>
+        <% if(friendship.accepted){ %>
+            <a href="/friendship/remove-friend/<%= friendship.id %>"><button type="button">Remove Friend</button></a>
+        <% }else{ %>
+            <!-- Toggle friendship button for the request sender -->
+            <% if(friendship.from_user == user.id){ %>
+                <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
+                    <button type="submit">Cancel Request</button>
+                </a>
             <% }else{ %>
-                Add Friend
+                <!-- Accept or delete friend for the receiver -->
+                <a href="/friendship/accept-request/<%= friendship.id %>"><button type="button">Accept Request</button></a>
+                <a href="/friendship/delete-request/<%= friendship.id %>"><button type="button">Delete Request</button></a>
             <% } %>
-        </button>
-    </a>
+
+        <% } %>
+    <% }else{ %>
+        <!-- Toggle friendship button -->
+        <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
+            <button type="submit">Add Friend</button>
+        </a>
+    <% } %>
 
 <%} %>
 
