@@ -1,35 +1,14 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const Friendship = require('../models/friendship');
 
 // Using Async Await
 module.exports.home = async function(req, res){
 
     try{
-         // populate the user of each post
-        let posts = await Post.find({})
-        .sort('-createdAt')   // To show the latest post first
-        .populate('user')
-        .populate({
-            path: 'comments',
-            populate: [
-                {
-                    path: 'user'
-                },
-                {
-                    path: 'likes'
-                }
-            ]
-                    // Sir coded -->> But Wrong way because populate will be overwritten by the latter one
-            // populate: {
-            //     path: 'user'
-            // },
-            // populate: {
-            //     path: 'likes'
-            // }
-        }).populate('likes');
-    
         let users = await User.find({});   //  Find all the users to send them on home page    ***** TODO: Don't set the password to browser  *****
         let loggedInUser;
+        let friendsPosts = [];
         if(req.user){   //  Find all the friends of the user if user is logged in
             loggedInUser = await User.findById(req.user._id)
             .populate({
@@ -44,11 +23,43 @@ module.exports.home = async function(req, res){
                 ]
             });
 
+
+            // Find all the friendship of user
+            let acceptedFriendship = await Friendship.find({_id: {$in: req.user.friendships}, accepted: true});
+
+            // If there exist atleast 1 friendship of user
+            if(acceptedFriendship){
+                let posterIdList = [];
+                for(let i of acceptedFriendship){
+                    if(i.from_user == req.user.id){
+                        posterIdList.push(i.to_user);
+                    }else{
+                        posterIdList.push(i.from_user);
+                    }
+                    posterIdList.push(req.user.id);
+
+                    friendsPosts = await Post.find({user: {$in: posterIdList}})
+                    .sort('-createdAt')   // To show the latest post first
+                    .populate('user')
+                    .populate({
+                        path: 'comments',
+                        populate: [
+                            {
+                                path: 'user'
+                            },
+                            {
+                                path: 'likes'
+                            }
+                        ]
+                    }).populate('likes');
+                }
+            }
+
         }
 
         return res.render('home', {
             title: "Codeial | Home",
-            posts:  posts,
+            posts:  friendsPosts,
             all_users: users,
             logged_in_user: loggedInUser
         });
