@@ -8,51 +8,48 @@ module.exports.toggleFriendship = async function(req, res){
         let friend = await User.findById(req.params.id);
         let friendAdded = false;
 
-        // Check if friendship already exists
-        let existingFriendship = await Friendship.findOne({
-            from_user: req.user._id,
-            to_user: req.params.id
-        })
+        // Find all the friendship of user
+        let existingFriendship = await Friendship.find({_id: {$in: req.user.friendships}});
 
-        // Also check whether vise versa friendship exists or not
-        let existingFriendshipReverse = await Friendship.findOne({
-            from_user: req.params.id,
-            to_user: req.user._id
-        })
+        // If there exist atleast 1 friendship of user
+        if(existingFriendship){
+            for(let i of existingFriendship){
+                // If friendship already exist between user and friend, then remove it
+                if((i.from_user == req.user.id && i.to_user == req.params.id)
+                    || (i.from_user == req.params.id && i.to_user == req.user.id)
+                ){
+                    // Remove the friendship
+                    user.friendships.pull(i._id);  // Remove from the friend list of the user
+                    user.save();
+                    friend.friendships.pull(i._id);  //  Also remove from the friend list of the friend
+                    friend.save();
+                    i.remove();
+                    console.log("friend removed");
 
-
-        // If friendship already exists then remove it
-        if(existingFriendship || existingFriendshipReverse){
-            if(existingFriendship){
-                user.friendships.pull(existingFriendship._id);  // Remove from the friend list of the user
-                user.save();
-                friend.friendships.pull(existingFriendship._id);  //  Also remove from the friend list of the friend
-                friend.save();
-                existingFriendship.remove();
-            }else{
-                user.friendships.pull(existingFriendshipReverse._id);   // Remove from the friend list of the user
-                user.save();
-                friend.friendships.pull(existingFriendshipReverse._id);   //  Also remove from the friend list of the friend
-                friend.save();
-                existingFriendshipReverse.remove();
+                    return res.json(200, {
+                        message: "Request successful!",
+                        data: {
+                            friendAdded: friendAdded
+                        }
+                    })
+                }
             }
-
-        }else{
-            // Create the friendship
-            let friendship = await Friendship.create({
-                from_user: req.user._id,
-                to_user: req.params.id,
-                accepted: false
-            });
-    
-            // Also save the friendship id in the array of friendship of user schema
-            user.friendships.push(friendship);
-            user.save();
-            friend.friendships.push(friendship);
-            friend.save();
-            friendAdded = true;
-
         }
+
+        // If there is no friendship, Create the friendship
+        let friendship = await Friendship.create({
+            from_user: req.user._id,
+            to_user: req.params.id,
+            accepted: false
+        });
+
+        // Also save the friendship id in the array of friendship of user schema
+        user.friendships.push(friendship);
+        user.save();
+        friend.friendships.push(friendship);
+        friend.save();
+        friendAdded = true;
+        console.log("Friend added");
 
         return res.json(200, {
             message: "Request successful!",
