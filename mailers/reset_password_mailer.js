@@ -8,7 +8,7 @@ exports.newPassword = (data) => {
        to: data.user.email,
        // for multiple participants-->> to: 'first_email, second_email',
        subject: "Reset your password!!",
-       html: `http://localhost:8000/password/reset/?access-token=${data.accessToken}`
+       html: `http://ninjalocus.com/password/reset/?access-token=${data.accessToken}`
     }, (err, info) => {
         if (err){
             console.log('Error in sending mail', err);

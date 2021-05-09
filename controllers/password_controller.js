@@ -9,7 +9,7 @@ const resetPasswordWorker = require('../workers/reset_password_worker')
 // Action for rendering the forgot password page
 module.exports.forgotPassword = function(req, res){
     return res.render('forgot_password',{
-        title: "Codeial | Home"
+        title: "Ninja Locus | Home"
     });
 }
 
@@ -69,7 +69,7 @@ module.exports.resetPasswordForm = function(req, res){
         }
         if(passwordReset){
             return res.render('reset_password',{
-                title: "Codeial | Home",
+                title: "Ninja Locus | Home",
                 token: passwordReset
             });
 

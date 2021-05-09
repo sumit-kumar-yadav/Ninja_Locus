@@ -58,7 +58,7 @@ module.exports.home = async function(req, res){
         }
 
         return res.render('home', {
-            title: "Codeial | Home",
+            title: "Ninja Locus | Home",
             posts:  friendsPosts,
             all_users: users,
             logged_in_user: loggedInUser
