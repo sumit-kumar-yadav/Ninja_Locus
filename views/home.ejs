@@ -28,6 +28,29 @@
     <section id="users-container">
         <!-- If user is signed in then show his/her friends -->
         <% if(locals.user){ %>
+            <div id="users-chat">
+                <h4>Chat</h4>
+    
+                <% for(friend of logged_in_user.friendships){%>
+                    <!-- If request is accepted -->
+                    <% if(friend.accepted){ %>
+                        <!-- if User himself had sent the request -->
+                        <% if(locals.user.id == friend.from_user.id){ %>
+                            <!-- then friend details are in to_user object -->
+                            <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
+                                <span onclick=chatClass.createRoom('<%= friend.to_user.id %>')><%= friend.to_user.name %></span>
+                            </p>
+                        <% }else{ %>
+                            <!-- then friend details are in from_user object -->
+                            <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
+                                <span onclick=chatClass.createRoom('<%= friend.from_user.id %>')><%= friend.from_user.name %></span>
+                            </p>
+                        <% } %>
+    
+                    <% } %>
+                <% } %>
+            </div>
+
         <div id="users-friends">
             <h4>Friends</h4>
 
@@ -138,6 +161,6 @@
 <script src="<%= assetPath('js/chat_engine.js') %>"></script>
 <% if (locals.user){ %>
     <script>
-        new ChatEngine('user-chat-box', '<%= locals.user.email %>')
+        const chatClass =  new ChatEngine('user-chat-box', '<%= locals.user.email %>', '<%= locals.user.id %>')
     </script>
 <% } %>
