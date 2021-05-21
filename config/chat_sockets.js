@@ -54,6 +54,7 @@ module.exports.chatSockets = function(socketServer, options){
 
         socket.on('disconnect', function(){
             console.log('socket disconnected!');
+            // TODO: When disconnected, filter the clientSocketIds.
         });
 
     });
