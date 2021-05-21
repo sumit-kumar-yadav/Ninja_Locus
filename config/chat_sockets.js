@@ -22,7 +22,11 @@ module.exports.chatSockets = function(socketServer, options){
 
         socket.on('loggedin', function(userId) {
             console.log("on logged in : ", userId);
+            // Filter the clientSocketIds array if userId is already present
+            clientSocketIds.filter(item => item.userId != userId);
+            // Push the userId with updated socket
             clientSocketIds.push({socket: socket, userId:  userId});
+            console.log("clientSocketIds is: ", clientSocketIds);
         });
 
         // Create the room and join if chat is initialized by the user after clicking the name
@@ -43,32 +47,14 @@ module.exports.chatSockets = function(socketServer, options){
             console.log("Your friend joined the chat room");
         });
 
+        socket.on('send_message', function(data) {
+            // socket.broadcast.to(data.room).emit('receive_message', data);   --> To send all except the sender itself
+            io.in(data.room).emit('receive_message', data);
+        })
+
         socket.on('disconnect', function(){
             console.log('socket disconnected!');
         });
-
-
-
-
-
-
-
-
-        // socket.on('join_room', function(data){
-        //     console.log('joining request rec.', data);
-
-        //     // Join the room if already exists, else create and then join automatically
-        //     socket.join(data.chatroom);
-
-        //     // Emit in the same room 
-        //     io.in(data.chatroom).emit('user_joined', data);
-        // })
-
-        // // detect send_message and broadcast to everyone in the room
-        // socket.on('send_message', function(data){
-        //     io.in(data.chatroom).emit('receive_message', data);
-        // });
-
 
     });
 

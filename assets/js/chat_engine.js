@@ -4,6 +4,7 @@ class ChatEngine{
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
         this.userId = userId;
+        this.room = '';
 
         // Send a req for connection
         this.socket = io.connect('http://localhost:5000');
@@ -23,10 +24,56 @@ class ChatEngine{
 
             self.socket.emit('loggedin', self.userId);
 
-            self.socket.on('invite', function(data) {
-                self.socket.emit("joinRoom",data);
-            });
         });
+
+        self.socket.on('invite', function(data) {
+            console.log("Invitation received to join a room");
+            self.room = data.room.room;
+            console.log("joining room is: ", self.room);
+            self.socket.emit("joinRoom", data);
+        });
+
+        // Send a message on clicking the send message button
+        $('#send-message').click(function(){
+            let msg = $('#chat-message-input').val();
+
+            console.log("After mgs is clicked: ", self.room);
+            if (msg != '' && self.room != ''){
+                $('#chat-message-input').val(''); // Empty the input box
+                self.socket.emit('send_message', {
+                    message: msg,
+                    user_email: self.userEmail,
+                    room: self.room
+                });
+                // self.socket.emit('message', {room: room, message:message, from: loggedInUser});
+            }
+        });
+
+        self.socket.on('receive_message', function(data){
+            console.log('message received', data.message);
+            $('#user-chat-box').show();
+
+
+            let newMessage = $('<li>');
+
+            let messageType = 'other-message';
+
+            if (data.user_email == self.userEmail){
+                messageType = 'self-message';
+            }
+
+            newMessage.append($('<span>', {
+                'html': data.message
+            }));
+
+            newMessage.append($('<sub>', {
+                'html': data.user_email
+            }));
+
+            newMessage.addClass(messageType);
+
+            $('#chat-messages-list').append(newMessage);
+        })
 
     }
 
@@ -34,13 +81,26 @@ class ChatEngine{
     createRoom(id){
         console.log("createRoom function is called with id", id);
         // let loggedInUser = JSON.parse(sessionStorage.getItem('user'));
-        let room = Date.now() + Math.random();
-        room = room.toString().replace(".","_");
-        console.log("room is", room);
-        this.socket.emit('create', {room: room, userId: this.userId, withUserId: id});
-        // openChatWindow(room);
+        this.room = Date.now() + Math.random();
+        this.room = this.room.toString().replace(".","_");
+        console.log("room is", this.room);
+        this.socket.emit('create', {room: this.room, userId: this.userId, withUserId: id});
+        this.openChatWindow(this.room);
     }    
+
+    openChatWindow(room){
+        // Open chat window  -->> TODO
+        $('#user-chat-box').show();
+    }
+
 }
+
+
+
+
+
+
+
 
 
 
