@@ -2,23 +2,49 @@ const mongoose = require('mongoose');
 
 
 const chatSchema = new mongoose.Schema({
-    friendship: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Friendship'
+    message: {
+        type: String,
+        required: true
     },
-    messages: [{
-        content: {
-            type: String,
-            required: true 
-        },
-        sender: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    }]
+    from_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    to_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 },{
     timestamps: true
 });
+
+const Chat = mongoose.model('Chat', chatSchema);
+module.exports = Chat;
+
+
+
+
+                                // Other Ideas
+
+// const chatSchema = new mongoose.Schema({
+//     friendship: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: 'Friendship'
+//     },
+//     messages: [{
+//         content: {
+//             type: String,
+//             required: true 
+//         },
+//         sender: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: 'User'
+//         }
+//     }]
+// },{
+//     timestamps: true
+// });
+
 
 // var ChatSchema = new Schema({
 //     sender : {
@@ -54,5 +80,4 @@ const chatSchema = new mongoose.Schema({
 //     ]
 // });
 
-const Chat = mongoose.model('Chat', chatSchema);
-module.exports = Chat;
+

@@ -17,5 +17,6 @@ router.use('/api', require('./api'));   // ./api/index is required by default
 
 router.use('/password', require('./password'));
 
+router.use('/chats', require('./chats'));
 
 module.exports = router;

@@ -1,6 +1,7 @@
 
 <% if (locals.user){ %>
 	<div id="user-chat-box">
+		<div id="chat-box-friend-name"></div>
 		<ul id="chat-messages-list">
 			<li class="other-message">
 				<span>Other Message</span>
@@ -13,10 +14,11 @@
 			</li>
 
 		</ul>
-		<div id="chat-message-input-container">
-			<input id="chat-message-input" placeholder="Type message here">
-			<button id="send-message" data-room="null">Send</button>
-		</div>
+		<form id="chat-message-input-container" method="POST">
+			<input id="chat-message-input" name="message" placeholder="Type message here">
+			<input id="chat-with-friend" name="to-user" value="null" hidden>
+			<button type="submit" id="send-message" data-room="null">Send</button>
+		</form>
 
 	</div>
 <% } %>

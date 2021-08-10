@@ -23,7 +23,8 @@ module.exports.chatSockets = function(socketServer, options){
         socket.on('loggedin', function(userId) {
             console.log("on logged in : ", userId);
             // Filter the clientSocketIds array if userId is already present
-            clientSocketIds.filter(item => item.userId != userId);
+            let newClientSocketIds = clientSocketIds.filter(item => item.userId != userId);
+            clientSocketIds = newClientSocketIds;  // This is done b/c filter function doesn't chanhe the original array
             // Push the userId with updated socket
             clientSocketIds.push({socket: socket, userId:  userId});
             console.log("clientSocketIds is: ", clientSocketIds);
@@ -54,8 +55,18 @@ module.exports.chatSockets = function(socketServer, options){
 
         socket.on('disconnect', function(){
             console.log('socket disconnected!');
-            // TODO: When disconnected, filter the clientSocketIds.
+            // When disconnected, filter the clientSocketIds.
+            let newClientSocketIds = clientSocketIds.filter(item => item.socket != socket);
+            clientSocketIds = newClientSocketIds;
+            console.log(clientSocketIds);
         });
+
+        socket.on('disconnecting', function(){
+            // console.log(socket.rooms); // This set contains atleast the socket.id
+            // for(let room of rooms){
+            //     // socket.leave(room); -->> No need to do this as this is done as soon as socket disconnects
+            // }
+        })
 
     });
 
