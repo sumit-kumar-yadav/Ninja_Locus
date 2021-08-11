@@ -1,43 +1,47 @@
+const clientSocketIds = require('../models/socket');
 
 module.exports.chatSockets = function(socketServer, options){
     // Receive a req for connection 
     let io = require('socket.io')(socketServer, options);
 
-    // To store the each client socket and user id
-    let clientSocketIds = [];
 
-    const getSocketByUserId = (id) =>{
-        let socket = '';
-        for(let i = 0; i<clientSocketIds.length; i++) {
-            if(clientSocketIds[i].userId == id) {
-                socket = clientSocketIds[i].socket;
-                break;
-            }
-        }
-        return socket;
+    // Returns array of socket id correcponding to a user id
+    const getSocketByUserId = async function(id){
+        let sockets = await clientSocketIds.find({ userId: id });
+        return sockets;
     }
 
     io.sockets.on('connection', function(socket){  // and then also acknowledge to the client after connection is detected
         console.log('new connection received', socket.id);
 
-        socket.on('loggedin', function(userId) {
+        socket.on('loggedin', async function(userId) {
             console.log("on logged in : ", userId);
-            // Filter the clientSocketIds array if userId is already present
-            let newClientSocketIds = clientSocketIds.filter(item => item.userId != userId);
-            clientSocketIds = newClientSocketIds;  // This is done b/c filter function doesn't chanhe the original array
-            // Push the userId with updated socket
-            clientSocketIds.push({socket: socket, userId:  userId});
-            console.log("clientSocketIds is: ", clientSocketIds);
+
+            // Delete the previous socket of user id if present ( TODO: Remove this for multiple device and delete it when user signs out using ajax )
+            await clientSocketIds.deleteMany({ userId: userId });
+            
+            // Store the new socket id and correcponding user id
+            let sockets = await clientSocketIds.create({
+                socketId: socket.id,
+                userId: userId
+            });
+
+            // Print all the sockets and corresponding users on the terminal
+            let allSockets = await clientSocketIds.find({});
+            console.log('All Sockets are: ', allSockets);
         });
 
         // Create the room and join if chat is initialized by the user after clicking the name
-        socket.on('create', function(data) {
+        socket.on('create', async function(data) {
             console.log("create room")
             socket.join(data.room);  // User joined the room
-            // Get the socket of the user's friend and ask him to join same room
-            let withSocket = getSocketByUserId(data.withUserId);
-            if(withSocket != ''){
-                socket.broadcast.to(withSocket.id).emit("invite",{room:data});
+
+            // Get the sockets of the user's friend and ask him to join same room
+            let sockets = await getSocketByUserId(data.withUserId);
+            if(sockets.length > 0){
+                for(i of sockets){
+                    socket.broadcast.to(i.socketId).emit("invite",{room:data});
+                }
             }else{
                 console.log('Your friend is offline');
             }
@@ -53,12 +57,9 @@ module.exports.chatSockets = function(socketServer, options){
             io.in(data.room).emit('receive_message', data);
         })
 
-        socket.on('disconnect', function(){
-            console.log('socket disconnected!');
-            // When disconnected, filter the clientSocketIds.
-            let newClientSocketIds = clientSocketIds.filter(item => item.socket != socket);
-            clientSocketIds = newClientSocketIds;
-            console.log(clientSocketIds);
+        socket.on('disconnect', async function(){
+            let sockets = await clientSocketIds.findOneAndDelete({socketId: socket.id});
+            console.log('socket disconnected!', sockets);
         });
 
         socket.on('disconnecting', function(){

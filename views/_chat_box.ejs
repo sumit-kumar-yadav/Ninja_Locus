@@ -15,7 +15,7 @@
 
 		</ul>
 		<form id="chat-message-input-container" method="POST">
-			<input id="chat-message-input" name="message" placeholder="Type message here">
+			<input id="chat-message-input" name="message" oninput="chatClass.emitToRejoin()" placeholder="Type message here">
 			<input id="chat-with-friend" name="to-user" value="null" hidden>
 			<button type="submit" id="send-message" data-room="null">Send</button>
 		</form>

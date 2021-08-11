@@ -1,4 +1,4 @@
-console.log("chat_engine.js is loaded");
+console.log("chat_engine.js file is loaded !");
 
 class ChatEngine{
     constructor(chatBoxId, userEmail, userId, userName){
@@ -7,6 +7,7 @@ class ChatEngine{
         this.userEmail = userEmail;
         this.userName = userName;
         this.userId = userId;
+        this.timer = null;
         // this.room = '';
 
         // Send a req for connection
@@ -40,7 +41,7 @@ class ChatEngine{
         });
 
         // Send a message on clicking the send message button
-        $('#chat-message-input-container').submit(function(e){
+        $('#chat-message-input-container').submit(async function(e){
             e.preventDefault();
 
             let msg = $('#chat-message-input').val();
@@ -49,10 +50,7 @@ class ChatEngine{
             let room = $('#chat-message-input-container button').attr('data-room');
             
             if (msg != '' && room != 'null'){
-                // If friend refreshes his/her website in between chat then this emit make him join the room again
-                let friendId = $('#chat-with-friend').val();
-                self.socket.emit('create', {room: room, userId: self.userId, withUserId: friendId});
-
+                
                 // Ajax call to store the message sent
                 $.ajax({
                     type: 'post',
@@ -93,11 +91,6 @@ class ChatEngine{
         self.socket.on('receive_message', function(data){
             console.log('message received', data.message);
             // $('#user-chat-box').show();  // Show the chatbox if it's not showing
-
-            // Set the name of the friend on the top if the chatbox
-            if(self.userName != data.user_name){
-                $('#chat-box-friend-name').html(data.user_name);
-            }
 
             let currentChatboxRoom = $('#chat-message-input-container button').attr('data-room');
             
@@ -235,6 +228,19 @@ class ChatEngine{
             }
         });
     }  
+
+    // If friend refreshes his/her website in between chat then this function will make him join the room again
+    // Called from the onchange event of #chat-message-input of chat box
+    emitToRejoin(){
+        console.log("input changed");
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+        let friendId = $('#chat-with-friend').val();
+        let room = $('#chat-message-input-container button').attr('data-room');
+        this.socket.emit('create', {room: room, userId: this.userId, withUserId: friendId});
+        console.log("Joining req resent");
+        }, 300);
+    }
 
 }
 
