@@ -11,3 +11,9 @@
     padding: 10px;
     border-left: 1px solid lightgrey;
     height: 100%; }
+
+.new-message-icon {
+  color: orange; }
+
+.remove-new-message-icon {
+  display: none; }

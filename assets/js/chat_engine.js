@@ -1,4 +1,4 @@
-console.log("chat_engine.js file is loaded");
+console.log("chat_engine.js is loaded");
 
 class ChatEngine{
     constructor(chatBoxId, userEmail, userId, userName){
@@ -49,6 +49,10 @@ class ChatEngine{
             let room = $('#chat-message-input-container button').attr('data-room');
             
             if (msg != '' && room != 'null'){
+                // If friend refreshes his/her website in between chat then this emit make him join the room again
+                let friendId = $('#chat-with-friend').val();
+                self.socket.emit('create', {room: room, userId: self.userId, withUserId: friendId});
+
                 // Ajax call to store the message sent
                 $.ajax({
                     type: 'post',
@@ -88,13 +92,17 @@ class ChatEngine{
 
         self.socket.on('receive_message', function(data){
             console.log('message received', data.message);
-            $('#user-chat-box').show();  // Show the chatbox if it's not showing
+            // $('#user-chat-box').show();  // Show the chatbox if it's not showing
 
-            // TODO: Make an ajax call and fetch all the chats between the users and then append in the chat window
+            // Set the name of the friend on the top if the chatbox
+            if(self.userName != data.user_name){
+                $('#chat-box-friend-name').html(data.user_name);
+            }
 
             let currentChatboxRoom = $('#chat-message-input-container button').attr('data-room');
-            // If either user is sitting idle or has opened the same chatbox room
-            if(currentChatboxRoom == 'null' || currentChatboxRoom == data.room){
+            
+            // If user has opened the same chatbox room
+            if(currentChatboxRoom == data.room){
                 // Fill the data and show the mgs
                 let newMessage = $('<li>');
 
@@ -116,17 +124,14 @@ class ChatEngine{
 
                 $('#chat-messages-list').append(newMessage);
 
-                // Set the data-room of the chat box as data.room (Useful in case it was null)
-                $('#chat-message-input-container button').attr('data-room', data.room);
-                $('#chat-with-friend').val(data.user_id);
-                if(self.userName != data.user_name){
-                    $('#chat-box-friend-name').html(data.user_name);
-                }
+                // Mark messages as read
+                self.readMessages(data.room, data.user_id);
 
-            }else{
+            }else{  // if(currentChatboxRoom == 'null')  i.e refreshed,   else if chatting with someone else
                 // Show him the notification of mgs to chat
-                let element = $(`span[data-room="${data.room}"]`);
-                element.append('<b> &ensp; mgs </b>');
+                let element = $(`span[data-room="${data.room}"] i`);
+                element.removeClass('remove-new-message-icon');
+                console.log("class removed");
             }
         })
 
@@ -147,9 +152,13 @@ class ChatEngine{
         }else{
             console.log("Room already exists");
             this.openChatWindow(room, friendId, friendsName);
-            // TODO -> Remove the mgs text next to name if there. Better use class and remove it/add it.
         }
-    }    
+
+            // Remove the new mgs notification next to name if there.
+            let element = $(`span[data-room="${room}"] i`);
+            element.addClass('remove-new-message-icon');
+    
+        }    
 
     openChatWindow(room, friendId, friendsName){
         $('#chat-messages-list').html('');  // Empty the lists of chats
@@ -159,8 +168,11 @@ class ChatEngine{
         $('#chat-box-friend-name').html(friendsName);
         console.log("New chat window opened");
 
-        // TODO: Make an ajax call and fetch all the chats between the users and then append in the chat window
+        // Make an ajax call and fetch all the chats between the users and then append in the chat window
         this.fillChats(friendId);
+
+        // Mark the unread messages as read
+        this.readMessages(room, friendId);
 
     }
 
@@ -180,8 +192,6 @@ class ChatEngine{
 
                     let messageType = 'other-message';
 
-                    console.log("chat.from_user._id", chat.from_user._id);
-                    console.log("xyxyyxyxyxy", self.userId);
                     if (chat.from_user._id == self.userId){
                         messageType = 'self-message';
                     }
@@ -191,7 +201,7 @@ class ChatEngine{
                     }));
 
                     newMessage.append($('<sub>', {
-                        'html': "sender email"
+                        'html': chat.from_user.email
                     }));
 
                     newMessage.addClass(messageType);
@@ -203,13 +213,62 @@ class ChatEngine{
                 console.log(error.responseText);
             }
         });
+
     }
+
+    // Called when message is read (from openChatWindow function and receive_message emit)
+    readMessages(room, friendId){
+        console.log("under readMessages function: ", friendId);
+        $.ajax({
+            type: 'get',
+            url: '/chats/readMessages',
+            data: {friendId: friendId},
+            success: function(data){
+                if(data.data.read){
+                    // Add the remove-new-message-icon class
+                    let element = $(`span[data-room="${room}"] i`);   // TODO
+                    element.addClass('remove-new-message-icon');
+                }
+            },
+            error: function(err){
+                console.log(error.responseText);
+            }
+        });
+    }  
 
 }
 
 
-
-
+// Check if friend's messages are read or not
+function unreadMessages(){
+    console.log("unreadmessages function is called");
+    $('.friends-of-user span').each(function(){
+        let self = $(this);
+        let friendId = self.attr('data-friendId');
+        let room = self.attr('data-room');
+        
+        $.ajax({
+            type: 'get',
+            url: '/chats/checkUnreadMessages',
+            data: {friendId: friendId},
+            success: function(data){
+                console.log("inside unreadMessages", data.data.unread);
+                if(data.data.unread){
+                    // Remove the remove-new-message-icon class
+                    let element = $(`span[data-room="${room}"] i`);
+                    element.removeClass('remove-new-message-icon');
+                }else{
+                    let element = $(`span[data-room="${room}"] i`);
+                    element.addClass('remove-new-message-icon');
+                }
+            },
+            error: function(err){
+                console.log(error.responseText);
+            }
+        })
+    })
+}
+unreadMessages();
 
 
 

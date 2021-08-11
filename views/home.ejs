@@ -38,12 +38,16 @@
                         <% if(locals.user.id == friend.from_user.id){ %>
                             <!-- then friend details are in to_user object -->
                             <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
-                                <span data-room="<%= friend._id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'> <%= friend.to_user.name %> </span>
+                                <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
+                                     <%= friend.to_user.name %> <i class="far fa-comment new-message-icon remove-new-message-icon"></i>
+                                </span>
                             </p>
                         <% }else{ %>
                             <!-- then friend details are in from_user object -->
                             <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
-                                <span data-room="<%= friend._id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> <%= friend.from_user.name %> </span>
+                                <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
+                                    <%= friend.from_user.name %> <i class="far fa-comment new-message-icon remove-new-message-icon"></i>
+                                 </span>
                             </p>
                         <% } %>
     

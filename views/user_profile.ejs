@@ -28,9 +28,6 @@
         <% if(friendship.accepted){ %>
             <a href="/friendship/remove-friend/<%= friendship.id %>"><button type="button">Remove Friend</button></a>
 
-            <!-- Chat box to chat with the friend -->
-            <%- include('_chat_box') -%>
-
         <% }else{ %>
             <!-- Toggle friendship button for the request sender -->
             <% if(friendship.from_user == user.id){ %>
