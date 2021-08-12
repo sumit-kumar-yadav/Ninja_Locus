@@ -3,3 +3,9 @@ body {
   /* text-align: center; */ }
   body #layout-main {
     height: 100%; }
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  /* make scrollbar transparent */ }

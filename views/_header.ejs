@@ -1,6 +1,20 @@
 <header>
     <span id="app-name">Ninja Locus</span>
 
+    <% if (locals.user){ %>
+    <div id="search-bar-conatiner">
+        <div id="search-bar">
+            <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ...">
+            <i class="fas fa-search"></i>
+        </div>
+        <ul type="none">
+            <!-- <li>Name</li>
+            <li>Name</li>
+            <li>Name</li> -->
+        </ul>
+    </div>
+    <% } %>
+        
     <ul type = "none">
         <% if (locals.user){ %>
             <li>
@@ -26,3 +40,10 @@
     </ul>
 
 </header>
+
+<script src="<%= assetPath('js/search_engine.js') %>"></script>
+<% if (locals.user){ %>
+    <script>
+        const searchEngineClass = new searchEngine();
+    </script>
+<% } %>

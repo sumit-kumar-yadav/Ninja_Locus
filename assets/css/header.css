@@ -1,6 +1,5 @@
 header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -10,6 +9,52 @@ header {
   font-size: 1.5rem;
   padding: 0px 10px;
   box-sizing: border-box; }
+  header #search-bar-conatiner {
+    width: 40%;
+    max-width: 400px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative; }
+    header #search-bar-conatiner #search-bar {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 14px 14px 14px 14px;
+      padding: 1px; }
+      header #search-bar-conatiner #search-bar input {
+        width: 100%;
+        height: 100%;
+        margin-right: 2px;
+        border-radius: 14px 0px 0px 14px;
+        outline: none;
+        border: none;
+        padding-left: 9px;
+        font-size: 1.2rem; }
+      header #search-bar-conatiner #search-bar i {
+        color: orange;
+        margin-right: 5px;
+        cursor: pointer; }
+    header #search-bar-conatiner ul {
+      max-height: 300px;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: absolute;
+      top: 35px;
+      background-color: antiquewhite;
+      margin: 0px 1px;
+      padding: 0px;
+      width: calc(100% - 1px);
+      transition: all 0.5s ease-in-out; }
+      header #search-bar-conatiner ul li {
+        width: 100%;
+        background-color: goldenrod;
+        margin-bottom: 3px;
+        padding: 0px 5px; }
   header ul {
     display: flex; }
     header ul li {
