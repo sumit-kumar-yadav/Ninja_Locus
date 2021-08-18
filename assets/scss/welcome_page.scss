@@ -1,0 +1,134 @@
+#welcome-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.feature-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .mobile-view-heading{
+        display: none;
+    }
+
+    .feature{
+        display: flex;
+        flex-direction: column;
+        margin-right: 15px; 
+        line-height: 32px;  
+
+        .desktop-view-heading{
+            margin-top: 0px;
+            color: orange;
+            &:hover{
+                color: red;
+            }
+        }
+        span{
+            text-align: justify;
+            font-size: 1.2rem;  
+            color: grey;
+        }
+    }
+}
+
+#top-feature-container{
+    // height: 600px;
+    img{
+        width: 70%;
+    }
+    .feature{
+        width: 25%;   
+    }
+}
+#middle-feature-container{
+    padding: 0px 15px;
+    box-sizing: border-box;
+    background-color: #f8e9ccc2;
+    .feature{
+        width: 55%;
+        margin: 0px 50px;
+    }
+    img{
+        width: 35%;
+    }
+}
+#bottom-feature-container{
+    background-color: #f7f7f7;
+    box-sizing: border-box;
+    padding-top: 10px;
+    img{
+        width: 60%;
+    }
+}
+
+
+// media query
+@media screen and (max-width: 1000px){
+    
+    .feature-container .feature{
+        // width: 30%;
+        // margin-right: 15px;  
+        line-height: normal;  
+
+        span{
+            font-size: 1rem;
+        }
+    }
+    #top-feature-container .feature{
+        width: 30%;
+    }
+}
+@media screen and (max-width: 746px) {
+    .feature-container{
+        flex-direction: column;
+        .mobile-view-heading{
+            display: block;
+            margin: 0px;
+            color: orange;
+            font-size: 1.6rem;
+            &:hover{
+                color: red;
+            }
+
+        }
+        .feature{
+            width: 90%;
+            line-height: 21px;
+            .desktop-view-heading{
+                display: none;
+            }
+        }
+    }
+    #top-feature-container{
+        margin-bottom: 20px;
+        img{
+            width: 100%;
+        }
+        .feature{
+            width: 90%;
+        }
+    }
+    #middle-feature-container{
+        flex-direction: column-reverse;
+        img{
+            width: 100%;
+        }
+        .feature{
+            width: 90%;
+        }
+    }
+    #bottom-feature-container{
+        img{
+            width: 100%;
+        }
+        .feature{
+            width: 90%;
+        }
+    }
+    
+}

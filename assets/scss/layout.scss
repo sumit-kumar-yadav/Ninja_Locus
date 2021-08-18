@@ -2,10 +2,12 @@ body{
     margin: 0;
     /* text-align: center; */
     font-size: 1rem;
+    padding: 0px 5px;
 
     #layout-main{
         height: 100%;
-        margin-top: 60px;
+        margin-top: 75px;
+        overflow-y: scroll;
     }
 }
 

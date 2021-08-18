@@ -17,6 +17,7 @@
     top: 0px;
     left: 0px;
     box-shadow: 0px -6px 11px 7px #195d1c;
+    z-index: 20;
 
 }
 
@@ -205,7 +206,7 @@
     font-size: 17px;
     padding: 5px;
     box-shadow: -6px 4px 11px -2px #c3cac3;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
 
     &:active{
         transform: scale(0.9);

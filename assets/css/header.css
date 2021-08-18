@@ -12,7 +12,8 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  box-shadow: 0px -6px 11px 7px #195d1c; }
+  box-shadow: 0px -6px 11px 7px #195d1c;
+  z-index: 20; }
 
 #app-name {
   font-weight: bolder;
@@ -150,7 +151,7 @@
   font-size: 17px;
   padding: 5px;
   box-shadow: -6px 4px 11px -2px #c3cac3;
-  transition: all 0.3s ease-in-out; }
+  transition: all 0.1s ease-in-out; }
   .nav-button:active {
     transform: scale(0.9); }
   .nav-button:hover {
