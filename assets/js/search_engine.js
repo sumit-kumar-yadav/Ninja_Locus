@@ -29,11 +29,16 @@ class searchEngine{
                         if(searchedUsers.length > 0){
                             searchedUsers.map((user)=>{
                                 listOfUsers.append(`
+                                <a href="/users/profile/${user._id}">
                                     <li>
-                                        <a href="/users/profile/${user._id}">
+                                            ${user.avatar ? `<img src="${user.avatar}" alt="image">`
+                                                        : `<img src="images/Users-avatar.png" alt="image">` 
+                                            }
+                                            
                                             ${user.name}
-                                        </a>
+                                        
                                     </li>
+                                </a>
                                 `)
                                 return;
                             })

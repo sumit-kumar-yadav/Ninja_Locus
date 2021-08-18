@@ -1,5 +1,10 @@
-<header>
-    <span id="app-name">Ninja Locus</span>
+<header id="nav-container">
+    <div id="app-name">
+        <a href="/">
+            <img id="app-logo" src="<%= assetPath('images/Ninja-Locus-favicon-v1.png') %>" alt="">
+        </a>
+        <span>Ninja <br> Locus</span>
+    </div>
 
     <% if (locals.user){ %>
     <div id="search-bar-conatiner">
@@ -7,32 +12,68 @@
             <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ...">
             <i class="fas fa-search"></i>
         </div>
-        <ul type="none">
+        <ul id="searched-users" type="none">
             <!-- <li>Name</li>
             <li>Name</li>
             <li>Name</li> -->
         </ul>
     </div>
     <% } %>
-        
-    <ul type = "none">
+    
+    <ul id="nav-menu-list" type = "none">
         <% if (locals.user){ %>
-            <li>
+            <li id="nav-user-name">
                 <a href="/users/profile/<%= locals.user.id %>">
-                    <%= user.name %>
+                    <span><%= user.name %></span>
                 </a>
             </li>
+
             <li>
-                <a href="/users/sign-out" id="sign-out">Sign Out</a>
+                <% if(locals.user.avatar) { %>
+                    <img id="nav-avatar" src="<%= user.avatar %>" alt="image">
+                <% }else{ %>
+                    <img id="nav-avatar" src="<%= assetPath('images/Users-avatar.png') %>" alt="image">
+                <% } %>
+
+                <!-- side menu displayed when avatar is clicked -->
+                <ul id="nav-side-menu-list" type = "none">
+                    <li style="position: relative;">
+                        <span id="nav-side-menu-list-close">X</span>
+                    </li>
+                    <li>
+                        <a href="/">
+                            <span>Home Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users/profile/<%= locals.user.id %>">
+                            <span>Profile Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span>Settings</span>
+                    </li>
+                    <li>
+                        <a href="/users/sign-out" id="sign-out">
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
+
+
         <% }else{ %>
 
             <li>
-                <a href="/users/sign-in">Sign In</a>
+                <a href="/users/sign-in">
+                    <button type="button" class="nav-button">Sign In</button>
+                </a>
             </li>
 
             <li>
-                <a href="/users/sign-up">Sign Up</a>
+                <a href="/users/sign-up">
+                    <button type="button" class="nav-button">Sign Up</button>
+                </a>
             </li>
 
 
@@ -41,8 +82,11 @@
 
 </header>
 
-<script src="<%= assetPath('js/search_engine.js') %>"></script>
+
 <% if (locals.user){ %>
+    <script src="<%= assetPath('js/header.js') %>"></script>
+
+    <script src="<%= assetPath('js/search_engine.js') %>"></script>
     <script>
         const searchEngineClass = new searchEngine();
     </script>

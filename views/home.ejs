@@ -3,9 +3,9 @@
     
 <div id="home-container">
     <section id="feed-posts">
-        <h4>Posts</h4>
          <!-- Show this form if user is signed in -->
         <% if(locals.user){ %>  
+            <h4>Posts</h4>
             <form action="/posts/create" id="new-post-form" method="POST">
                 <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
                 <input type="submit" value="Post">
