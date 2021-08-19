@@ -1,0 +1,160 @@
+.auth-page{
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(20deg, #b997bf6e, transparent);
+}
+.auth-container{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    max-width: 430px;
+    min-width: 300px;
+    background-color: #f7f0e6;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 50px;
+    box-shadow: 4px 4px 6px 0px #ae8946;
+
+    h1{
+        margin: 0px auto 10px auto;
+        padding: 5px;
+        background-color: darkcyan;
+        color: white;
+        font-size: 1.7rem;
+        box-shadow: 5px 6px 0px 0px #8e0b0b;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover{
+            box-shadow: 0px 0px 0px 0px #8e0b0b;
+            position: relative;
+            left: 1px;
+            top: 1px;
+        }
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        input[type="submit"]{
+            width: 100%;
+            height: 45px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: large;
+            background-color: orange;
+            color: white;
+
+            &:hover{
+                background-color: #ddad1f;
+            }
+        }
+    }
+    .or{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f69f1;
+        margin-bottom: 10px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        div{
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #google-auth{
+            color: black;
+            background-color: #94f1b3;
+            margin-bottom: 10px;
+            i{
+                margin-left: 10px;
+                color: #ff2300;
+            }
+        }
+        #forgot-password{
+            color: white;
+            background-color: #ec5555;
+        }
+    }
+
+    .target-button:hover{
+        box-shadow: 3px 3px 3px 1px #c3cac3;
+    }
+
+    .target-button:active{
+        transform: scale(0.9);
+    }
+}
+
+
+// css to slide the assumed placeholder above the input tag while typing
+.user-input-wrp {
+	position: relative;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+}
+.user-input-wrp .inputText{
+    width: 100%;
+    height: 27px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #777;
+    background: transparent;
+    padding: 2px 10px;
+    font-size: 1rem;
+    color: #f00808;
+ 	// box-shadow: none !important;
+
+    //  &:valid{
+    //      background-color: rgb(230, 250, 200);
+    //  }
+    //  &:invalid{
+    //      background-color: rgb(212, 149, 149);
+    //  }
+}
+.user-input-wrp .inputText:focus{
+    border-color: rgb(41, 250, 222);
+    color: #1223ea;
+	border-width: medium medium 2px;
+}
+.user-input-wrp .floating-label {
+	position: absolute;
+	pointer-events: none;
+	top: 18px;
+	left: 10px;
+	transition: 0.2s ease all;
+}
+.user-input-wrp input:focus ~ .floating-label,
+.user-input-wrp input:not(:placeholder-shown) ~ .floating-label{
+	top: 0px;
+	left: 10px;
+	font-size: 13px;
+	opacity: 1;
+}
+
+
+
+
+//         // type="email" input won't work with this unless valid email address is typed
+// .user-input-wrp input:focus ~ .floating-label,
+// .user-input-wrp input:not(:focus):valid ~ .floating-label{
+// 	top: 0px;
+// 	left: 10px;
+// 	font-size: 13px;
+// 	opacity: 1;
+// }
+

@@ -1,16 +1,40 @@
-<h1>Sign In</h1>
+<link rel="stylesheet" href="<%= assetPath('css/signin_signup.css') %>">
 
-<form action="/users/create-session" method="POST">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="submit" value="Sign In">
+<div class="auth-page">
+    <div class="auth-container animate__animated animate__zoomIn">
+        <h1>Sign-in</h1>
+        <form action="/users/create-session" method="POST">
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="email" name="email" placeholder=" " required>
+                <span class="floating-label">Your email address</span>
+            </div>
+            
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="password" name="password" placeholder=" " required>
+                <span class="floating-label">Your password</span>
+            </div>
+            <!-- placeholder="Your email address"    placeholder="Your password"  -->
+            <input class="target-button" type="submit" value="Sign In">
+            
+        </form>
 
-</form>
+        <div class="or">
+            <span>---------- or ----------</span>
+        </div>
 
-<div>
-    <a href="/password/forgot">Forgot Password</a>
+        <a href="/users/auth/google">
+            <div id="google-auth"  class="target-button">
+                Log in with Google 
+                <i class="fab fa-google"></i>
+            </div>
+        </a>
+        <a href="/password/forgot">
+            <div id="forgot-password"  class="target-button">
+                Forgot Password?
+            </div>
+        </a>
+    </div>
 </div>
 
-<p>
-    <a href="/users/auth/google">Google Sign In/Sign Up</a>
-</p>

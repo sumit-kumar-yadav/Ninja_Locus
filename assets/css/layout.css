@@ -4,8 +4,9 @@ body {
   font-size: 1rem;
   padding: 0px 5px; }
   body #layout-main {
-    height: calc(100% - 65px);
-    margin-top: 75px;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 65px;
     overflow-y: scroll; }
 
 ::-webkit-scrollbar {

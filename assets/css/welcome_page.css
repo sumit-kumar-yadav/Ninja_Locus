@@ -26,12 +26,11 @@
       font-size: 1.2rem;
       color: grey; }
 
-#top-feature-container {
-  margin-bottom: 10px; }
-  #top-feature-container img {
-    width: 70%; }
-  #top-feature-container .feature {
-    width: 25%; }
+#top-feature-container img {
+  width: 70%; }
+
+#top-feature-container .feature {
+  width: 25%; }
 
 #middle-feature-container {
   padding: 0px 15px;

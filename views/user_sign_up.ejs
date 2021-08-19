@@ -1,13 +1,44 @@
-<h1>Sign Up</h1>
+<link rel="stylesheet" href="<%= assetPath('css/signin_signup.css') %>">
 
-<form action="/users/create" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="password" name="password" placeholder="Your Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm_password" required>
-    <input type="submit" value="Sign Up">
-</form>
+<div class="auth-page">
+    <div class="auth-container animate__animated animate__zoomIn">
+        <h1>Sign-up</h1>
+        <form action="/users/create" method="POST">
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="text" name="name" placeholder=" " required>
+                <span class="floating-label">Your name</span>
+            </div>
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="email" name="email" placeholder=" " required>
+                <span class="floating-label">Your email address</span>
+            </div>
+            
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="password" name="password" placeholder=" " required>
+                <span class="floating-label">Your password</span>
+            </div>
+            <div class="user-input-wrp">
+                <br/>
+                <input class="inputText" type="password" name="confirm_password" placeholder=" " required>
+                <span class="floating-label">Confirm password</span>
+            </div>
 
-<p>
-    <a href="/users/auth/google">Google Sign In/Sign Up</a>
-</p>
+            <input class="target-button" type="submit" value="Sign Up">
+            
+        </form>
+
+        <div class="or">
+            <span>---------- or ----------</span>
+        </div>
+
+        <a href="/users/auth/google">
+            <div id="google-auth"  class="target-button">
+                Sign up with Google 
+                <i class="fab fa-google"></i>
+            </div>
+        </a>
+    </div>
+</div>
