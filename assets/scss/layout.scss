@@ -5,9 +5,9 @@ body{
     padding: 0px 5px;
 
     #layout-main{
-        height: 100%;
+        height: calc(100% - 65px);  
         margin-top: 75px;
-        overflow-y: scroll;
+        overflow-y: scroll; 
     }
 }
 

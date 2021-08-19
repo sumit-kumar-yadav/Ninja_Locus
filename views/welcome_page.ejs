@@ -4,8 +4,8 @@
 <div id="welcome-container">
     <div id="top-feature-container" class="feature-container">
         <h1 class="mobile-view-heading">Connect with people</h1>
-        <img class="animate__animated animate__fadeInLeft" src="<%= assetPath('images/community-chatting.jpg') %>" alt="image">
-        <div class="feature animate__animated animate__fadeInRight">
+        <img class="animate__animated" data-anination-name="animate__fadeInLeft" src="<%= assetPath('images/community-chatting.jpg') %>" alt="image">
+        <div class="feature animate__animated" data-anination-name="animate__fadeInRight">
             <h1 class="desktop-view-heading">Connect with people</h1>
             <span>
                 Making friends is easy now. Get connected with the people around and make new friends. Send friend requests, upload pictures and post your ideas, comment on your friends posts, like the posts, and many more things.
@@ -13,19 +13,19 @@
         </div>
     </div>
     <div id="middle-feature-container" class="feature-container">
-        <div class="feature animate__animated animate__fadeInRight">
+        <div class="feature animate__animated" data-anination-name="animate__fadeInRight">
             <h1 class="desktop-view-heading">Chat with friends</h1>
             <span>
                 Ninja Locus is featured with realtime personal chatting with friends and notifications. Get instant notification when your friend sends you a message.
             </span>
         </div>
-        <img class="animate__animated animate__fadeInLeft" src="<%= assetPath('images/community-chatting4.png') %>" alt="image">
+        <img class="animate__animated" data-anination-name="animate__fadeInLeft" src="<%= assetPath('images/community-chatting4.png') %>" alt="image">
         <h1 class="mobile-view-heading">Chat with friends</h1>
     </div>
     <div id="bottom-feature-container" class="feature-container">
         <h1 class="mobile-view-heading">Secure your account and data</h1>
-        <img src="<%= assetPath('images/community-chatting3.png') %>" alt="image">
-        <div class="feature animate__animated animate__fadeInRight">
+        <img class="animate__animated" data-anination-name="animate__fadeInLeft" src="<%= assetPath('images/community-chatting3.png') %>" alt="image">
+        <div class="feature animate__animated" data-anination-name="animate__fadeInRight">
             <h1 class="desktop-view-heading">Your account and data are secured</h1>
             <span>
                 With log-in and sign-up feature with Google, there is no need to remember your password. Google will do it's work sucurely for you. Even if you forget your password after signing-in with Ninja Locus, there is forget password and reset facility on Ninja Locus and your account will be verifed through email sent on your account's email automatically by Ninja Locus.
@@ -35,3 +35,7 @@
 
     
 </div>
+
+
+<!-- script tags -->
+<script src="<%= assetPath('js/welcome_page.js') %>"></script>

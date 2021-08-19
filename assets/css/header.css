@@ -174,4 +174,9 @@
     margin: 0px 6px; }
   #search-bar-conatiner #search-bar input {
     padding-left: 2px;
-    font-size: 1rem; } }
+    font-size: 1rem; }
+  .nav-button {
+    width: 67px;
+    height: 25px;
+    font-size: 0.9rem;
+    padding: 0px; } }
