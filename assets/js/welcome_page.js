@@ -7,7 +7,7 @@ for (let i = 0; i < animationElements.length; i++){
     animationDone[i] = false;
 }
 
-// When window is scrolled
+// When #layout-main is scrolled
 document.getElementById('layout-main').addEventListener('scroll', function(e){
     console.log("scrolled");
     for (let i = 0; i < animationElements.length; i++){

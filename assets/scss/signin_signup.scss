@@ -12,11 +12,12 @@
     width: 33%;
     max-width: 430px;
     min-width: 300px;
-    background-color: #f7f0e6;
+    background-color: white;
     padding: 10px;
     box-sizing: border-box;
     margin-top: 50px;
-    box-shadow: 4px 4px 6px 0px #ae8946;
+    box-shadow: 3px 3px 13px 8px #c0bebb;
+    border-radius: 10px;
 
     h1{
         margin: 0px auto 10px auto;
@@ -24,7 +25,7 @@
         background-color: darkcyan;
         color: white;
         font-size: 1.7rem;
-        box-shadow: 5px 6px 0px 0px #8e0b0b;
+        box-shadow: 3px 3px 0px 0px #8e0b0b;
         transition: all 0.2s ease-in-out;
         cursor: pointer;
         &:hover{
@@ -116,7 +117,7 @@
     background: transparent;
     padding: 2px 10px;
     font-size: 1rem;
-    color: #f00808;
+    color: rgb(100, 98, 98);
  	// box-shadow: none !important;
 
     //  &:valid{
@@ -128,7 +129,7 @@
 }
 .user-input-wrp .inputText:focus{
     border-color: rgb(41, 250, 222);
-    color: #1223ea;
+    color: black;
 	border-width: medium medium 2px;
 }
 .user-input-wrp .floating-label {
@@ -144,10 +145,8 @@
 	left: 10px;
 	font-size: 13px;
 	opacity: 1;
+    color: #f00808;
 }
-
-
-
 
 //         // type="email" input won't work with this unless valid email address is typed
 // .user-input-wrp input:focus ~ .floating-label,
@@ -157,4 +156,21 @@
 // 	font-size: 13px;
 // 	opacity: 1;
 // }
+
+
+// To show the min and max length of the password
+.user-input-wrp .min-max-length-password{
+    display: none;
+    position: absolute;
+    top: 0px;
+	right: 20px;
+	font-size: 13px;
+    color: orange;
+}
+.user-input-wrp input:focus ~ .min-max-length-password{
+	display: initial;
+}
+
+
+
 

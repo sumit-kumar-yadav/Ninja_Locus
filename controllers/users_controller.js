@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const User = require('../models/user');
 const path = require('path');
 const fs = require('fs');
@@ -105,12 +107,29 @@ module.exports.signIn = function(req, res){
 
 // get the sign up data
 module.exports.create = function(req, res){
+
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const expressValidatorError = validationResult(req);
+    if (!expressValidatorError.isEmpty()) {
+        // console.log('expressValidatorError.array()', expressValidatorError.array());
+        //   return res.status(400).json({ expressValidatorError: expressValidatorError.array() });
+        let arrayOfErrors = expressValidatorError.array();
+        if(arrayOfErrors[0].param == 'email'){     // If email is invalid
+            req.flash('error', 'Invalid Email');
+        }else if(arrayOfErrors[0].param == 'password'){  // If incorrect format of password 
+            req.flash('error', 'Invalid password format');
+        }
+        return res.redirect('back');
+    }
+
+    // If password and confirm password doesn't match then return with a flash message
     if (req.body.password != req.body.confirm_password){
         console.log('Password is incorrect');
         req.flash('error', 'Passwords did not match');
         return res.redirect('back');
     }
 
+    // Check if email already exists in database
     User.findOne({email: req.body.email}, function(err, user){
         if(err){req.flash('error', err); return}
 

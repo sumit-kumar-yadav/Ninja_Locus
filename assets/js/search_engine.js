@@ -46,7 +46,9 @@ class searchEngine{
                         }else{
                             // Tell the user that user not found
                             listOfUsers.append(`
-                                <li> User not found </li>
+                                <a href="#">
+                                    <li> No user found !!! </li>
+                                </a>
                             `)
                         }
                     },

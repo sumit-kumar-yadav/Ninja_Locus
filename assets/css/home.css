@@ -1,16 +1,23 @@
 #home-container {
   display: flex;
-  height: inherit; }
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; }
   #home-container #feed-posts {
     width: 70%;
-    padding: 10px; }
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: scroll; }
   #home-container #users-container {
     width: 30%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     padding: 10px;
     border-left: 1px solid lightgrey;
-    height: 100%; }
+    overflow-y: scroll; }
 
 .new-message-icon {
   color: orange; }
