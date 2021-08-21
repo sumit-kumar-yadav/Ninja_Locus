@@ -1,22 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { body } = require('express-validator');
+const { body, check } = require('express-validator');
+const middleware = require('../config/middleware');
 
 const usersController = require('../controllers/users_controller');
 
 router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
-router.post('/update/:id', passport.checkAuthentication, usersController.update);
-
+router.post('/update/:id', 
+    passport.checkAuthentication, 
+    middleware.uploadAvatar,  // put file in the req
+    body('email').isEmail(), // email must be an valid
+    [
+        check('name', 'Name is required').trim().notEmpty(),     // Only spaces should not present in the name
+        check('name', 'Name format is wrong').isAlpha('en-US', {ignore: ' '})  // Name should be in english alphabets and white spaces can be ignored only
+    ],
+    usersController.update
+);
 
 router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
 
-// Creating a new user while sign-up
+
 router.post('/create', 
         body('email').isEmail(),  // email must be an valid
         body('password').isLength({ min: 5 }),  // password must be at least 5 chars long
         body('password').isLength({ max: 15 }),  // password must be at most 15 chars long
+        [
+            check('name', 'Name is required').trim().notEmpty(),     // Only spaces should not present in the name
+            check('name', 'Name format is wrong').isAlpha('en-US', {ignore: ' '})  // Name should be in english alphabets and white spaces can be ignored only
+        ],
         usersController.create
     );
 
