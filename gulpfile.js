@@ -11,22 +11,17 @@ const del = require('del');
 
 gulp.task('css', function(done){
     console.log('minifying css...');
-    gulp.src('./assets/sass/**/*.scss')
-    .pipe(sass())
+    gulp.src('./assets/**/*.css', {base: 'assets'})
     .pipe(cssnano())
-    .pipe(gulp.dest('./assets.css'));
-
-    gulp.src('./assets/**/*.css')
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd: 'public',  // current working directory
-        merge: true    // Merge if already exists with same name
+    .pipe(rev.manifest('public/assets/rev-manifest.json', {
+        base: './public/assets',
+        merge: true
     }))
     .pipe(gulp.dest('./public/assets'));
     done();
-});
-
+})
             // OR
 // gulp.task('css', function(){
 //     console.log('minifying css...');
@@ -48,12 +43,12 @@ gulp.task('css', function(done){
 
 gulp.task('js', function(done){
     console.log('minifying js...');
-     gulp.src('./assets/**/*.js')
+     gulp.src('./assets/**/*.js', {base: 'assets'})
     .pipe(uglify())
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd: 'public',
+    .pipe(rev.manifest('public/assets/rev-manifest.json', {
+        base: './public/assets',
         merge: true
     }))
     .pipe(gulp.dest('./public/assets'));
@@ -63,12 +58,12 @@ gulp.task('js', function(done){
 
 gulp.task('images', function(done){
     console.log('compressing images...');
-    gulp.src('./assets/**/*.+(png|jpg|gif|svg|jpeg)')
+    gulp.src('./assets/**/*.+(png|jpg|gif|svg|jpeg)', {base: 'assets'})
     .pipe(imagemin())
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd: 'public',
+    .pipe(rev.manifest('public/assets/rev-manifest.json', {
+        base: './public/assets',
         merge: true
     }))
     .pipe(gulp.dest('./public/assets'));
@@ -83,7 +78,7 @@ gulp.task('clean:assets', function(done){
 });
 
 // Call the tasks in series
-gulp.task('build', gulp.series('clean:assets', 'css', 'js', 'images'), function(done){
+gulp.task('build', gulp.series('clean:assets','images', 'css', 'js'), function(done){
     console.log('Building assets');
     done();
 });

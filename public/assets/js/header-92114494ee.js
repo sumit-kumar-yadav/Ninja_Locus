@@ -1,0 +1,1 @@
+$("#nav-avatar").click((function(i){$("#nav-side-menu-list").css({right:"0px"})})),$("#nav-side-menu-list-close").click((function(i){$("#nav-side-menu-list").css({right:"-400px"})}));
