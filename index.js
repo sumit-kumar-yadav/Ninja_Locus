@@ -23,7 +23,7 @@ const customMware = require('./config/middleware');
 const chatServer = require('http').createServer(app);
 const options = {
     cors: {
-        origin: "http://ninjalocus.com",
+        origin: "http://localhost:8000",
         methods: ["GET", "POST"]
       }
 };
@@ -80,13 +80,15 @@ app.use(session({
     secret: env.session_cookie_key,
     saveUninitialized: false,    
     resave: false,  // Don't save same data again and again
-    cookie: {   // Timeout of the session in millisec
-        maxAge: (1000 * 60 * 100)
-    },
+    // cookie: {   // Timeout of the session in millisec
+    //     maxAge: (24 * 60 * 60 * 1000)
+    // },
     store: MongoStore.create(
         {
             mongoUrl: 'mongodb://localhost/codeial_development',
-            autoRemove: 'disabled'
+            ttl: 24 * 60 * 60, // = 1 day
+            autoRemove: 'interval',
+            autoRemoveInterval: 60 // In minutes.
         },
         function(err){
             console.log(err || 'connect-mongo setup ok');

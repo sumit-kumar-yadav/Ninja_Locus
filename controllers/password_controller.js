@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const PasswordReset = require('../models//password_reset');
 const crypto = require('crypto');   // To generate random string i.e accessToken
+const { validationResult } = require('express-validator');
 const resetPasswordMailer = require('../mailers/reset_password_mailer');
 const queue = require('../config/kue');
 const resetPasswordWorker = require('../workers/reset_password_worker')
@@ -83,6 +84,15 @@ module.exports.resetPasswordForm = function(req, res){
 // Action for resetting the password
 module.exports.resetPassword = async function(req, res){
     try{
+
+        // Finds the validation errors in this request and wraps them in an object with handy functions
+        const expressValidatorError = validationResult(req);
+        if (!expressValidatorError.isEmpty()) {
+            req.flash('error', 'Invalid password format');
+            return res.redirect('back');
+        }
+
+        // Find the data of user with accessToken
         let passwordReset = await PasswordReset.findOne({accessToken: req.params.token});
         
         // If token is present and valid

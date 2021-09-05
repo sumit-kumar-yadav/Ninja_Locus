@@ -40,6 +40,8 @@ module.exports.profile = async function(req, res){
 module.exports.update = async function(req, res){
     if(req.user.id == req.params.id){
 
+        let user;
+
         try{
             // Finds the validation errors in this request and wraps them in an object with handy functions
             const expressValidatorError = validationResult(req);
@@ -54,7 +56,7 @@ module.exports.update = async function(req, res){
                 return res.redirect('back');
             }
 
-            let user = await User.findById(req.params.id);
+            user = await User.findById(req.params.id);
             // using multer
             // User.uploadedAvatar(req, res, function(err){   // our statically created function inside user.js of models
                 // if(err){console.log('****** Multer Error: ', err)}
@@ -82,7 +84,15 @@ module.exports.update = async function(req, res){
             // })
 
         }catch(err){
-            req.flash('error', err);
+            if(err.code === 'ENOENT'){
+                // this is saving the path of the uploaded file into the avatar field in the user
+                user.avatar = User.avatarPath + '/' + req.file.filename;
+                user.save();  // Important
+                req.flash('success', 'Updated!');
+                return res.redirect('back');
+            }
+            req.flash('error', 'Failed!! Try again');
+            console.log("error while updating the profile", err);
             return res.redirect('back');
         }
 

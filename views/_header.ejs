@@ -9,7 +9,7 @@
     <% if (locals.user){ %>
     <div id="search-bar-conatiner">
         <div id="search-bar">
-            <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ...">
+            <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ..." autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <ul id="searched-users" type="none">
@@ -29,11 +29,8 @@
             </li>
 
             <li>
-                <% if(locals.user.avatar) { %>
-                    <img id="nav-avatar" src="<%= user.avatar %>" alt="image">
-                <% }else{ %>
-                    <img id="nav-avatar" src="<%= assetPath('images/Users-avatar.png') %>" alt="image">
-                <% } %>
+                <!-- user's avatar -->
+                <img id="nav-avatar" src="<%= user.avatar %>" alt="image" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
 
                 <!-- side menu displayed when avatar is clicked -->
                 <ul id="nav-side-menu-list" type = "none">
