@@ -53,7 +53,8 @@ module.exports.home = async function(req, res){
                                     path: 'likes'
                                 }
                             ]
-                        }).populate('likes');
+                        })
+                        .populate('likes');
                     }
                 }
                 

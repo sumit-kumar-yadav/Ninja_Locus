@@ -1,27 +1,67 @@
-<li id="comment-<%= comment._id %>">
-    <p>
-        <% if (locals.user && (locals.user.id == comment.user.id || locals.user.id == post.user.id)) { %>
-            <small>
-                <a class="delete-comment-button" href="/comments/destroy/?id=<%= comment.id %>&post_user_id=<%= post.user.id %>">X</a>
-            </small>
-        <% } %>
+<div id="comment-<%= comment._id %>" class="comment-list-container">
+        <div class="comment-user-info">
+            <div class="user-comment-details">
+                <a href="/users/profile/<%= comment.user.id %>">
+                    <div class="comment-user-name-pic">
+                        <img src="<%= comment.user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                        <% if (locals.user && locals.user.name == comment.user.name){ %>
+                            <span>You</span>
+                        <% }else{ %>
+                            <span><%= comment.user.name %></span>
+                        <% } %>
+                    </div>
+                </a>
+                <br>
+                <small><%= new Date(comment.createdAt).toString().substring(4,16) %> at <%= new Date(comment.createdAt).toString().substring(16, 21) %></small>
+            </div>
+            <span class="post-comment-more-icon" id="post-comment-more-icon-<%= comment.id %>">
+                <i class="fas fa-ellipsis-h"></i>
+            </span>
+            <span class="post-comment-close-icon" id="post-comment-close-icon-<%= comment.id %>">
+                <i class="far fa-times-circle"></i>
+            </span>
 
-        <%= comment.content %>
-        <br>
-        <small>
-            <%= comment.user.name %>
-        </small>
+            <ul class="post-comment-more-options animate__animated animate__flipInX" id="post-comment-more-options-<%= comment.id %>">
+                <!-- Delete a comment -->
+                <% if (locals.user && (locals.user.id == comment.user.id || locals.user.id == post.user.id)) { %>
+                <a class="delete-comment-button" href="/comments/destroy/?id=<%= comment.id %>&post_user_id=<%= post.user.id %>">
+                    <li>Delete Comment</li>
+                </a>
 
-        <!-- CHANGE :: display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
-            <small>
+               <% }else{ %>
+
+               <a href="/users/profile/<%= comment.user.id %>">
+                   <li>View Profile</li>
+               </a>
+               <a href="/">
+                   <li>Report Comment</li>
+               </a>
+
+               <% } %>
+           </ul>
+        </div>
+
+        <div class="comment-content">
+            <%- comment.content %>
+        </div>
+
+        <div class="comment-user-controls">
+            <!-- Display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+            <div class="comment-likes-container">
                 <% if (locals.user){ %>
                     <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                            <%= comment.likes.length %> Likes
+                        <div class="likes-count">
+                            <%= comment.likes.length %>
+                            <i class="far fa-thumbs-up"></i> Likes 
+                        </div>
                     </a>
                 <% }else{ %>
-                    <%= comment.likes.length %> Likes
+                    <div class="likes-count">
+                        <%= comment.likes.length %>
+                        <i class="far fa-thumbs-up"></i> Likes 
+                    </div>
                 <% } %>
-            </small>
+            </div>
+        </div>
 
-    </p>
-</li>
+</div>

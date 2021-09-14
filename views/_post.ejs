@@ -1,52 +1,104 @@
-<li id="post-<%= post._id %>">
-    <p>
-        <!-- Delete a post -->
-        <% if (locals.user && locals.user.id == post.user.id){ %>
-            <small>
-                <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">X</a>
-            </small>
-        <% } %>
+<div id="post-<%= post._id %>" class="post-list">
 
-        <%= post.content %>
-        <br>
-        <small>
-            <!-- <%= post.user %> -->
-            <%= post.user.name %>
-        </small>
-
-        <!-- CHANGE :: display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
-        <br>
-        <small>
-            <% if (locals.user){ %>
-                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                        <%= post.likes.length %> Likes
+        <div class="user-info">
+            <div class="user-post-details">
+                <a href="/users/profile/<%= post.user.id %>">
+                    <div class="user-name-pic">
+                        <img src="<%= post.user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                        <% if (locals.user && locals.user.name == post.user.name){ %>
+                            <span>You</span>
+                        <% }else{ %>
+                            <span><%= post.user.name %></span>
+                        <% } %>
+                    </div>
                 </a>
-            <% }else{ %>
-                <%= post.likes.length %> Likes
-            <% } %>
-        </small>
+                <br>
+                <small><%= new Date(post.createdAt).toString().substring(4,16) %> at <%= new Date(post.createdAt).toString().substring(16, 21) %></small>
+                <!-- <small><%= post.createdAt %></small> -->
+            </div>
 
-    </p>
+            <span class="post-comment-more-icon" id="post-comment-more-icon-<%= post.id %>">
+                <i class="fas fa-ellipsis-h"></i>
+            </span>
 
-    <div class="post-comments">
-        <% if (locals.user){ %>
-            <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
-            <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="POST" autocomplete="off">
-                <input type="text" name="content" placeholder="Type Here to add comment..." required>
-                <input type="hidden" name="post" value="<%= post._id %>" >
-                <input type="submit" value="Add Comment">
-            </form>
-        <% } %>
-        
-        <div class="post-comments-list">
-            <ul id="post-comments-<%= post._id %>">
-                <% for (comment of post.comments){%>
+            <span class="post-comment-close-icon" id="post-comment-close-icon-<%= post.id %>">
+                <i class="far fa-times-circle"></i>
+            </span>
 
-                    <%- include('_comment') -%>    
-                    
-                <%} %>
+            <ul class="post-comment-more-options animate__animated animate__flipInX" id="post-comment-more-options-<%= post.id %>">
+                 <!-- Delete a post -->
+                <% if (locals.user && locals.user.id == post.user.id){ %>
+                <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">
+                    <li>Delete Post</li>
+                </a>
+
+                <% }else{ %>
+
+                <a href="/users/profile/<%= post.user.id %>">
+                    <li>View Profile</li>
+                </a>
+                <a href="/">
+                    <li>Report Post</li>
+                </a>
+
+                <% } %>
             </ul>
         </div>
-    </div>
+
+        <div class="post-content">
+            <%- post.content %>
+        </div>
+        
+
+        <div class="user-controls">
+             <!-- Display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+            <div class="likes-container">
+                <% if (locals.user){ %>
+                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                    <div class="likes-count">
+                        <%= post.likes.length %>
+                        <i class="far fa-thumbs-up"></i> Likes 
+                    </div>
+                </a>
+                <% }else{ %>
+                <div class="likes-count">
+                    <%= post.likes.length %>
+                    <i class="far fa-thumbs-up"></i> Likes 
+                </div>
+                <% } %>
+            </div>
+
+            <div class="comments-container" id="comments-container-<%=post._id%>" data-closed="true">
+                <div class="comments-count">
+                    <span><%= post.comments.length %></span>
+                    <span>
+                        <i class="fas fa-comment-alt"></i> Comments 
+                        <i class="fas fa-caret-down"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="post-comments" id="post-comments-<%=post._id%>">
+            <% if (locals.user){ %>
+                <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
+                <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="POST" autocomplete="off">
+                    <textarea type="text" name="content" placeholder="Type Here to add comment..." required></textarea>
+                    <input type="hidden" name="post" value="<%= post._id %>" >
+                    <input type="submit" value="Comment">
+                </form>
+            <% } %>
+            
+            <div class="post-comments-list">
+                <div id="post-comments-list-<%= post._id %>">
+                    <% for (comment of post.comments){%>
     
-</li>
+                        <%- include('_comment') -%>    
+                        
+                    <%} %>
+                </div>
+            </div>
+        </div>
+
+    </div>

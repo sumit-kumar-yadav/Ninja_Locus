@@ -3,24 +3,27 @@
     
 <div id="home-container">
     <section id="feed-posts">
-         <!-- Show this form if user is signed in -->
-        <% if(locals.user){ %>  
-            <h4>Posts</h4>
-            <form action="/posts/create" id="new-post-form" method="POST">
-                <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
-                <input type="submit" value="Post">
+         <div id="post-form-container">
+            <form action="/posts/create" id="new-post-form" method="POST" autocomplete="off">
+                <div class="user-input-wrp">
+                    <br/>
+                    <textarea class="inputText" name="content" placeholder=" " required></textarea>
+                    <span class="floating-label">
+                        What's in your mind &#129488;
+                        <!-- What's in your mind &#129488; Post here &#127919; &#128640; -->
+                    </span>
+                </div>
+                <!-- <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea> -->
+                <button type="submit">Post &#128640;</button>
             </form>
-        <% } %>
-        
+        </div>
 
         <div id="posts-list-container">
-                <ul>
-                    <% for(post of posts){ %>
-                        
-                    <%- include('_post') -%>
-                        
-                    <%} %>
-                </ul>
+            <% for(post of posts){ %>
+                
+            <%- include('_post') -%>
+                
+            <%} %>
         </div>
 
     </section>
@@ -39,14 +42,14 @@
                             <!-- then friend details are in to_user object -->
                             <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
                                 <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
-                                     <%= friend.to_user.name %> <i class="far fa-comment new-message-icon remove-new-message-icon"></i>
+                                     <%= friend.to_user.name %> <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
                                 </span>
                             </p>
                         <% }else{ %>
                             <!-- then friend details are in from_user object -->
                             <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
                                 <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
-                                    <%= friend.from_user.name %> <i class="far fa-comment new-message-icon remove-new-message-icon"></i>
+                                    <%= friend.from_user.name %> <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
                                  </span>
                             </p>
                         <% } %>
@@ -140,7 +143,11 @@
     <%- include('_chat_box') -%>
 
 </div>
-    
+
+
+
+<!-- Import the js file for styling -->
+<script src="<%= assetPath('js/home_style.js') %>"></script>
 
 <!-- importing this script for creating the post and comments through AJAX-->
 <script src="<%= assetPath('js/home_post_comments.js') %>" ></script>  
@@ -148,7 +155,7 @@
 <!-- It's important to keep (/js/home_post_comments.js) script file above this (/js/home_posts.js) file -->
 
 
-<!-- CHANGE :: import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+<!-- Import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
 <script src="<%= assetPath('js/toggle_likes.js') %>"></script>
 <script>
     $('.toggle-like-button').each(function(){

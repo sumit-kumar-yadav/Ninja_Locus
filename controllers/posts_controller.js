@@ -6,9 +6,12 @@ const Like = require('../models/like');
 module.exports.create = async function(req, res){
     try{
         let post = await Post.create({
-            content: req.body.content,
+            content: req.body.content.replace(/(?:\r\n|\r|\n)/g, '<br />').replace(/(?:\r\t|\r|\t)/g, '&emsp;'),
             user: req.user._id
         });
+        // console.log("Before: ", req.body.content);
+        // console.log("After:", req.body.content.replace(/(?:\r\n|\r|\n)/g, '<br />').replace(/(?:\r\t|\r|\t)/g, '&emsp;'));
+        // console.log("After regExp:", req.body.content.replace(new RegExp('\r?\n', 'g'), '<br />'));
 
         // If it's AJAX request
         if (req.xhr){

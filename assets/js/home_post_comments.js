@@ -32,12 +32,18 @@ class PostComments{
                 url: '/comments/create',
                 data: $(self).serialize(),
                 success: function(data){
+                    // Set the value of form textarea of form as empty
+                    $(' textarea', pSelf.newCommentForm).val("");
+
                     let newComment = pSelf.newCommentDom(data.data.comment, data.data.post_user_id);
-                    $(`#post-comments-${postId}`).prepend(newComment);
+                    $(`#post-comments-list-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
-                    // CHANGE :: enable the functionality of the toggle like button on the new comment
+                    // Enable the functionality of the toggle like button on the new comment
                     new ToggleLike($(' .toggle-like-button', newComment));
+
+                    // Call the showPostCommentMoreOption function in home_style.js to add listener on new post's more option
+                    showPostCommentMoreOption($(`#post-comment-more-icon-${data.data.comment._id}`));
 
                     new Noty({
                         theme: 'relax',
@@ -60,30 +66,57 @@ class PostComments{
 
     newCommentDom(comment, post_user_id){
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-        return $(`<li id="comment-${ comment._id }">
-                        <p>
-                            
-                            <small>
-                                <a class="delete-comment-button" href="/comments/destroy/?id=${comment._id}&post_user_id=${post_user_id}">X</a>
-                            </small>
-                            
-                            ${comment.content}
-                            <br>
-                            <small>
-                                ${comment.user.name}
-                            </small>
+        
+        let newComment = $(`
+        <div id="comment-${comment._id}" class="comment-list-container">
+            <div class="comment-user-info">
+                <div class="user-comment-details">
+                    <a href="/users/profile/${comment.user.id}">
+                        <div class="comment-user-name-pic">
+                            <img src="/images/Users-avatar.png" alt="img">
+                                <span>You</span>
+                        </div>
+                    </a>
+                    <br>
+                    <small>${new Date(comment.createdAt).toString().substring(4,16)} at ${new Date(comment.createdAt).toString().substring(16, 21)}</small>
+                </div>
+                <span class="post-comment-more-icon" id="post-comment-more-icon-${comment._id}">
+                    <i class="fas fa-ellipsis-h"></i>
+                </span>
+                <span class="post-comment-close-icon" id="post-comment-close-icon-${comment._id}">
+                    <i class="far fa-times-circle"></i>
+                </span>
 
-                            <small>
-                            
-                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                                    0 Likes
-                                </a>
-                            
-                            </small>
+                <ul class="post-comment-more-options animate__animated animate__flipInX" id="post-comment-more-options-${comment._id}">
+                    <!-- Delete a comment -->
+                    <a class="delete-comment-button" href="/comments/destroy/?id=${comment._id}&post_user_id=${post_user_id}">
+                        <li>Delete Comment</li>
+                    </a>
 
-                        </p>    
+                </ul>
+            </div>
 
-                </li>`);
+            <div class="comment-content">
+                ${comment.content}
+            </div>
+
+            <div class="comment-user-controls">
+                <!-- Display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+                <div class="comment-likes-container">
+                    <a class="toggle-like-button" data-likes="${comment.likes.length}" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                        <div class="likes-count">
+                            ${comment.likes.length}
+                            <i class="far fa-thumbs-up"></i> Likes 
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        `);
+
+        $(' .comment-user-name-pic img', newComment).attr('src', $('#nav-avatar').attr('src'));
+        return newComment;
     }
 
 

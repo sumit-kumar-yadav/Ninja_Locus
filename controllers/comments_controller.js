@@ -14,7 +14,7 @@ module.exports.create = async function(req, res){
 
         if (post){  // If post is found then
             let comment = await Comment.create({  // Create comment
-                content: req.body.content,
+                content: req.body.content.replace(/(?:\r\n|\r|\n)/g, '<br />').replace(/(?:\r\t|\r|\t)/g, '&emsp;'),
                 post: req.body.post,
                 user: req.user._id
             });
