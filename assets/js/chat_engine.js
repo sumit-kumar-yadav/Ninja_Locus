@@ -27,7 +27,7 @@ class ChatEngine{
             console.log('connection established using sockets...!', self.userId);
 
             self.socket.emit('loggedin', self.userId);
-            $('#user-chat-box').hide();
+            // $('#user-chat-box').hide();
 
         });
 

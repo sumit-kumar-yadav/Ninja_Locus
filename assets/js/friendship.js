@@ -40,12 +40,14 @@ class Friendship{
 }
 
 // Iterating over all the existing user's friends
-$('.friends-of-user').each(function(){
+$('.toggle-friends-of-user').each(function(){
     let self = $(this);
     // console.log('lets check', self, $(self));
 
     // get the friend id by splitting the id attribute
     let friendId = self.prop('id').split("-")[1];
     // console.log(friendId);
-    new Friendship(friendId);
+    if(friendId){
+        new Friendship(friendId);
+    }
 });

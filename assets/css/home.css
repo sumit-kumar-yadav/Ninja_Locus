@@ -17,20 +17,6 @@
     align-items: center;
     background-color: white;
     padding: 5px 30px; }
-  #home-container #users-container {
-    width: 30%;
-    max-width: 500px;
-    min-width: 350px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 10px;
-    border-left: 1px solid lightgrey;
-    overflow-y: scroll;
-    background-color: white;
-    padding: 5px 10px; }
 
 #post-form-container {
   width: 80%; }
@@ -232,12 +218,6 @@
     font-size: 1rem;
     opacity: 1;
     color: #3a08f0; }
-
-.new-message-icon {
-  color: orange; }
-
-.remove-new-message-icon {
-  display: none; }
 
 @media screen and (max-width: 847px) {
   #home-container #feed-posts {

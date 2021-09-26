@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>">
     
 <div id="home-container">
-    <section id="feed-posts">
+    <section id="feed-posts" class="animate__animated animate__bounceInLeft">
          <div id="post-form-container">
             <form action="/posts/create" id="new-post-form" method="POST" autocomplete="off">
                 <div class="user-input-wrp">
@@ -28,116 +28,8 @@
 
     </section>
 
-    <section id="users-container">
-        <!-- If user is signed in then show his/her friends -->
-        <% if(locals.user){ %>
-            <div id="users-chat">
-                <h4>Chat</h4>
-    
-                <% for(friend of logged_in_user.friendships){%>
-                    <!-- If request is accepted -->
-                    <% if(friend.accepted){ %>
-                        <!-- if User himself had sent the request -->
-                        <% if(locals.user.id == friend.from_user.id){ %>
-                            <!-- then friend details are in to_user object -->
-                            <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
-                                <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
-                                     <%= friend.to_user.name %> <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
-                                </span>
-                            </p>
-                        <% }else{ %>
-                            <!-- then friend details are in from_user object -->
-                            <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
-                                <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
-                                    <%= friend.from_user.name %> <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
-                                 </span>
-                            </p>
-                        <% } %>
-    
-                    <% } %>
-                <% } %>
-            </div>
-
-        <div id="users-friends">
-            <h4>Friends</h4>
-
-            <% for(friend of logged_in_user.friendships){%>
-                <!-- If request is accepted -->
-                <% if(friend.accepted){ %>
-                    <!-- if User himself had sent the request -->
-                    <% if(locals.user.id == friend.from_user.id){ %>
-                        <!-- then friend details are in to_user object -->
-                        <p id="friend-<%= friend.to_user.id %>" class="friends-of-user">
-                            <a href="/users/profile/<%= friend.to_user.id %>"><%= friend.to_user.name %></a>
-                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
-                                <button type="button">
-                                    Remove friend
-                                </button>
-                            </a>
-                        </p>
-                    <% }else{ %>
-                        <!-- then friend details are in from_user object -->
-                        <p id="friend-<%= friend.from_user.id %>" class="friends-of-user">
-                            <a href="/users/profile/<%= friend.from_user.id %>"><%= friend.from_user.name %></a>
-                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
-                                <button type="button">
-                                    Delete friend
-                                </button>
-                            </a>
-                        </p>
-                    <% } %>
-
-                <% } %>
-                
-
-                
-            <% } %>
-        </div>
-
-        <div id="users-sent-requests">
-            <h4>Sent Requests</h4>
-            <% for(friend of logged_in_user.friendships){%>
-                <% if(!friend.accepted && locals.user.id == friend.from_user.id){ %>
-                    <!-- then friend details are in to_user object -->
-                    <p id="friend-<%= friend.to_user.id %>" class="friends-of-user">
-                        <a href="/users/profile/<%= friend.to_user.id %>"><%= friend.to_user.name %></a>
-                        <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
-                            <button type="button">
-                                Cancel Request
-                            </button>
-                        </a>
-                    </p>
-                <% } %>
-            <% } %>
-        </div>
-
-        <div id="users-received-requests">
-            <h4>Received Requests</h4>
-            <% for(friend of logged_in_user.friendships){%>
-                <% if(!friend.accepted && locals.user.id == friend.to_user.id){ %>
-                    <!-- then friend details are in from_user object -->
-                    <p id="friend-<%= friend.from_user.id %>" class="friends-of-user">
-                        <a href="/users/profile/<%= friend.from_user.id %>"><%= friend.from_user.name %></a>
-                        <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
-                            <button type="button">
-                                Delete Request
-                            </button>
-                        </a>
-                    </p>
-                <% } %>
-            <% } %>
-        </div>
-        <% } %>
-
-        <div id="users">
-            <h4>Users</h4>
-            <% for(u of all_users){%>
-                <p>
-                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-                </p>
-            <% } %>
-        </div>
-    </section>
+    <!-- Users secton. This includes Chats with friends, sent requests, received requests, etc -->
+    <%- include('_users_section') -%>
 
     <!-- Chat box -->
     <%- include('_chat_box') -%>
@@ -163,8 +55,6 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
-
-<script src="<%= assetPath('js/friendship.js') %>"></script>
 
 <!-- CDN of socket.io from (cdnjs.com socket.io) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>

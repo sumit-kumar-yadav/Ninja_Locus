@@ -9,7 +9,7 @@
     <% if (locals.user){ %>
     <div id="search-bar-conatiner">
         <div id="search-bar">
-            <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ..." autocomplete="off">
+            <input name="name" oninput="searchEngineClass.handleSearch()" onfocusout="searchEngineClass.setOriginal()" placeholder="Search by name ..." autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <ul id="searched-users" type="none">
@@ -34,24 +34,42 @@
 
                 <!-- side menu displayed when avatar is clicked -->
                 <ul id="nav-side-menu-list" type = "none">
-                    <li style="position: relative;">
-                        <span id="nav-side-menu-list-close">X</span>
+                    <li style="position: relative; background-color: transparent;">
+                        <span id="nav-side-menu-list-close">
+                            <i class="far fa-window-close"></i>
+                        </span>
                     </li>
                     <li>
                         <a href="/">
+                            <i class="fas fa-home"></i>
                             <span>Home Page</span>
+                        </a>
+                    </li>
+                    <li class="displayNoneInDesktopView">
+                        <a href="/" onclick="openNinjaSectionOfHomePage(event)">
+                            <i class="fas fa-user-ninja"></i>
+                            <span>Ninjas</span>
+                        </a>
+                    </li>
+                    <li class="displayNoneInDesktopView">
+                        <a href="/" onclick="openFeedPostsSectionOfHomePage(event)">
+                            <i class="fab fa-phoenix-framework"></i>
+                            <span>Feed Posts</span>
                         </a>
                     </li>
                     <li>
                         <a href="/users/profile/<%= locals.user.id %>">
+                            <i class="fas fa-user-alt"></i>
                             <span>Profile Page</span>
                         </a>
                     </li>
                     <li>
+                        <i class="fas fa-cog"></i>
                         <span>Settings</span>
                     </li>
                     <li>
                         <a href="/users/sign-out" id="sign-out">
+                            <i class="fas fa-sign-out-alt"></i>
                             <span>Sign Out</span>
                         </a>
                     </li>

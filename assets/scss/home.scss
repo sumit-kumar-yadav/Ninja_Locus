@@ -21,23 +21,6 @@
         background-color: white;
         padding: 5px 30px;
     }
-
-    #users-container{
-        width: 30%;
-        max-width: 500px;
-        min-width: 350px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-sizing: border-box;
-        padding: 10px;
-        border-left: 1px solid lightgrey;
-        overflow-y: scroll;
-        // margin-right: 38px;
-        background-color: white;
-        padding: 5px 10px;
-    }
 }
 
 
@@ -312,16 +295,6 @@
 }
 
 
-
-
-// css for the new message icon inside the chat window
-.new-message-icon{
-    color: orange;
-}
-
-.remove-new-message-icon{
-    display: none;
-}
 
 
 

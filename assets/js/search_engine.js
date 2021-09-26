@@ -10,7 +10,7 @@ class searchEngine{
         console.log("input changed");
         // Fetch the searched user
         this.search = $('#search-bar-conatiner #search-bar input').val();
-        let listOfUsers = $('#search-bar-conatiner ul');
+        let listOfUsers = $('#search-bar-conatiner #searched-users');
 
         clearTimeout(this.timer);  // Clear the previous timeout running (useful if typing is fast)
         this.timer = setTimeout(() => {
@@ -47,7 +47,7 @@ class searchEngine{
                             // Tell the user that user not found
                             listOfUsers.append(`
                                 <a href="#">
-                                    <li> No user found !!! </li>
+                                    <li> No user matched &#128532; </li>
                                 </a>
                             `)
                         }
@@ -63,5 +63,29 @@ class searchEngine{
             }
 
         }, 300);
+
+         // Stop other pointer events of #layout-main
+         $('#layout-main').css({
+            "pointer-events": "none",
+            "opacity": "0.4"
+        });
+    }
+
+    setOriginal = ()=>{
+        // Start all pointer events of #layout-main
+        console.log("focus out");
+        $('#layout-main').css({
+            "pointer-events": "initial",
+            "opacity": "1"
+        });
+
+        // Remove all the appended searched lists
+        let listOfUsers = $('#search-bar-conatiner #searched-users');
+        listOfUsers.html('');
+
+        // Empty the input text
+        $('#search-bar-conatiner #search-bar input').val('');
+        this.search = "";
+
     }
 }

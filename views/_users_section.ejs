@@ -1,0 +1,186 @@
+<link rel="stylesheet" href="<%= assetPath('css/users_section.css') %>">
+
+<section id="users-container" class="animate__animated animate__bounceInLeft">
+    <!-- If user is signed in then show his/her friends -->
+    <% if(locals.user){ %>
+    <div id="users-chat">
+        <button class="heading-button" type="button">
+            <span>Chat</span>
+            <i class="fas fa-comment-alt"></i>
+            <i class="more-option fas fa-caret-down"></i>
+        </button>
+
+        <div class="hidden-container" data-closed="true">
+            <% for(friend of logged_in_user.friendships){%>
+                <!-- If request is accepted -->
+                <% if(friend.accepted){ %>
+                    <!-- if User himself had sent the request -->
+                    <% if(locals.user.id == friend.from_user.id){ %>
+                        <!-- then friend details are in to_user object -->
+                        <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
+                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
+                                <span>
+                                    <img src="<%= friend.to_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span><%= friend.to_user.name %></span> 
+                                    <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
+                                </span>
+                            </span>
+                        </p>
+                    <% }else{ %>
+                        <!-- then friend details are in from_user object -->
+                        <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
+                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
+                                <span>
+                                    <img src="<%= friend.from_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span><%= friend.from_user.name %></span>
+                                    <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
+                                </span>
+                            </span>
+                        </p>
+                    <% } %>
+    
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+
+    <div id="users-friends">
+        <button class="heading-button" type="button">
+            <span>Friends</span>
+            <i class="fas fa-user-friends"></i>
+            <i class="more-option fas fa-caret-down"></i>
+        </button>
+
+        <div class="hidden-container" data-closed="true">
+            <% for(friend of logged_in_user.friendships){%>
+                <!-- If request is accepted -->
+                <% if(friend.accepted){ %>
+                    <!-- if User himself had sent the request -->
+                    <% if(locals.user.id == friend.from_user.id){ %>
+                        <!-- then friend details are in to_user object -->
+                        <p id="friend-<%= friend.to_user.id %>" class="friends-of-user toggle-friends-of-user">
+                            <span>
+                                <a href="/users/profile/<%= friend.to_user.id %>" class="user-details-tag">
+                                    <img src="<%= friend.to_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span><%= friend.to_user.name %></span>
+                                </a>
+                                <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
+                                    <button type="button">Remove</button>
+                                </a>
+                            </span>
+                        </p>
+                    <% }else{ %>
+                        <!-- then friend details are in from_user object -->
+                        <p id="friend-<%= friend.from_user.id %>" class="friends-of-user toggle-friends-of-user">
+                            <span>
+                                <a href="/users/profile/<%= friend.from_user.id %>" class="user-details-tag">
+                                    <img src="<%= friend.from_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span><%= friend.from_user.name %></span>
+                                </a>
+                                <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
+                                    <button type="button">
+                                        Remove
+                                    </button>
+                                </a>
+                            </span>
+                        </p>
+                    <% } %>
+    
+                <% } %>
+                
+    
+                
+            <% } %>
+        </div>
+    </div>
+
+    <div id="users-sent-requests">
+        <button class="heading-button" type="button">
+            <span>Sent Requests</span>
+            <i class="fas fa-location-arrow"></i>
+            <i class="more-option fas fa-caret-down"></i>
+        </button>
+
+        <div class="hidden-container" data-closed="true">
+            <% for(friend of logged_in_user.friendships){%>
+                <% if(!friend.accepted && locals.user.id == friend.from_user.id){ %>
+                    <!-- then friend details are in to_user object -->
+                    <p id="friend-<%= friend.to_user.id %>" class="friends-of-user toggle-friends-of-user">
+                        <span>
+                            <a href="/users/profile/<%= friend.to_user.id %>" class="user-details-tag">
+                                <img src="<%= friend.to_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                <span><%= friend.to_user.name %></span>
+                            </a>
+                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.to_user.id %>">
+                                <button type="button">
+                                    Cancel
+                                </button>
+                            </a>
+                        </span>
+                    </p>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+
+    <div id="users-received-requests">
+        <button class="heading-button" type="button">
+            <span>Received Requests</span>
+            <i class="fas fa-user-plus"></i>
+            <i class="more-option fas fa-caret-down"></i>
+        </button>
+
+        <div class="hidden-container" data-closed="true">
+            <% for(friend of logged_in_user.friendships){%>
+                <% if(!friend.accepted && locals.user.id == friend.to_user.id){ %>
+                    <!-- then friend details are in from_user object -->
+                    <p id="friend-<%= friend.from_user.id %>" class="friends-of-user toggle-friends-of-user">
+                        <span>
+                            <a href="/users/profile/<%= friend.from_user.id %>" class="user-details-tag">
+                                <img src="<%= friend.from_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                <span><%= friend.from_user.name %></span>
+                            </a>
+                            <a href="/friendship/accept-request/<%= friend.id %>">
+                                <button type="button">
+                                    Confirm
+                                </button>
+                            </a>
+                            <a class="remove-friend-button" href="/friendship/toggle/<%= friend.from_user.id %>">
+                                <button type="button">
+                                    Delete
+                                </button>
+                            </a>
+                        </span>
+                    </p>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+
+    <div id="users">
+        <button class="heading-button" type="button">
+            <span>Users</span>
+            <i class="fas fa-users"></i>
+            <i class="more-option fas fa-caret-down"></i>
+        </button>
+
+        <div class="hidden-container" data-closed="true">
+            <% for(u of all_users){%>
+                <p class="all-users">
+                    <span>
+                        <a href="/users/profile/<%= u.id %>" class="user-details-tag">
+                            <img src="<%= u.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                            <span><%= u.name %></span>
+                        </a>
+                    </span>
+                </p>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+
+<!-- js files -->
+<script src="<%= assetPath('js/users_section_style.js') %>"></script>
+<script src="<%= assetPath('js/friendship.js') %>"></script>
