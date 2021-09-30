@@ -133,6 +133,7 @@
     </div>
         `)
 
+        // Insert the image of the user and then return the dom Element
         $(' .user-name-pic img', newPost).attr('src', $('#nav-avatar').attr('src'));
         return newPost;
     }

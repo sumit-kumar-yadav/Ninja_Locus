@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="<%= assetPath('css/home.css') %>">
-<link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>">
     
 <div id="home-container">
     <section id="feed-posts" class="animate__animated animate__bounceInLeft">
@@ -54,6 +53,11 @@
         let self = this;
         let toggleLike = new ToggleLike(self);
     });
+
+    // window.onbeforeunload = function() { return "Your work will be lost."; };
+    // window.addEventListener('popstate', function(e){
+    //     window.alert("Back button is clicked");
+    // })
 </script>
 
 <!-- CDN of socket.io from (cdnjs.com socket.io) -->

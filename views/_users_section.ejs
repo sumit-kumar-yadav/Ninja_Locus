@@ -18,10 +18,10 @@
                     <% if(locals.user.id == friend.from_user.id){ %>
                         <!-- then friend details are in to_user object -->
                         <p id="chat-<%= friend.to_user.id %>" class="friends-of-user">
-                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
-                                <span>
-                                    <img src="<%= friend.to_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
-                                    <span><%= friend.to_user.name %></span> 
+                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.to_user.id %>" data-room-created="false" data-avatar-url="<%= friend.to_user.avatar %>" onclick='chatClass.createRoom("<%= friend.to_user.id %>", "<%= friend.to_user.name %>")'>
+                                <span data-avatar-url="<%= friend.to_user.avatar %>">
+                                    <img src="<%= friend.to_user.avatar %>" data-avatar-url="<%= friend.to_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span data-avatar-url="<%= friend.to_user.avatar %>"><%= friend.to_user.name %></span> 
                                     <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
                                 </span>
                             </span>
@@ -29,10 +29,10 @@
                     <% }else{ %>
                         <!-- then friend details are in from_user object -->
                         <p id="chat-<%= friend.from_user.id %>" class="friends-of-user">
-                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
-                                <span>
-                                    <img src="<%= friend.from_user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
-                                    <span><%= friend.from_user.name %></span>
+                            <span data-room="<%= friend._id %>" data-friendId="<%= friend.from_user.id %>" data-room-created="false" data-avatar-url="<%= friend.from_user.avatar %>" onclick='chatClass.createRoom("<%= friend.from_user.id %>", "<%= friend.from_user.name %>")'> 
+                                <span data-avatar-url="<%= friend.from_user.avatar %>">
+                                    <img src="<%= friend.from_user.avatar %>"  data-avatar-url="<%= friend.from_user.avatar %>"alt="img"  onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                                    <span data-avatar-url="<%= friend.from_user.avatar %>"><%= friend.from_user.name %></span>
                                     <i class="fas fa-comment-dots new-message-icon remove-new-message-icon"></i>
                                 </span>
                             </span>
