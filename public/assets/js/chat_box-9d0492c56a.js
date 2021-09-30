@@ -1,0 +1,1 @@
+function closeChatWindow(){$("#user-chat-box").hide(),$("#chat-message-input-container button").attr("data-room",null),$("#chat-with-friend").val(null)}function closeCurrentChatWindow(){window.history.back(),closeChatWindow()}window.addEventListener("popstate",closeChatWindow);

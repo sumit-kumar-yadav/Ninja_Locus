@@ -23,7 +23,7 @@ const customMware = require('./config/middleware');
 const chatServer = require('http').createServer(app);
 const options = {
     cors: {
-        origin: "http://localhost:8000",
+        origin: "http://ninjalocus.com",
         methods: ["GET", "POST"]
       }
 };
@@ -50,6 +50,9 @@ if(env.name == 'development'){
 app.use(express.urlencoded());  //app.use(express.urlencoded({extended: false}));
 
 app.use(cookieParser());
+
+// Set new path for defalut avatar in production mode  (Must be set before setting express static file path)
+app.use(customMware.setNewPathOfDefaultAvatar);
 
 //Setting static files
 // app.use(express.static('.' + env.asset_path));

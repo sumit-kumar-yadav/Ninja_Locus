@@ -1,5 +1,11 @@
 const User = require('../models/user');
 
+const env = require('./environment');
+const fs = require('fs');
+const path = require('path');
+
+
+
 // For flash messages
 module.exports.setFlash = function(req, res, next){
     res.locals.flash = {
@@ -7,6 +13,17 @@ module.exports.setFlash = function(req, res, next){
         'error': req.flash('error')
     }
 
+    next();
+}
+
+// For Default User Avatar
+module.exports.setNewPathOfDefaultAvatar = function(req, res, next){
+    // console.log("req url is: ", req.url);
+    if(env.name == 'production' && req.url == '/images/Users-avatar.png'){
+        let newfilePath = req.url.substr(1);
+        req.url = '/' + JSON.parse(fs.readFileSync(path.join(__dirname, '../public/assets/rev-manifest.json')))[newfilePath];
+        // console.log("new url is: ", req.url);
+    }
     next();
 }
 
