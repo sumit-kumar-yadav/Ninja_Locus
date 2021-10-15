@@ -41,7 +41,7 @@
   #users-container .friends-of-user, #users-container .all-users {
     background-color: #f9ca74;
     padding: 5px;
-    font-family: cursive;
+    text-transform: capitalize;
     margin: 3px 0px; }
     #users-container .friends-of-user > span, #users-container .all-users > span {
       display: inline-flex;

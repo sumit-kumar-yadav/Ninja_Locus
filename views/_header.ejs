@@ -9,7 +9,7 @@
     <% if (locals.user){ %>
     <div id="search-bar-conatiner">
         <div id="search-bar">
-            <input name="name" oninput="searchEngineClass.handleSearch()" onfocusout="searchEngineClass.setOriginal()" placeholder="Search by name ..." autocomplete="off">
+            <input name="name" oninput="searchEngineClass.handleSearch()" placeholder="Search by name ..." autocomplete="off">
             <i class="fas fa-search"></i>
         </div>
         <ul id="searched-users" type="none">
@@ -99,10 +99,11 @@
 
 
 <% if (locals.user){ %>
-    <script src="<%= assetPath('js/header.js') %>"></script>
-
     <script src="<%= assetPath('js/search_engine.js') %>"></script>
     <script>
         const searchEngineClass = new searchEngine();
     </script>
+
+    <script src="<%= assetPath('js/header.js') %>"></script>
+
 <% } %>

@@ -27,11 +27,16 @@
 			background-color: transparent;
 			margin-right: 5px;
 		}
-		&>img{
+		#chat-box-friend-avatar{
 			width: 33px;
 			height: 33px;
 			margin-right: 5px;
 			border-radius: 50%;
+			overflow: hidden;
+			&>img{
+				width: 100%;
+				height: 100%;
+			}
 		}
 		#chat-box-friend-name{
 			margin-right: 5px;

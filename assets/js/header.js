@@ -46,7 +46,7 @@
         })
     }
 
-    // When feed posts list is licked fron the #nav-side-menu-list
+    // When feed posts list is clicked fron the #nav-side-menu-list
     function openFeedPostsSectionOfHomePage(e){
         e.preventDefault();
 
@@ -62,4 +62,14 @@
             "display": "none"
         })
     }
+
+    // Common closing of element of header when out of focus
+    (function closeElement(){
+        $(document).mouseup(function (e) {
+            // To close the searched users appearing in lists
+            if ($(e.target).closest("#searched-users").length === 0 && $(e.target).closest("#search-bar").length === 0){
+                searchEngineClass.setOriginal();  // From search_engine.js file
+            }
+        });
+    })()
 }

@@ -11,7 +11,7 @@ class ChatEngine{
         // this.room = '';
 
         // Send a req for connection
-        this.socket = io.connect('http://ninjalocus.com:5000');
+        this.socket = io.connect('http://localhost:5000');
 
         if (this.userEmail){
             this.connectionHandler();
@@ -112,7 +112,7 @@ class ChatEngine{
                 }else{
                     // Append sender's image
                     newMessage.append($(`
-                        <img src='${$('#chat-box-friend-name-container img').attr('src')}' alt="image">
+                        <img src='${$('#chat-box-friend-avatar img').attr('src')}' alt="img">
                     `));
                 }
 
@@ -192,8 +192,20 @@ class ChatEngine{
         console.log("Target element is : ", $(targetElement).attr('data-avatar-url'));
         let friendsAvatarURL = $(targetElement).attr('data-avatar-url')
         if(friendsAvatarURL){
-            $('#chat-box-friend-name-container img').attr('src', `${friendsAvatarURL}`);
-        }
+            // Remove if there is already image tag exists
+            $('#chat-box-friend-avatar').html("");
+            // Put the new image tag
+            $('#chat-box-friend-avatar').append(`
+                <img src="${friendsAvatarURL}" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+            `);
+        }else{
+            // Remove if there is already image tag exists
+            $('#chat-box-friend-avatar').html("");
+            // Set the default avatar
+            $('#chat-box-friend-avatar').append(`
+                <img src="/images/Users-avatar.png" alt="img">
+            `);
+        } 
         console.log("New chat window opened");
 
         // Create a dummy history so that when back button is clicked in mobile then this dummy history is deleted not original one

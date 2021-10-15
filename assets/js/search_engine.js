@@ -71,6 +71,7 @@ class searchEngine{
         });
     }
 
+    // Called from header.js file when closing of searched users is required
     setOriginal = ()=>{
         // Start all pointer events of #layout-main
         console.log("focus out");

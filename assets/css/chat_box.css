@@ -22,11 +22,15 @@
       outline: none;
       background-color: transparent;
       margin-right: 5px; }
-    #user-chat-box #chat-box-friend-name-container > img {
+    #user-chat-box #chat-box-friend-name-container #chat-box-friend-avatar {
       width: 33px;
       height: 33px;
       margin-right: 5px;
-      border-radius: 50%; }
+      border-radius: 50%;
+      overflow: hidden; }
+      #user-chat-box #chat-box-friend-name-container #chat-box-friend-avatar > img {
+        width: 100%;
+        height: 100%; }
     #user-chat-box #chat-box-friend-name-container #chat-box-friend-name {
       margin-right: 5px; }
     #user-chat-box #chat-box-friend-name-container #online-status {
