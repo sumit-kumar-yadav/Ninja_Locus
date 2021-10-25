@@ -6,49 +6,83 @@
         newPostForm.submit(function(e){
             e.preventDefault();
 
-            $.ajax({
-                type: 'post',
-                url: '/posts/create',
-                data: newPostForm.serialize(),
-                success: function(data){
-                    // Set the value of form textarea of form as empty
-                    $(' textarea', newPostForm).val("");
+            let validFile = validatePostExtension(this);
 
-                   let newPost = newPostDom(data.data.post);
-                   $('#posts-list-container').prepend(newPost);
-                   
-                   deletePost($(' .delete-post-button', newPost));   
-                   // jQuery Object (newPost) having class = .delete-post-button is written like this in jquery -->> $(' .delete-post-button', newPost)
-                   // This will pass the <a> tag to the function deletePost
-                   // Note:  space is required here before .delete-post-button
+            if(validFile){
+                $.ajax({
+                    type: 'post',
+                    url: '/posts/create',
+                    // data: newPostForm.serialize(),
+                    data: new FormData(this),
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function(){
+                        let button = $(' button[type=submit]', newPostForm);
+                        button.attr("disabled", "disabled");
+                        button.css("opacity", "0.7");
+                    },
+                    success: function(data){
+                        // Set the value of form textarea of form as empty
+                        $(' textarea', newPostForm).val("");
 
-
-                    // call the create comment class
-                    new PostComments(data.data.post._id);
-
-                    // Enable the functionality of the toggle like button on the new post
-                    new ToggleLike($(' .toggle-like-button', newPost));
-
-                    // Call the showPostCommentMoreOption function in home_style.js to add listener on new post's more option
-                    showPostCommentMoreOption($(`#post-comment-more-icon-${data.data.post._id}`));
-
-                    // Call the toggleCommentSection function in home_style.js to add listener on the new post's comment option
-                    toggleCommentSection($(`#comments-container-${data.data.post._id}`));
-
-                    new Noty({
-                        theme: 'relax',
-                        text: "Post published!",
-                        type: 'success',
-                        layout: 'topRight',
-                        timeout: 1500
+                        let newPost = newPostDom(data.data.post);
+                        $('#posts-list-container').prepend(newPost);
                         
-                    }).show();
+                        deletePost($(' .delete-post-button', newPost));   
+                        // jQuery Object (newPost) having class = .delete-post-button is written like this in jquery -->> $(' .delete-post-button', newPost)
+                        // This will pass the <a> tag to the function deletePost
+                        // Note:  space is required here before .delete-post-button
 
 
-                }, error: function(error){
-                    console.log(error.responseText);
-                }
-            });
+                        // call the create comment class
+                        new PostComments(data.data.post._id);
+
+                        // Enable the functionality of the toggle like button on the new post
+                        new ToggleLike($(' .toggle-like-button', newPost));
+
+                        // Call the showPostCommentMoreOption function in home_style.js to add listener on new post's more option
+                        showPostCommentMoreOption($(`#post-comment-more-icon-${data.data.post._id}`));
+
+                        // Call the toggleCommentSection function in home_style.js to add listener on the new post's comment option
+                        toggleCommentSection($(`#comments-container-${data.data.post._id}`));
+
+                        new Noty({
+                            theme: 'relax',
+                            text: "Post published!",
+                            type: 'success',
+                            layout: 'topRight',
+                            timeout: 1500
+                            
+                        }).show();
+
+                        enablePostButton();
+
+                    }, error: function(error){
+                        console.log(error.responseText);
+                        new Noty({
+                            theme: 'relax',
+                            text: error.responseText,
+                            type: 'error',
+                            layout: 'topRight',
+                            timeout: 1500
+                            
+                        }).show();
+
+                        enablePostButton();
+                    }
+                });
+            }
+
+            function enablePostButton(){
+                // Enable the post button
+                let button = $(' button[type=submit]', newPostForm);
+                button.removeAttr("disabled");
+                button.css("opacity", "1");
+                // Reset the post form
+                newPostForm[0].reset();
+            }
         });
     }
 
@@ -89,6 +123,15 @@
         <div class="post-content">
             ${post.content}
         </div>
+        
+        ${post.postPath ? 
+            `<div class="post-image-video">
+                ${post.mediaType == 'video' ? `<video class="post-video" src="${post.postPath}" controls onerror="this.onerror=null;this.style='display:none';"></video>`
+                                            : `<img class="post-image" src="${post.postPath}" alt="img" onerror="this.onerror=null;this.style='display:none';">`
+                }
+            </div>`
+            : ``
+        }
         
 
         <div class="user-controls">
@@ -135,7 +178,24 @@
 
         // Insert the image of the user and then return the dom Element
         $(' .user-name-pic img', newPost).attr('src', $('#nav-avatar').attr('src'));
+
         return newPost;
+    }
+
+    // Method to validate whether right file is choosen or not
+    let validatePostExtension = function(formElement){
+        var file = $(' input[type=file]', formElement);
+        // var fileExtension = file.val().split('.').pop();
+        // console.log("File type is : ", file.val(), fileExtension);
+
+        var allowedExtensions = /(\.jpeg|\.JPEG|\.jpg|\.JPG|\.gif|\.GIF|\.png|\.PNG|\.svg|\.SVG|\.mp4|\.MP4)$/;
+        if (file.val() != "" && !allowedExtensions.exec(file.val())) {
+            alert('Invalid file selected Only upload image/ gif/ mp4 videos');
+            file.val("");
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -173,7 +233,7 @@
         $('#posts-list-container .post-list').each(function(){
             let self = $(this);
             let deleteButton = $(' .delete-post-button', self);
-            console.log("#######", deleteButton);
+            // console.log("#######", deleteButton);
             deletePost(deleteButton);
 
             // get the post's id by splitting the id attribute

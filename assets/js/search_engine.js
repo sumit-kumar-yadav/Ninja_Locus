@@ -31,7 +31,7 @@ class searchEngine{
                                 listOfUsers.append(`
                                 <a href="/users/profile/${user._id}">
                                     <li>
-                                            ${user.avatar ? `<img src="${user.avatar}" alt="image">`
+                                            ${user.avatar ? `<img src="${user.avatar}" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">`
                                                         : `<img src="images/Users-avatar.png" alt="image">` 
                                             }
                                             

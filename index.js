@@ -59,7 +59,8 @@ app.use(customMware.setNewPathOfDefaultAvatar);
 app.use(express.static(path.join(__dirname, env.asset_path)));
 
 // make the uploads path available to the browser
-app.use('/uploads', express.static(__dirname + '/uploads'));
+// app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '..', '/uploads')));   // Set the uploads outsite the project folder
 
 // Middleware for logger (morgon)
 app.use(logger(env.morgan.mode, env.morgan.options));

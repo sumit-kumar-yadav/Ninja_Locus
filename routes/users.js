@@ -9,7 +9,7 @@ const usersController = require('../controllers/users_controller');
 router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
 router.post('/update/:id', 
     passport.checkAuthentication, 
-    middleware.uploadAvatar,  // put file in the req
+    middleware.uploadAvatar,  // put file in the req  (important to use here before expressvalidator)
     body('email').isEmail(), // email must be an valid
     [
         check('name', 'Name is required').trim().notEmpty(),     // Only spaces should not present in the name

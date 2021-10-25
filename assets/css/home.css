@@ -77,6 +77,14 @@
       padding: 5px;
       max-height: 225px;
       overflow-y: scroll; }
+    #posts-list-container .post-list .post-image-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: whitesmoke; }
+      #posts-list-container .post-list .post-image-video .post-image, #posts-list-container .post-list .post-image-video .post-video {
+        max-height: 460px;
+        max-width: -webkit-fill-available; }
     #posts-list-container .post-list .user-controls {
       width: 100%;
       display: flex;

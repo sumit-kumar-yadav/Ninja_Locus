@@ -3,7 +3,7 @@
 <div id="home-container">
     <section id="feed-posts" class="animate__animated animate__bounceInLeft">
          <div id="post-form-container">
-            <form action="/posts/create" id="new-post-form" method="POST" autocomplete="off">
+            <form action="/posts/create" id="new-post-form" method="POST" autocomplete="off" enctype="multipart/form-data">
                 <div class="user-input-wrp">
                     <br/>
                     <textarea class="inputText" name="content" placeholder=" " required></textarea>
@@ -12,7 +12,9 @@
                         <!-- What's in your mind &#129488; Post here &#127919; &#128640; -->
                     </span>
                 </div>
-                <!-- <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea> -->
+                <div>
+                    <input type="file" name="postImage" accept="image/*,video/*">
+                </div>
                 <button type="submit">Post &#128640;</button>
             </form>
         </div>
@@ -53,11 +55,6 @@
         let self = this;
         let toggleLike = new ToggleLike(self);
     });
-
-    // window.onbeforeunload = function() { return "Your work will be lost."; };
-    // window.addEventListener('popstate', function(e){
-    //     window.alert("Back button is clicked");
-    // })
 </script>
 
 <!-- CDN of socket.io from (cdnjs.com socket.io) -->

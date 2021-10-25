@@ -83,7 +83,7 @@
     });
 
     function showPostCommentMoreOption(icon){
-        console.log("icon is: ", icon)
+        // console.log("icon is: ", icon)
         icon.click(function(e){
             // Hide the more icon
             icon.css({

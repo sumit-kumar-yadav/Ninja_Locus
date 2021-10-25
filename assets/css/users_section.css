@@ -51,6 +51,7 @@
       cursor: pointer; }
       #users-container .friends-of-user > span img, #users-container .all-users > span img {
         width: 28px;
+        height: 28px;
         border-radius: 50%;
         margin-right: 5px; }
       #users-container .friends-of-user > span span, #users-container .all-users > span span {

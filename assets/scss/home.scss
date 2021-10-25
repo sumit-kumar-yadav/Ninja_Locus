@@ -99,6 +99,16 @@
             max-height: 225px;
             overflow-y: scroll;
         }
+        .post-image-video{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: whitesmoke;
+            .post-image, .post-video{
+                max-height: 460px;
+                max-width: -webkit-fill-available;
+            }
+        }
         .user-controls{
             width: 100%;
             display: flex;
