@@ -17,7 +17,7 @@ document.getElementById('layout-main').addEventListener('scroll', function(e){
 
 // check and fire animation
 function checkScroll(element, index){
-    // Check whether skill container is visible or not
+    // Check whether container is visible or not
     let coordinates = element.getBoundingClientRect();
     if(!animationDone[index] && coordinates.top <= window.innerHeight){
         animationDone[index] = true;

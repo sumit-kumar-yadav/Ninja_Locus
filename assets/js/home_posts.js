@@ -127,8 +127,9 @@
         ${post.postPath ? 
             `<div class="post-image-video">
                 ${post.mediaType == 'video' ? `<video class="post-video" src="${post.postPath}" controls onerror="this.onerror=null;this.style='display:none';"></video>`
-                                            : `<img class="post-image" src="${post.postPath}" alt="img" onerror="this.onerror=null;this.style='display:none';">`
+                                            : `<img class="post-image" src="${post.postPath}" onload="this.style='opacity:1';" onerror="this.onerror=null;this.style='display:none';">`
                 }
+                <div class="post-image-video-loading loadingio-spinner-eclipse-8jfbkc15oik"><div class="ldio-zwmxbg1ll"><div></div></div></div>
             </div>`
             : ``
         }

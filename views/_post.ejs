@@ -14,7 +14,6 @@
                 </a>
                 <br>
                 <small><%= new Date(post.createdAt).toString().substring(4,16) %> at <%= new Date(post.createdAt).toString().substring(16, 21) %></small>
-                <!-- <small><%= post.createdAt %></small> -->
             </div>
 
             <span class="post-comment-more-icon" id="post-comment-more-icon-<%= post.id %>">
@@ -52,10 +51,13 @@
         <% if(post.postPath){ %>
             <div class="post-image-video">
                 <% if(post.mediaType == 'video'){ %>
-                    <video class="post-video" src="<%= post.postPath %>" controls onerror="this.onerror=null;this.style='display:none';"></video>
+                    <video class="post-video" data-src="<%= post.postPath %>" controls onerror="this.onerror=null;this.style='display:none';"></video>
                 <% }else{ %>
-                    <img class="post-image" src="<%= post.postPath %>" alt="img" onerror="this.onerror=null;this.style='display:none';">
+                    <img class="post-image" data-src="<%= post.postPath %>" onload="this.style='opacity:1';" onerror="this.onerror=null;this.style='display:none';">
+                    <!-- Good attribute for lazy image loading -------- loading="lazy" -->
                 <% } %>
+                <!-- Loading animation -->
+                <div class="post-image-video-loading loadingio-spinner-eclipse-8jfbkc15oik"><div class="ldio-zwmxbg1ll"><div></div></div></div>
             </div>
         <% } %>
 

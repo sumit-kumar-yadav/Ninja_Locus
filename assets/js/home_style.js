@@ -126,5 +126,80 @@
         });
     }
     closePostCommentMoreOption();
+
+
+    // Lazy loading of post's images and videos
+    (function lazyLoadingOfPostImageVideo() {
+
+        // If IntersectionObserver is working fine in the user's vrowser
+        if ("IntersectionObserver" in window) {
+            // Fetch all the img and video tags to be lazy loaded
+            let lazyloadElements = document.querySelectorAll(".post-image-video [data-src]");
+
+            let options = {
+                root: document.getElementById('feed-posts'),    // Scrollable element
+                // threshold: 0,
+                rootMargin: "400px"      // Start Observing before 400px
+            };
+            // Create IntersectionObserver API
+            let imageVideoObserver = new IntersectionObserver(function(entries, imageVideoObserver) {
+                entries.forEach(function(entry) {
+                    // If it's entering the the viewport, then add src and unobserve them
+                    if (entry.isIntersecting) {    // Here isIntersecting means entering the viewport either from top or bottom (Note: only entering, not leaving)
+                        let imageOrVideo = entry.target;
+                        // console.log("imageOrVideo is: ", imageOrVideo);
+
+                        // Set the src from the data-src 
+                        imageOrVideo.src = imageOrVideo.dataset.src;
+                        imageVideoObserver.unobserve(imageOrVideo);
+                    }
+                });
+            }, options);
+        
+            // Loop over all teh fetched elements to be observed
+            lazyloadElements.forEach(function(imageOrVideo) {
+                imageVideoObserver.observe(imageOrVideo);
+            });
+        }
+        else{
+
+            var lazyloadThrottleTimeout;
+            
+            function lazyload () {
+                console.log("Called");
+                if(lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }    
+
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    let lazyloadElements = document.querySelectorAll(".post-image-video [data-src]");
+                    
+                    lazyloadElements.forEach(function(imageOrVideo) {
+                        let coordinates = imageOrVideo.getBoundingClientRect();
+                        if(coordinates.top <= window.innerHeight + 400) {
+                             // Set the src from the data-src 
+                            imageOrVideo.src = imageOrVideo.dataset.src;
+                            imageOrVideo.removeAttribute('data-src');   // Remove it so that it won't be called again
+                        }
+                    });
+
+                    if(lazyloadElements.length == 0) { 
+                        console.log("All are visited")
+                        // Remove the event Listeners
+                        $('#feed-posts').off('scroll', lazyload);
+                        $('#feed-posts').off('resize', lazyload);
+                        $('#feed-posts').off('orientationchange', lazyload);
+                    }
+                }, 20);
+            }
+            // Call it to load the already visible images / videos 
+            lazyload();
+
+            // Add event listener
+            $('#feed-posts').on('scroll resize orientationchange', lazyload);
+
+        }
+
+    })();
     
 }
