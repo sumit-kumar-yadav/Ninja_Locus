@@ -18,20 +18,31 @@ class ToggleLike{
             })
             .done(function(data) {
                 let likesCount = parseInt($(self).attr('data-likes'));
-                console.log(likesCount);
                 if (data.data.deleted == true){
                     likesCount -= 1;
                     $(' .likes-count', self).html(`
-                        ${likesCount}
-                        <i class="far fa-thumbs-up"></i> Likes 
+                        <span>${likesCount}</span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>
+                            <span style="color: blue;">Likes</span>
+                        </span> 
                     `);
+                    $(' .likes-count', self).css({
+                        "color": "grey"
+                    });
                     
                 }else{
                     likesCount += 1;
                     $(' .likes-count', self).html(`
-                        ${likesCount}
-                        <i class="fas fa-thumbs-up"></i> Likes 
+                        <span>${likesCount}</span>
+                        <span>
+                            <i class="fas fa-thumbs-up animate__animated animate__heartBeat"></i>
+                            <span style="color: blue;">Likes</span>
+                        </span>
                     `);
+                    $(' .likes-count', self).css({
+                        "color": "blue"
+                    })
                 }
 
 

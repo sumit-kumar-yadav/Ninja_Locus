@@ -17,7 +17,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        // margin: 0px 3%;
         background-color: white;
         padding: 5px 30px;
     }
@@ -25,20 +24,56 @@
 
 
 #post-form-container{
-    width: 80%;
+    width: 100%;
+    background: #ffffffed;
+    padding: 2px 10px;
+    border-radius: 7px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    box-shadow: 0px 0px 8px 0px #a78c8c;
 
     form{
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 3px;
 
+        label[for=post-file]{
+            display: inline-block;
+            box-sizing: border-box;
+            cursor: pointer;
+            background-color: #5050d0;
+            color: white;
+            height: 33px;
+            line-height: 22px;
+            padding: 5px;
+            border-radius: 4px;
+            &:active{
+                transform: scale(0.93);
+            }
+        }
+        #post-file{
+            display: none;
+        }
         button{
-            width: 80px;
-            height: 57px;
+            min-width: 70px;
+            max-width: 100px;
+            height: 38px;
             border: none;
-            position: relative;
-            top: 2px;
             cursor: pointer;
             font-size: 1rem;
+            border-radius: 4px;
+            margin-left: 10px;
+            box-shadow: 0px 1px 4px 0px rgb(103, 112, 60);
+            transition: all 0.3s ease-in-out;
+            background-color: rgb(74, 95, 116);
+            color: white;
+            &:hover{
+                box-shadow: none;
+                transform: scale(0.98);
+                background-color: #ccb996;
+            }
         }
     }
 }
@@ -54,17 +89,19 @@
         display: flex;
         flex-direction: column;
         width: 70%;
-        padding: 15px;
-        margin: 5px;
-        background-color: #ebe9e9;
-
+        padding: 7px 15px 0px 15px;
+        margin: 7px 0px;
+        background-color: #fefefe;
+        box-shadow: 0px 0px 8px 0px #a78c8c;
+        margin-bottom: 10px;
+        border-radius: 10px;
 
         .user-info{
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 6px;
             position: relative;
 
             .user-post-details{
@@ -81,6 +118,7 @@
                 top: 26px;
                 left: 40px;
                 font-size: 0.6rem;
+                color: grey;
             }
             .user-name-pic{
                 display: flex;
@@ -94,10 +132,11 @@
             }
         }
         .post-content{
-            background-color: #f9ca74;
             padding: 5px;
             max-height: 225px;
             overflow-y: scroll;
+            color: #7a6e6e;
+            text-align: justify;
         }
         // Variable
         $min-height-of-image-video: 250px;
@@ -108,7 +147,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background-color: whitesmoke;
             .post-image, .post-video{
                 max-height: 350px;
                 min-height: $min-height-of-image-video;
@@ -127,11 +165,24 @@
             display: flex;
             // justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
+            margin-top: 7px;
+            border-top: 1px solid #dcd5d5;
+            box-sizing: border-box;
+            padding: 4px;
             &>div{
                 width: calc(100% / 3);
+                min-width: 150px;
                 cursor: pointer;
-                border-right: 1px solid grey;
+                border-right: 1px solid #b5a9a9;
+                box-sizing: border-box;
+                padding: 7px 4px;
+                &:hover{
+                    background-color: #f3f2f2;;
+                    // box-shadow: 0px 2px 4px 1px grey;
+                }
+            }
+            .comments-container{
+                color: orange;
             }
             a{
                 color: black;
@@ -141,43 +192,71 @@
                 margin: auto;
                 width: fit-content;
             }
+            .likes-count{
+                color: grey;
+            }
 
         }
         .post-comments{
-            height: 0px;
+            // height: 0px;
             max-height: 0px;
             overflow-y: hidden;
             margin-top: 10px;
             transition: all 0.3s ease-in-out;
+
             form{
                 width: 100%;
                 display: flex;
                 resize: none;
+                margin-bottom: 7px;
+                box-shadow: 0px -2px 4px 2px grey;
+
                 textarea{
                     width: 100%;
-                    height: 33px;
+                    height: 39px;
                     resize: none;
                     border: none;
                     outline: none;
+                    background-color: #f4efef;
+                    padding: 1px 5px;
+                    font-size: 1rem;
+                    white-space: pre-wrap;
+                    border-radius: 5px 0px 0px 5px;
+                    &:focus{
+                        background-color: #e5f4f5;
+                    }
                 }
                 input{
-                    height: 33px;
+                    height: 39px;
                     outline: none;
                     border: none;
                     cursor: pointer;
                     background: #86a9a9;
+                    border-radius: 0px 5px 5px 0px;
+                    color: white;
+                    letter-spacing: 1.5px;
                 }
             }
         }
 
         // SCSS of comment.ejs
         .post-comments-list{
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 7px;
+            box-sizing: border-box;
+            padding: 7px;
+
             .comment-list-container{
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 margin-bottom: 5px;
-                background-color: rgb(188, 231, 231);
+                box-shadow: 0px 0px 4px 0px grey;
+                margin: 8px 0px;
+                box-sizing: border-box;
+                border-radius: 3px;
+
                 .comment-user-info{
                     width: 100%;
                     display: flex;
@@ -214,12 +293,14 @@
                     
                 }
                 .comment-content{
-                    background-color: #b4f974;
+                    background-color: #e7f0df;
                     padding: 5px;
                     margin-left: 23px;
                     margin-right: 10px;
                     max-height: 225px;
                     overflow-y: scroll;
+                    border-radius: 5px;
+                    color: #413c49;
                 }
                 .comment-user-controls{
                     width: 100%;
@@ -228,6 +309,7 @@
                     align-items: center;
                     font-size: 12px;
                     margin: 4px 0px;
+                    padding: 4px;
                     &>div{
                         width: calc(100% / 3);
                         cursor: pointer;
@@ -250,6 +332,7 @@
         padding: 4px;
         border-radius: 50%;
         cursor: pointer;
+        color: grey;
     }
     .post-comment-more-options{
         position: absolute;
@@ -261,13 +344,34 @@
         padding: 7px 12px;
         list-style: none;
         line-height: 28px;
-        border-radius: 5px;
-        background-color: white;
+        border-radius: 0px 5px;
+        background-color: #ffffff;
+        border: 1px solid grey;
+        z-index: 3;
+        &>a{
+            text-decoration: none;
+            color: black;
+            display: block;
+            width: 145px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 3px;
+            box-shadow: 0px 1px 5px 1px grey;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease-in-out;
+            &:hover{
+                box-shadow: none;
+                border: 1px solid grey;
+                background-color: #eff4f7;
+            }
+        }
     }
     .post-comment-close-icon{
         display: none;
         font-size: 24px;
         cursor: pointer;
+        color: grey;
     }
 }
 
@@ -279,31 +383,29 @@
 // css to slide the assumed placeholder above the input tag while typing
 .user-input-wrp {
 	position: relative;
-    width: calc(100% - 80px);
-    // height: 40px;
-    margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 5px;
 
     .inputText{
         width: 100%;
-        height: 57px;
+        height: 43px;
         outline: none;
         border: none;
-        // border-bottom: 1px solid #777;
-        background: #dccece;
-        padding: 10px 10px;
+        background: #f0eeb6cc;
+        padding: 3px 10px;
         font-size: 1rem;
         white-space: pre-wrap;
         resize: none;
+        border-radius: 5px;
+        color: #070b41;
     }
     .inputText:focus{
-        // border-color: rgb(41, 250, 222);
-        // color: black;
-        // border-width: medium medium 2px;
+        background-color: #f0efdecc;
     }
     .floating-label {
         position: absolute;
         pointer-events: none;
-        top: 32px;
+        top: 26px;
         left: 10px;
         font-size: 1.2rem;
         transition: 0.2s ease all;
@@ -349,7 +451,8 @@
     }
     #posts-list-container{
         .post-list{
-            width: 80%;
+            width: 100%;
+            box-sizing: border-box;
             .user-controls{
                 &>div{
                     width: calc(100% / 2);

@@ -4,7 +4,7 @@
             <div class="user-post-details">
                 <a href="/users/profile/<%= post.user.id %>">
                     <div class="user-name-pic">
-                        <img src="<%= post.user.avatar %>" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                        <img data-src="<%= post.user.avatar %>" alt="" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
                         <% if (locals.user && locals.user.name == post.user.name){ %>
                             <span>You</span>
                         <% }else{ %>
@@ -28,18 +28,37 @@
                  <!-- Delete a post -->
                 <% if (locals.user && locals.user.id == post.user.id){ %>
                 <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">
-                    <li>Delete Post</li>
+                    <li>
+                        <span style="margin-right: 5px; color: #b75a5a;"><i class="fas fa-trash-alt"></i></span>
+                        Delete Post
+                    </li>
                 </a>
 
                 <% }else{ %>
 
                 <a href="/users/profile/<%= post.user.id %>">
-                    <li>View Profile</li>
+                    <li>
+                        <span style="margin-right: 5px; color: #4a4aaf;"><i class="fas fa-id-card"></i></span>
+                        View Profile
+                    </li>
                 </a>
                 <a href="/">
-                    <li>Report Post</li>
+                    <li>
+                        <span style="margin-right: 5px; color: red"><i class="fas fa-flag-checkered"></i></span>
+                        Report Post
+                    </li>
                 </a>
 
+                <% } %>
+
+                <!-- If image or video is availavle -->
+                <% if(post.postPath){ %>
+                <a href="<%= post.postPath %>" download target="_blank">
+                    <li>
+                        <span style="margin-right: 5px; color: #688968;"><i class="fas fa-download"></i></span>
+                        Download
+                    </li>
+                </a>
                 <% } %>
             </ul>
         </div>
@@ -67,14 +86,20 @@
                 <% if (locals.user){ %>
                 <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
                     <div class="likes-count">
-                        <%= post.likes.length %>
-                        <i class="far fa-thumbs-up"></i> Likes 
+                        <span><%= post.likes.length %></span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>
+                            <span style="color: blue;">Likes</span>
+                        </span>
                     </div>
                 </a>
                 <% }else{ %>
                 <div class="likes-count">
-                    <%= post.likes.length %>
-                    <i class="far fa-thumbs-up"></i> Likes 
+                    <span><%= post.likes.length %></span>
+                    <span>
+                        <i class="far fa-thumbs-up"></i>
+                        <span style="color: blue;">Likes</span>
+                    </span>
                 </div>
                 <% } %>
             </div>

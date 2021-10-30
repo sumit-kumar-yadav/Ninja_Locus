@@ -22,10 +22,12 @@
                         let button = $(' button[type=submit]', newPostForm);
                         button.attr("disabled", "disabled");
                         button.css("opacity", "0.7");
+                        button.text("Posting..");
                     },
                     success: function(data){
-                        // Set the value of form textarea of form as empty
+                        // Set the value of form textarea of form as empty and reset it's height
                         $(' textarea', newPostForm).val("");
+                        $(' textarea', newPostForm).css({ "height": "43px" });
 
                         let newPost = newPostDom(data.data.post);
                         $('#posts-list-container').prepend(newPost);
@@ -80,6 +82,7 @@
                 let button = $(' button[type=submit]', newPostForm);
                 button.removeAttr("disabled");
                 button.css("opacity", "1");
+                button.text("Post")
                 // Reset the post form
                 newPostForm[0].reset();
             }
@@ -113,9 +116,17 @@
             </span>
 
             <ul class="post-comment-more-options animate__animated animate__flipInX" id="post-comment-more-options-${post._id}">
-                 <!-- Delete a post -->
                 <a class="delete-post-button" href="/posts/destroy/${post._id}">
-                    <li>Delete Post</li>
+                    <li>
+                        <span style="margin-right: 5px; color: #b75a5a;"><i class="fas fa-trash-alt"></i></span>
+                        Delete Post
+                    </li>
+                </a>
+                <a href="${post.postPath}" download target="_blank">
+                    <li>
+                        <span style="margin-right: 5px; color: #688968;"><i class="fas fa-download"></i></span>
+                        Download
+                    </li>
                 </a>
             </ul>
         </div>
@@ -208,6 +219,12 @@
             $.ajax({
                 type: 'get',
                 url: $(deleteLink).prop('href'),
+                beforeSend: function(){
+                    deleteLink.css({
+                        "opacity": "0.7",
+                        "pointer-events": "none"
+                    });
+                },
                 success: function(data){
                     $(`#post-${data.data.post_id}`).remove();
                     new Noty({

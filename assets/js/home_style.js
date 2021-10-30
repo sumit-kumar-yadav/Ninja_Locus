@@ -1,5 +1,5 @@
 {
-    // To keep teh focus even if tab is pressed
+    // To keep the focus even if tab is pressed
     $('textarea').each(function(){
         
         // To keep the functionality of tab
@@ -47,9 +47,9 @@
                 let postId = commentSection.prop('id').split("-")[2];
                 //get comments related to that post
                 $(`#post-comments-${postId}`).css({
-                    "height": "auto",
-                    "max-height": "225px",
-                    "overflow-y": "scroll"
+                    // "height": "auto",
+                    "max-height": "1000px"
+                    // "overflow-y": "scroll"
                 });
 
                 // set data-closed as false
@@ -66,9 +66,9 @@
                 let postId = commentSection.prop('id').split("-")[2];
                 //get comments related to that post
                 $(`#post-comments-${postId}`).css({
-                    "height": "0px",
-                    "max-height": "0px",
-                    "overflow-y": "hidden"
+                    // "height": "0px",
+                    "max-height": "0px"
+                    // "overflow-y": "hidden"
                 });
 
                 // set data-closed as true
@@ -134,7 +134,7 @@
         // If IntersectionObserver is working fine in the user's vrowser
         if ("IntersectionObserver" in window) {
             // Fetch all the img and video tags to be lazy loaded
-            let lazyloadElements = document.querySelectorAll(".post-image-video [data-src]");
+            let lazyloadElements = document.querySelectorAll(".post-list [data-src]");
 
             let options = {
                 root: document.getElementById('feed-posts'),    // Scrollable element
@@ -172,7 +172,7 @@
                 }    
 
                 lazyloadThrottleTimeout = setTimeout(function() {
-                    let lazyloadElements = document.querySelectorAll(".post-image-video [data-src]");
+                    let lazyloadElements = document.querySelectorAll(".post-list [data-src]");
                     
                     lazyloadElements.forEach(function(imageOrVideo) {
                         let coordinates = imageOrVideo.getBoundingClientRect();
