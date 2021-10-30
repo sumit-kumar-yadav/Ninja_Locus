@@ -31,9 +31,17 @@ class PostComments{
                 type: 'post',
                 url: '/comments/create',
                 data: $(self).serialize(),
+                beforeSend: function(){
+                    // Disable the button
+                    let button = $(' input[type=submit]', pSelf.newCommentForm);
+                    button.attr("disabled", "disabled");
+                    button.css("opacity", "0.7");
+
+                },
                 success: function(data){
                     // Set the value of form textarea of form as empty
                     $(' textarea', pSelf.newCommentForm).val("");
+                    $(' textarea', pSelf.newCommentForm).css("height", "auto");
 
                     let newComment = pSelf.newCommentDom(data.data.comment, data.data.post_user_id);
                     $(`#post-comments-list-${postId}`).prepend(newComment);
@@ -53,6 +61,11 @@ class PostComments{
                         timeout: 1500
                         
                     }).show();
+
+                    // Enable the button
+                    let button = $(' input[type=submit]', pSelf.newCommentForm);
+                    button.removeAttr("disabled");
+                    button.css("opacity", "1");
 
                 }, error: function(error){
                     console.log(error.responseText);
@@ -127,6 +140,12 @@ class PostComments{
             $.ajax({
                 type: 'get',
                 url: $(deleteLink).prop('href'),
+                beforeSend: function(){
+                    deleteLink.css({
+                        "opacity": "0.7",
+                        "pointer-events": "none"
+                    });
+                },
                 success: function(data){
                     console.log('Successfully deleted');
                     $(`#comment-${data.data.comment_id}`).remove();

@@ -17,9 +17,9 @@
     // Common cdd of childs of #users-container and their buttons
     &>div{
         width: 100%;
-        padding: 5px;
-        margin-bottom: 5px;
-        background-color: #ebe9e9;
+        margin-bottom: 12px;
+        box-shadow: 0px 3px 5px 2px darkgrey;
+        border-radius: 8px;
         .heading-button{
             position: relative;
             width: 100%;
@@ -29,10 +29,17 @@
             outline: none;
             border: none;
             cursor: pointer;
-            background-color: #dfc03c;
+            background-color: #9e69a6;
             color: white;
             border-radius: 5px;
             padding: 6px 20px;
+            transition: all 0.1s ease-in;
+            span{
+                margin-left: 5px;
+            }
+            &:hover{
+                background-color: #834d8b;
+            }
             .more-option{
                 position: absolute;
                 right: 10px;
@@ -47,10 +54,20 @@
     }
 
     .friends-of-user, .all-users{
-        background-color: #f9ca74;
+        background-color: #faf9ff;
         padding: 5px;
         text-transform: capitalize;
-        margin: 3px 0px;
+        margin: 10px 5px;
+        box-shadow: 0px 1px 5px 0px grey;
+        border-radius: 3px;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in;
+        &:hover{
+            box-shadow: none;
+            background-color: #f8f3e7;
+            border-left: 1px solid rgb(199, 191, 191);
+            border-bottom: 1px solid rgb(199, 191, 191);
+        }
 
         &>span{
             display: inline-flex;
@@ -81,6 +98,8 @@
                     padding: 3px;
                     cursor: pointer;
                     flex-shrink: 0;
+                    background-color: cadetblue;
+                    color: white;
                 }
             }
             .user-details-tag{

@@ -7,7 +7,17 @@ body {
     height: 100%;
     box-sizing: border-box;
     padding-top: 65px;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    position: relative; }
+    body #layout-main #blur-screen {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0px;
+      z-index: 4;
+      background-color: black;
+      opacity: 0.8; }
 
 ::-webkit-scrollbar {
   width: 0px;

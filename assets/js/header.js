@@ -3,14 +3,11 @@
     $('#nav-avatar').click(function(e){
         // Open the side menu of nav bar
         $('#nav-side-menu-list').css({
-            right: '0px'
+            'display': 'initial'
         });
 
-         // Stop other pointer events of #layout-main
-         $('#layout-main').css({
-            "pointer-events": "none",
-            "opacity": "0.4"
-        })
+        // Open the blur div (#blur-screen)
+        $('#blur-screen').css('display', "initial");
     })
 
     // When #nav-side-menu-list-close is clicked
@@ -18,14 +15,11 @@
     function closeNavSideMenu(){
         // Close the side menu of nav bar
         $('#nav-side-menu-list').css({
-            right: '-400px'
+            'display': 'none'
         });
 
-        // Start all pointer events of #layout-main
-        $('#layout-main').css({
-            "pointer-events": "initial",
-            "opacity": "1"
-        });
+        // Close the blur div (#blur-screen)
+        $('#blur-screen').css('display', "none");
     }
     
 

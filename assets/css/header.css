@@ -62,15 +62,14 @@
     justify-content: flex-start;
     position: absolute;
     top: 30px;
-    background-color: antiquewhite;
+    background-color: white;
     margin: 0px 1px;
-    padding-left: 0px;
     width: calc(100% - 1px);
     box-sizing: border-box;
+    padding: 0px 4px;
     transition: all 0.5s ease-in-out; }
     #search-bar-conatiner #searched-users a {
       text-decoration: none;
-      color: white;
       transition: color 0.3s ease-in-out; }
       #search-bar-conatiner #searched-users a:hover {
         color: orange;
@@ -78,11 +77,16 @@
       #search-bar-conatiner #searched-users a li {
         width: 100%;
         line-height: 31px;
-        background-color: #947e46;
-        margin-bottom: 3px;
+        background-color: #ebf5fa;
         padding: 0px 5px;
         display: flex;
-        align-items: center; }
+        align-items: center;
+        box-shadow: 0px 1px 4px 1px grey;
+        box-sizing: border-box;
+        margin: 5px 0px; }
+        #search-bar-conatiner #searched-users a li:hover {
+          background-color: antiquewhite;
+          color: black; }
         #search-bar-conatiner #searched-users a li img {
           width: 38px;
           height: 38px;
@@ -99,33 +103,31 @@
   #nav-menu-list li {
     margin-right: 10px; }
     #nav-menu-list li #nav-side-menu-list {
-      width: 35%;
+      display: none;
+      width: 98%;
       max-width: 240px;
       min-width: 180px;
-      height: auto;
-      padding-left: 0px;
+      height: calc(100vh - 73px);
       position: absolute;
-      top: 59px;
-      right: -400px;
-      padding: 5px;
+      top: 66px;
+      right: 5px;
+      padding: 10px;
+      box-sizing: border-box;
       background-color: #4b5761;
-      transition: all 0.5s ease-in-out;
       color: white;
       box-shadow: 0px 0px 6px 5px #c3cac3;
       font-size: 1.1rem; }
-      #nav-menu-list li #nav-side-menu-list:hover {
-        box-shadow: -7px 9px 13px 5px #c3cac3; }
       #nav-menu-list li #nav-side-menu-list li {
-        margin: 0px 0px 5px 0px;
-        background-color: #c07979;
+        margin: 0px 0px 8px 0px;
         cursor: pointer;
         padding: 5px; }
+        #nav-menu-list li #nav-side-menu-list li:hover {
+          box-shadow: 0px 1px 5px 1px grey; }
       #nav-menu-list li #nav-side-menu-list #nav-side-menu-list-close {
         position: absolute;
-        top: -5px;
+        top: -8px;
         right: -1px;
         color: red;
-        background-color: #330b0b;
         padding: 4px;
         cursor: pointer; }
       #nav-menu-list li #nav-side-menu-list .displayNoneInDesktopView {
@@ -135,6 +137,8 @@
         color: white;
         display: inline-block;
         width: 100%; }
+        #nav-menu-list li #nav-side-menu-list a span {
+          margin-left: 5px; }
     #nav-menu-list li a {
       text-decoration: none;
       color: white;

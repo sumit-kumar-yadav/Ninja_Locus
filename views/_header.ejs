@@ -33,11 +33,14 @@
                 <img id="nav-avatar" src="<%= user.avatar %>" alt="image" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
 
                 <!-- side menu displayed when avatar is clicked -->
-                <ul id="nav-side-menu-list" type = "none">
-                    <li style="position: relative; background-color: transparent;">
+                <ul id="nav-side-menu-list" class="animate__animated animate__bounceInRight" type = "none">
+                    <li style="position: relative; top:-2px; background-color: transparent; margin-bottom: 10px; font-size: 2rem; box-shadow: none;">
                         <span id="nav-side-menu-list-close">
                             <i class="far fa-window-close"></i>
                         </span>
+                    </li>
+                    <li style="pointer-events: none; color: violet; font-size: larger; border-bottom: 1px solid;">
+                        <span><%= user.name %></span>
                     </li>
                     <li>
                         <a href="/">
@@ -47,31 +50,58 @@
                     </li>
                     <li class="displayNoneInDesktopView">
                         <a href="/" onclick="openNinjaSectionOfHomePage(event)">
-                            <i class="fas fa-user-ninja"></i>
+                            <i class="fas fa-user-ninja" style="color: #ff5605;"></i>
                             <span>Ninjas</span>
                         </a>
                     </li>
                     <li class="displayNoneInDesktopView">
                         <a href="/" onclick="openFeedPostsSectionOfHomePage(event)">
-                            <i class="fab fa-phoenix-framework"></i>
+                            <i class="fab fa-phoenix-framework" style="color: orange;"></i>
                             <span>Feed Posts</span>
                         </a>
                     </li>
                     <li>
                         <a href="/users/profile/<%= locals.user.id %>">
-                            <i class="fas fa-user-alt"></i>
+                            <i class="fas fa-user-alt" style="color: #0597ff;"></i>
                             <span>Profile Page</span>
                         </a>
                     </li>
                     <li>
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
+                        <a href="">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
                     </li>
                     <li>
                         <a href="/users/sign-out" id="sign-out">
-                            <i class="fas fa-sign-out-alt"></i>
+                            <i class="fas fa-sign-out-alt" style="color: yellowgreen;"></i>
                             <span>Sign Out</span>
                         </a>
+                    </li>
+                    
+                    <!-- Developer Details -->
+                    <li style="position: absolute; bottom: 5px;">
+                        <ul style="padding: 0px;" type="none">
+                            <li style="pointer-events: none;">Contact to developer <br> <span style="color: orange; font-size: larger; letter-spacing: 1px;"><b>Sumit Yadav</b></span> via</li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/sumit-kumar-yadav/" target="_blank">
+                                    <i class="fab fa-linkedin-in" style="color: #0597ff;"></i>
+                                    <span>LinkedIn</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:sumityadav0376@gmail.com?Subject=Hello%20Developer%20Sumit">
+                                    <i class="far fa-envelope" style="color: yellowgreen;"></i>
+                                    <span>Mail</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://sumit-resume.netlify.app/">
+                                    <i class="fas fa-at" style="color: violet;"></i>
+                                    <span>Portfolio</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

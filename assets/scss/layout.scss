@@ -11,6 +11,19 @@ body{
         box-sizing: border-box;
         padding-top: 65px;
         overflow-y: scroll; 
+        position: relative;
+
+        // Common blurred div inside almost all the body displayed when side menu of nav bar is shown
+        #blur-screen{
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0px;
+            z-index: 4;
+            background-color: black;
+            opacity: 0.8;
+        }
     }
 }
 

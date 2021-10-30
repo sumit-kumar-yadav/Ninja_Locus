@@ -14,9 +14,9 @@
   padding: 5px 10px; }
   #users-container > div {
     width: 100%;
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #ebe9e9; }
+    margin-bottom: 12px;
+    box-shadow: 0px 3px 5px 2px darkgrey;
+    border-radius: 8px; }
     #users-container > div .heading-button {
       position: relative;
       width: 100%;
@@ -26,10 +26,15 @@
       outline: none;
       border: none;
       cursor: pointer;
-      background-color: #dfc03c;
+      background-color: #9e69a6;
       color: white;
       border-radius: 5px;
-      padding: 6px 20px; }
+      padding: 6px 20px;
+      transition: all 0.1s ease-in; }
+      #users-container > div .heading-button span {
+        margin-left: 5px; }
+      #users-container > div .heading-button:hover {
+        background-color: #834d8b; }
       #users-container > div .heading-button .more-option {
         position: absolute;
         right: 10px; }
@@ -39,10 +44,19 @@
       overflow-y: hidden;
       transition: all 0.3s ease-in-out; }
   #users-container .friends-of-user, #users-container .all-users {
-    background-color: #f9ca74;
+    background-color: #faf9ff;
     padding: 5px;
     text-transform: capitalize;
-    margin: 3px 0px; }
+    margin: 10px 5px;
+    box-shadow: 0px 1px 5px 0px grey;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in; }
+    #users-container .friends-of-user:hover, #users-container .all-users:hover {
+      box-shadow: none;
+      background-color: #f8f3e7;
+      border-left: 1px solid #c7bfbf;
+      border-bottom: 1px solid #c7bfbf; }
     #users-container .friends-of-user > span, #users-container .all-users > span {
       display: inline-flex;
       width: 100%;
@@ -69,7 +83,9 @@
           border: none;
           padding: 3px;
           cursor: pointer;
-          flex-shrink: 0; }
+          flex-shrink: 0;
+          background-color: cadetblue;
+          color: white; }
       #users-container .friends-of-user > span .user-details-tag, #users-container .all-users > span .user-details-tag {
         width: 100%;
         flex-shrink: 2; }
