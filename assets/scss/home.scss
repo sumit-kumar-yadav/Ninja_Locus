@@ -147,6 +147,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            margin-top: 5px;
             .post-image, .post-video{
                 max-height: 350px;
                 min-height: $min-height-of-image-video;
@@ -247,6 +248,21 @@
             box-sizing: border-box;
             padding: 7px;
 
+            .comment-loading-animation{
+                // display: flex;
+                display: none;
+                height: 45px;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                &>div{
+                    transform: scale(0.5);
+                    position: absolute;
+                    top: -80px;
+                }
+            }
+
+            // In _comment.ejs file
             .comment-list-container{
                 width: 100%;
                 display: flex;
@@ -500,3 +516,97 @@
     transform-origin: 0 0; /* see note above */
   }
   .ldio-zwmxbg1ll div { box-sizing: content-box; }
+
+
+//   Style for jumping ball while loading the comments 
+@keyframes ldio-96l53ffv5hg {
+    0% {
+      opacity: 1;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1.73,1.73);
+    } 100% {
+      opacity: 0;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1,1);
+    }
+  }
+  .ldio-96l53ffv5hg div > div {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #6503ff;
+    animation: ldio-96l53ffv5hg 1s linear infinite;
+  }.ldio-96l53ffv5hg div:nth-child(1) > div {
+    left: 126px;
+    top: 94px;
+    animation-delay: -0.8571428571428571s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(1) {
+    transform: rotate(0deg);
+    transform-origin: 132px 100px;
+  }.ldio-96l53ffv5hg div:nth-child(2) > div {
+    left: 114px;
+    top: 119px;
+    animation-delay: -0.7142857142857143s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(2) {
+    transform: rotate(51.42857142857143deg);
+    transform-origin: 120px 125px;
+  }.ldio-96l53ffv5hg div:nth-child(3) > div {
+    left: 87px;
+    top: 125px;
+    animation-delay: -0.5714285714285714s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(3) {
+    transform: rotate(102.85714285714286deg);
+    transform-origin: 93px 131px;
+  }.ldio-96l53ffv5hg div:nth-child(4) > div {
+    left: 65px;
+    top: 108px;
+    animation-delay: -0.42857142857142855s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(4) {
+    transform: rotate(154.28571428571428deg);
+    transform-origin: 71px 114px;
+  }.ldio-96l53ffv5hg div:nth-child(5) > div {
+    left: 65px;
+    top: 80px;
+    animation-delay: -0.2857142857142857s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(5) {
+    transform: rotate(205.71428571428572deg);
+    transform-origin: 71px 86px;
+  }.ldio-96l53ffv5hg div:nth-child(6) > div {
+    left: 87px;
+    top: 63px;
+    animation-delay: -0.14285714285714285s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(6) {
+    transform: rotate(257.14285714285717deg);
+    transform-origin: 93px 69px;
+  }.ldio-96l53ffv5hg div:nth-child(7) > div {
+    left: 114px;
+    top: 69px;
+    animation-delay: 0s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(7) {
+    transform: rotate(308.57142857142856deg);
+    transform-origin: 120px 75px;
+  }
+  .loadingio-spinner-spin-8soird73u5f {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+  .ldio-96l53ffv5hg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-96l53ffv5hg div { box-sizing: content-box; }

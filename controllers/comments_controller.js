@@ -79,7 +79,7 @@ module.exports.destroy = async function(req, res){
             // Delete the comment id from the array of comments in the post
             let post = await Post.findByIdAndUpdate(postId, { $pull: {comments: req.query.id}});
 
-            // CHANGE :: destroy the associated likes for this comment
+            // Destroy the associated likes for this comment
             await Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
 
 
@@ -87,7 +87,8 @@ module.exports.destroy = async function(req, res){
             if (req.xhr){
                 return res.status(200).json({
                     data: {
-                        comment_id: req.query.id
+                        comment_id: req.query.id,
+                        post_id: postId
                     },
                     message: "Post deleted"
                 });
@@ -111,4 +112,26 @@ module.exports.destroy = async function(req, res){
     }
     
     
+}
+
+// Fetch all the comments of a particular post 
+module.exports.fetchComments = async function(req, res){
+    try{
+        let comment = await Comment.find({post: req.query.postId})
+                            .populate('user', '-password -friendships');
+
+        return res.status(200).json({
+            data: {
+                comment: comment,
+                loggedInUserId: req.user._id
+            },
+            message: "Successful"
+        });
+
+    }catch(err){
+        console.log(err);
+        return res.json(500, {
+            message: 'Internal Server Error'
+        });
+    }
 }

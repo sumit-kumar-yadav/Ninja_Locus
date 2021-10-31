@@ -43,18 +43,18 @@ module.exports.home = async function(req, res){
                         friendsPosts = await Post.find({user: {$in: posterIdList}})
                         .sort('-createdAt')   // To show the latest post first
                         .populate('user')
-                        .populate({
-                            path: 'comments',
-                            populate: [
-                                {
-                                    path: 'user'
-                                },
-                                {
-                                    path: 'likes'
-                                }
-                            ]
-                        })
-                        .populate('likes');
+                        // .populate({
+                        //     path: 'comments',
+                        //     populate: [
+                        //         {
+                        //             path: 'user'
+                        //         },
+                        //         {
+                        //             path: 'likes'
+                        //         }
+                        //     ]
+                        // })
+                        // .populate('likes');
                     }
                 }
                 

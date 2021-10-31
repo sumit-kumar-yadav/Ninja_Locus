@@ -48,6 +48,9 @@
                             <span>Home Page</span>
                         </a>
                     </li>
+
+                    <!-- If home page is rendered then all_users would have been defined before rendering -->
+                    <% if(locals.all_users){ %>
                     <li class="displayNoneInDesktopView">
                         <a href="/" onclick="openNinjaSectionOfHomePage(event)">
                             <i class="fas fa-user-ninja" style="color: #ff5605;"></i>
@@ -60,6 +63,8 @@
                             <span>Feed Posts</span>
                         </a>
                     </li>
+                    <% } %>
+
                     <li>
                         <a href="/users/profile/<%= locals.user.id %>">
                             <i class="fas fa-user-alt" style="color: #0597ff;"></i>

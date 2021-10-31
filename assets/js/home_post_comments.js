@@ -44,7 +44,12 @@ class PostComments{
                     $(' textarea', pSelf.newCommentForm).css("height", "auto");
 
                     let newComment = pSelf.newCommentDom(data.data.comment, data.data.post_user_id);
-                    $(`#post-comments-list-${postId}`).prepend(newComment);
+                    $(`#post-comments-list-${postId}`).append(newComment);
+
+                    // Increase the comment count
+                    let commentsCount = parseInt($(`#comments-count-${postId}`).html().trim());
+                    $(`#comments-count-${postId}`).text(commentsCount + 1);
+
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
                     // Enable the functionality of the toggle like button on the new comment
@@ -134,35 +139,45 @@ class PostComments{
 
 
     deleteComment(deleteLink){
-        $(deleteLink).click(function(e){
-            e.preventDefault();
-
-            $.ajax({
-                type: 'get',
-                url: $(deleteLink).prop('href'),
-                beforeSend: function(){
-                    deleteLink.css({
-                        "opacity": "0.7",
-                        "pointer-events": "none"
-                    });
-                },
-                success: function(data){
-                    console.log('Successfully deleted');
-                    $(`#comment-${data.data.comment_id}`).remove();
-
-                    new Noty({
-                        theme: 'relax',
-                        text: "Comment Deleted",
-                        type: 'success',
-                        layout: 'topRight',
-                        timeout: 1500
-                        
-                    }).show();
-                },error: function(error){
-                    console.log(error.responseText);
-                }
-            });
-
-        });
+        deleteCommentAjax(deleteLink);
     }
+}
+
+
+// This function is made outside the class so that it can be accessed even by the new comments which are fetched through ajax from the home_style.js
+function deleteCommentAjax(deleteLink){
+    $(deleteLink).click(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'get',
+            url: $(deleteLink).prop('href'),
+            beforeSend: function(){
+                deleteLink.css({
+                    "opacity": "0.7",
+                    "pointer-events": "none"
+                });
+            },
+            success: function(data){
+                console.log('Successfully deleted');
+                $(`#comment-${data.data.comment_id}`).remove();
+
+                 // Decrease the comment count
+                 let commentsCount = parseInt($(`#comments-count-${data.data.post_id}`).html().trim());
+                 $(`#comments-count-${data.data.post_id}`).text(commentsCount - 1);
+
+                new Noty({
+                    theme: 'relax',
+                    text: "Comment Deleted",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();
+            },error: function(error){
+                console.log(error.responseText);
+            }
+        });
+
+    });
 }

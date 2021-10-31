@@ -49,6 +49,8 @@
 
                         // Call the toggleCommentSection function in home_style.js to add listener on the new post's comment option
                         toggleCommentSection($(`#comments-container-${data.data.post._id}`));
+                        // Call it to handle multiple line comments ( function is in home_style.js)
+                        handleMultilineTextAreaInput(' textarea', newPost);
 
                         new Noty({
                             theme: 'relax',
@@ -122,12 +124,18 @@
                         Delete Post
                     </li>
                 </a>
-                <a href="${post.postPath}" download target="_blank">
-                    <li>
-                        <span style="margin-right: 5px; color: #688968;"><i class="fas fa-download"></i></span>
-                        Download
-                    </li>
-                </a>
+                ${post.postPath
+                ? `
+                    <a href="${post.postPath}" download target="_blank">
+                        <li>
+                            <span style="margin-right: 5px; color: #688968;"><i class="fas fa-download"></i></span>
+                            Download
+                        </li>
+                    </a>
+                `
+                : ``
+                }
+                
             </ul>
         </div>
 
@@ -159,7 +167,7 @@
 
             <div class="comments-container" id="comments-container-${post._id}" data-closed="true">
                 <div class="comments-count">
-                    <span>${post.comments.length}</span>
+                    <span id="comments-count-${post._id}">${post.comments.length}</span>
                     <span>
                         <i class="fas fa-comment-alt"></i> Comments 
                         <i class="fas fa-caret-down"></i>
@@ -202,13 +210,25 @@
 
         var allowedExtensions = /(\.jpeg|\.JPEG|\.jpg|\.JPG|\.gif|\.GIF|\.png|\.PNG|\.svg|\.SVG|\.mp4|\.MP4)$/;
         if (file.val() != "" && !allowedExtensions.exec(file.val())) {
-            alert('Invalid file selected Only upload image/ gif/ mp4 videos');
+            alert('Invalid file selected. Select only image/ gif/ mp4 videos');
             file.val("");
             return false;
+        }
+        else if(file.val() != ""){
+            console.log("Input is : ", file.val());
         }
 
         return true;
     }
+    // When image/video is selected to upload
+    $('#post-file').change(function(){
+        let isValidFile = validatePostExtension($('#new-post-form'));
+        if(isValidFile){
+            $('label[for=post-file]').text("File selected");
+        }else{
+            $('label[for=post-file]').text("Upload Image/Video (max 15mb)");
+        }
+    })
 
 
     // method to delete a post from DOM

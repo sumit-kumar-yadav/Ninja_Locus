@@ -1,9 +1,8 @@
 {
-    // To keep the focus even if tab is pressed
-    $('textarea').each(function(){
-        
+    // Handle multiline PostComments 
+    function handleMultilineTextAreaInput(textarea){
         // To keep the functionality of tab
-        $(this).keydown(function(e){
+        $(textarea).keydown(function(e){
             let target = e.target;
             let value = target.value;
 
@@ -24,15 +23,19 @@
                 this.selectionStart = this.selectionEnd = start + 1;
 
             }
-        })
+        });
 
         // To increase the textarea when input text grows automatically
-        $(this).on("input", function () {
+        $(textarea).on("input", function () {
             this.style.height = "auto";
             this.style.height = (this.scrollHeight) + "px";
         });
-    })
-
+    }
+    // Loop over all the available textArea and call handleMultilineTextAreaInput 
+    $('textarea').each(function(){
+        handleMultilineTextAreaInput($(this));
+    });
+ 
     // Show the comments section if comment is clicked
     function toggleCommentSection(commentSection){
         commentSection.click(function(e){
@@ -45,12 +48,55 @@
 
                 // get the unique post id
                 let postId = commentSection.prop('id').split("-")[2];
+                // Get the post.user._id  (poster id)
+                let posterId = commentSection.attr('data-posterId');
+
                 //get comments related to that post
                 $(`#post-comments-${postId}`).css({
-                    // "height": "auto",
                     "max-height": "1000px"
-                    // "overflow-y": "scroll"
                 });
+                // If comment's data is not fetched yet
+                let dataFetched = commentSection.attr('data-fetched');
+                if(dataFetched == 'false'){
+                    let commentLoadingContainer = $(`#post-comments-list-${postId}`);
+                    // Show loading of comments 
+                    $(` .comment-loading-animation`, commentLoadingContainer).css("display", "flex");
+
+                    // Make ajax call to fetch all the comments 
+                    $.ajax({
+                        type: 'get',
+                        url: `/comments/fetch/?postId=${postId}`,
+                        // data: $(self).serialize(),
+                        success: function(data){
+                            // Hide loading of comments 
+                            $(` .comment-loading-animation`, commentLoadingContainer).css("display", "none");
+
+                            // If commets are present 
+                            if(data.data.comment && data.data.comment.length > 0){
+                                // Loop over the comments and append it in the post 
+                                for(let comment of data.data.comment){
+                                    let preparedComment = prepareComments(comment, data.data.loggedInUserId, posterId);
+                                    commentLoadingContainer.append(preparedComment);
+
+                                    // Add event listerners on the new fetched comments
+                                    showPostCommentMoreOption($(`#post-comment-more-icon-${comment._id}`));
+                                     // Enable the functionality of the toggle like button on the new comment
+                                    new ToggleLike($(' .toggle-like-button', preparedComment));
+                                    // To make ajax call to delete the fetched comments (this function is inside the home_post_comments.js outside the class)
+                                    deleteCommentAjax($(' .delete-comment-button', preparedComment));
+                                }
+                            }else{
+                                console.log("No comments found");
+                            }
+
+                            // Set that data is fetched
+                            commentSection.attr('data-fetched', 'true');
+                        },
+                        error: function(error){
+                            console.log(error.responseText);
+                        }
+                    });
+                }
 
                 // set data-closed as false
                 commentSection.attr('data-closed', "false");
@@ -64,11 +110,10 @@
 
                 // get the unique post id
                 let postId = commentSection.prop('id').split("-")[2];
-                //get comments related to that post
+                
+                // Collapse the comment section
                 $(`#post-comments-${postId}`).css({
-                    // "height": "0px",
                     "max-height": "0px"
-                    // "overflow-y": "hidden"
                 });
 
                 // set data-closed as true
@@ -127,6 +172,82 @@
     }
     closePostCommentMoreOption();
 
+    // Fetch all the comments (called within the ajax of toggleCommentSection function)
+    function prepareComments(comment, loggedInUserId, posterId){
+        return $(`
+        <div id="comment-${comment._id}" class="comment-list-container">
+            <div class="comment-user-info">
+                <div class="user-comment-details">
+                    <a href="/users/profile/${comment.user._id}">
+                        <div class="comment-user-name-pic">
+                            <img src="${comment.user.avatar}" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                            ${loggedInUserId == comment.user._id
+                                ? `<span>You</span>`
+                                : `<span>${comment.user.name}</span>`
+                            }
+                        </div>
+                    </a>
+                    <br>
+                    <small>${new Date(comment.createdAt).toString().substring(4,16)} at ${new Date(comment.createdAt).toString().substring(16, 21)}</small>
+                </div>
+                <span class="post-comment-more-icon" id="post-comment-more-icon-${comment._id}">
+                    <i class="fas fa-ellipsis-h"></i>
+                </span>
+                <span class="post-comment-close-icon" id="post-comment-close-icon-${comment._id}">
+                    <i class="far fa-times-circle"></i>
+                </span>
+
+                <ul class="post-comment-more-options animate__animated animate__flipInX" id="post-comment-more-options-${comment._id}">
+                    <!-- Delete a comment -->
+                    ${loggedInUserId == comment.user._id || loggedInUserId == posterId
+                        ? `<a class="delete-comment-button" href="/comments/destroy/?id=${comment._id}&post_user_id=${posterId}">
+                                <li>Delete Comment</li>
+                            </a>`
+                        :  `<a href="/users/profile/${comment.user._id}">
+                                <li>View Profile</li>
+                            </a>
+                            <a href="/">
+                                <li>Report Comment</li>
+                            </a>`
+                    }
+                </ul>
+            </div>
+
+            <div class="comment-content">
+                ${comment.content}
+            </div>
+
+            <div class="comment-user-controls">
+                <!-- Display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+                <div class="comment-likes-container">
+                ${loggedInUserId
+                ? `
+                    <a class="toggle-like-button" data-likes="${comment.likes.length}" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                        <div class="likes-count">
+                            <span>${comment.likes.length}</span>
+                            <span>
+                                <i class="far fa-thumbs-up"></i>
+                                <span style="color: blue;">Likes</span>
+                            </span> 
+                        </div>
+                    </a>
+                `
+                : `
+                    <div class="likes-count">
+                        <span>${comment.likes.length}</span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>
+                            <span style="color: blue;">Likes</span>
+                        </span>
+                    </div>
+                `
+                }
+                </div>
+            </div>
+
+        </div>   
+        `)
+    }
 
     // Lazy loading of post's images and videos
     (function lazyLoadingOfPostImageVideo() {

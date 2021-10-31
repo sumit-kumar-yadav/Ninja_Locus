@@ -15,6 +15,13 @@ class ToggleLike{
             $.ajax({
                 type: 'POST',
                 url: $(self).attr('href'),
+                beforeSend: function(){
+                    // Disable like button
+                    $(self).parent().css({
+                        "opacity": "0.7",
+                        "pointer-events": "none"
+                    });
+                }
             })
             .done(function(data) {
                 let likesCount = parseInt($(self).attr('data-likes'));
@@ -47,6 +54,12 @@ class ToggleLike{
 
 
                 $(self).attr('data-likes', likesCount);
+
+                // Enable like button
+                $(self).parent().css({
+                    "opacity": "1",
+                    "pointer-events": "auto"
+                })
 
             })
             .fail(function(errData) {

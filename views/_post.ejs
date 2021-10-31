@@ -104,9 +104,9 @@
                 <% } %>
             </div>
 
-            <div class="comments-container" id="comments-container-<%=post._id%>" data-closed="true">
+            <div class="comments-container" id="comments-container-<%=post._id%>" data-closed="true" data-posterId="post.user._id" data-fetched="false">
                 <div class="comments-count">
-                    <span><%= post.comments.length %></span>
+                    <span id="comments-count-<%=post._id%>"><%= post.comments.length %></span>
                     <span>
                         <i class="fas fa-comment-alt"></i> Comments 
                         <i class="fas fa-caret-down"></i>
@@ -128,11 +128,12 @@
             
             <div class="post-comments-list">
                 <div id="post-comments-list-<%= post._id %>">
-                    <% for (comment of post.comments){%>
-    
-                        <%- include('_comment') -%>    
-                        
-                    <%} %>
+                    <!-- Here _comment.ejs file was there before ajax was implemented -->
+                    <div class="comment-loading-animation">
+                        <div class="loadingio-spinner-spin-8soird73u5f"><div class="ldio-96l53ffv5hg">
+                            <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+                            </div></div>
+                    </div>
                 </div>
             </div>
         </div>
