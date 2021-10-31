@@ -51,14 +51,16 @@
                 // Get the post.user._id  (poster id)
                 let posterId = commentSection.attr('data-posterId');
 
-                //get comments related to that post
+                // Set the max-height
                 $(`#post-comments-${postId}`).css({
                     "max-height": "1000px"
                 });
+
+                let commentLoadingContainer = $(`#post-comments-list-${postId}`);
+
                 // If comment's data is not fetched yet
                 let dataFetched = commentSection.attr('data-fetched');
                 if(dataFetched == 'false'){
-                    let commentLoadingContainer = $(`#post-comments-list-${postId}`);
                     // Show loading of comments 
                     $(` .comment-loading-animation`, commentLoadingContainer).css("display", "flex");
 
@@ -85,6 +87,10 @@
                                     // To make ajax call to delete the fetched comments (this function is inside the home_post_comments.js outside the class)
                                     deleteCommentAjax($(' .delete-comment-button', preparedComment));
                                 }
+
+                                // Scroll at the bottom of the comment
+                                scrollToBottomOfComment(commentLoadingContainer.parent()[0]);
+                                
                             }else{
                                 console.log("No comments found");
                             }
@@ -100,6 +106,9 @@
 
                 // set data-closed as false
                 commentSection.attr('data-closed', "false");
+
+                // Scroll at the bottom of the comment
+                scrollToBottomOfComment(commentLoadingContainer.parent()[0]);
 
             }else{  // Comment box is opened
 
@@ -126,6 +135,11 @@
         let self = $(this);
         toggleCommentSection(self);
     });
+
+    function scrollToBottomOfComment(container){
+        // Commented as for now
+        // container.scrollTop = (container.scrollHeight - container.clientHeight);
+    }
 
     function showPostCommentMoreOption(icon){
         // console.log("icon is: ", icon)

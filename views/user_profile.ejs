@@ -1,18 +1,17 @@
 <link rel="stylesheet" href="<%= assetPath('css/user_profile.css') %>">
 <link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>">
 
-<!-- Profile picture of user -->
-<img src="<%= user.avatar %>" alt="<%= user.name %>" width="100" onerror="this.onerror=null;this.src='/images/Users-avatar.png';"> <%= user.name %> &ensp; &ensp;
 <!-- Profile picture of profile user -->
-<img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100" onerror="this.onerror=null;this.src='/images/Users-avatar.png';"> <%= profile_user.name %>
+<img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
 
 
 
 <% if(user.id == profile_user.id){ %>
     <!-- if user matches then show the form -->
+    <h1>You can update your name / profile picture here</h1>
     <form action="/users/update/<%= profile_user.id %>" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
-        <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
+        <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required hidden>
         
         <input type="file" name="avatar" accept="image/*">
         <input type="submit"  value="Update">

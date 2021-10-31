@@ -44,7 +44,7 @@ class PostComments{
                     $(' textarea', pSelf.newCommentForm).css("height", "auto");
 
                     let newComment = pSelf.newCommentDom(data.data.comment, data.data.post_user_id);
-                    $(`#post-comments-list-${postId}`).append(newComment);
+                    $(`#post-comments-list-${postId}`).prepend(newComment);
 
                     // Increase the comment count
                     let commentsCount = parseInt($(`#comments-count-${postId}`).html().trim());

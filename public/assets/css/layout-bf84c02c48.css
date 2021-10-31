@@ -1,0 +1,1 @@
+body{margin:0;font-size:1rem;padding:0 5px}body #layout-main{height:100%;box-sizing:border-box;padding-top:65px;overflow-y:scroll;position:relative}body #layout-main #blur-screen{display:none;width:100vw;height:100vh;position:absolute;top:0;background-color:#000;opacity:.8}::-webkit-scrollbar{width:0;height:0;background:transparent}

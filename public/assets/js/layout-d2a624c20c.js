@@ -1,0 +1,1 @@
+$("#blur-screen").click((function(){closeNavSideMenu()}));

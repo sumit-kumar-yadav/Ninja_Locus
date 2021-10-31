@@ -23,7 +23,7 @@ const customMware = require('./config/middleware');
 const chatServer = require('http').createServer(app);
 const options = {
     cors: {
-        origin: "http://localhost:8000",
+        origin: "http://ninjalocus.com",
         methods: ["GET", "POST"]
       }
 };
