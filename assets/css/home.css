@@ -241,6 +241,7 @@
             align-items: center; }
             #posts-list-container .post-list .post-comments-list .comment-list-container .comment-user-info .comment-user-name-pic img {
               width: 25px;
+              height: 25px;
               border-radius: 50%;
               margin-right: 5px; }
         #posts-list-container .post-list .post-comments-list .comment-list-container .comment-content {

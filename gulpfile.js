@@ -12,7 +12,7 @@ const del = require('del');
 gulp.task('css', function(done){
     console.log('minifying css...');
     gulp.src('./assets/**/*.css', {base: 'assets'})
-    .pipe(cssnano())
+    .pipe(cssnano({ zindex: false }))
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
     .pipe(rev.manifest('public/assets/rev-manifest.json', {

@@ -104,7 +104,7 @@
                 <% } %>
             </div>
 
-            <div class="comments-container" id="comments-container-<%=post._id%>" data-closed="true" data-posterId="post.user._id" data-fetched="false">
+            <div class="comments-container" id="comments-container-<%=post._id%>" data-closed="true" data-posterId="<%=post.user._id%>" data-fetched="false">
                 <div class="comments-count">
                     <span id="comments-count-<%=post._id%>"><%= post.comments.length %></span>
                     <span>
