@@ -1,8 +1,59 @@
 <link rel="stylesheet" href="<%= assetPath('css/user_profile.css') %>">
 <link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>">
+<link rel="stylesheet" href="<%= assetPath('css/post.css') %>">
 
-<!-- Profile picture of profile user -->
-<img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+
+<!-- <svg width="26px" height="26px" viewBox="-4 -4 24 24" style=""><line x1="2" x2="14" y1="2" y2="14" stroke-linecap="round" stroke-width="2" stroke="#bec2c9"></line><line x1="2" x2="14" y1="14" y2="2" stroke-linecap="round" stroke-width="2" stroke="#bec2c9"></line></svg> -->
+
+<div id="profile-page">
+    <form id="cover-photo-section">
+        <input id="cover-photo-input" type="file" name="cover-photo" hidden accept="image/*">
+        <label for="cover-photo-input" class="bottom-right-cover-form-buttons">
+            Edit Cover Photo
+        </label>
+        <button class="bottom-right-cover-form-buttons" type="submit">Upload selected image</button>
+    </form>
+
+    <section id="profle-section">
+        <label for="change-avatar">
+            <img src="<%= profile_user.avatar %>" alt="" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+            <span id="update-avatar"><i class="fas fa-camera"></i></span>
+        </label>
+        <input id="change-avatar" type="file" name="avatar" accept="image/*" hidden>
+        <span>
+            <span id="profile-display-name"><%= profile_user.name %></span>
+                <br><small><%= profile_user.email %></small>
+            </span>
+        <button>Edit Profile</button>
+    </section>
+
+    <section id="profile-tab-section">
+        <button class="profile-tabs">
+            Posts
+        </button>
+        <button class="profile-tabs">
+            About
+        </button>
+        <button class="profile-tabs">
+            Friends
+        </button>
+        <button class="profile-tabs">
+            More
+        </button>
+    </section>
+
+    <section id="profile-content-container">
+        <% for(post of posts){ %>
+                
+            <%- include('_post') -%>
+                
+        <%} %>
+    </section>
+</div>
+
+
+
+
 
 
 
@@ -57,3 +108,21 @@
 
 
 <script src="<%= assetPath('js/toggle_friendship.js') %>"></script>
+
+<!-- Import the js file for styling -->
+<script src="<%= assetPath('js/home_style.js') %>"></script>
+
+<!-- importing this script for creating the post and comments through AJAX-->
+<script src="<%= assetPath('js/home_post_comments.js') %>" ></script>
+<script src="<%= assetPath('js/home_posts.js') %>"></script>
+<!-- It's important to keep (/js/home_post_comments.js) script file above this (/js/home_posts.js) file -->
+
+
+<!-- Import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+<script src="<%= assetPath('js/toggle_likes.js') %>"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>

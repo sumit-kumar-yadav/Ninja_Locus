@@ -1,9 +1,16 @@
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
+const Post = require('../models/post');
 const path = require('path');
 const fs = require('fs');
 const Friendship = require('../models/friendship');
+
+async function findUsersPosts(profileId){
+    return await Post.find({user: profileId})
+                        .sort('-createdAt')
+                        .populate('user');
+}
 
 // Render the profile
 module.exports.profile = async function(req, res){
@@ -28,10 +35,13 @@ module.exports.profile = async function(req, res){
         }
     }
 
+    let posts = await findUsersPosts(req.params.id);
+
     return res.render('user_profile', {
         title: 'User Profile',
         profile_user: profileUser,
-        friendship: friendship
+        friendship: friendship,
+        posts: posts
     });
 
 }

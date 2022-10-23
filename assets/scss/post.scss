@@ -1,0 +1,471 @@
+// code of _post.ejs file
+.post-list{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 7px 15px 0px 15px;
+    margin: 7px 0px;
+    background-color: #fefefe;
+    box-shadow: 0px 0px 8px 0px #a78c8c;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+    .user-info{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        position: relative;
+
+        .user-post-details{
+            position: relative;
+            min-width: 180px;
+            display: flex;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        small{
+            position: absolute;
+            top: 26px;
+            left: 40px;
+            font-size: 0.6rem;
+            color: grey;
+        }
+        .user-name-pic{
+            display: flex;
+            align-items: center;
+            img{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                margin-right: 5px;
+            }
+        }
+    }
+    .post-content{
+        padding: 5px;
+        max-height: 225px;
+        overflow-y: scroll;
+        color: #7a6e6e;
+        text-align: justify;
+    }
+
+    .post-image-video{
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-top: 5px;
+        overflow: hidden;
+        .post-image, .post-video{
+            max-height: 350px;
+            max-width: -webkit-fill-available;
+            z-index: 2;
+        }
+        .post-image{
+            opacity: 0;
+        }
+        .post-image-video-loading{   // For loading
+            position: absolute;
+        }
+    }
+    .user-controls{
+        width: 100%;
+        display: flex;
+        // justify-content: space-between;
+        align-items: center;
+        margin-top: 7px;
+        border-top: 1px solid #dcd5d5;
+        box-sizing: border-box;
+        padding: 4px;
+        &>div{
+            width: calc(100% / 3);
+            min-width: 150px;
+            cursor: pointer;
+            border-right: 1px solid #b5a9a9;
+            box-sizing: border-box;
+            padding: 7px 4px;
+            &:hover{
+                background-color: #f3f2f2;;
+                // box-shadow: 0px 2px 4px 1px grey;
+            }
+        }
+        .comments-container{
+            color: orange;
+        }
+        a{
+            color: black;
+            text-decoration: none;
+        }
+        .likes-count, .comments-count{
+            margin: auto;
+            width: fit-content;
+        }
+        .likes-count{
+            color: grey;
+        }
+
+    }
+    .post-comments{
+        // height: 0px;
+        max-height: 0px;
+        overflow-y: hidden;
+        margin-top: 10px;
+        transition: all 0.3s ease-in-out;
+
+        form{
+            width: 100%;
+            display: flex;
+            resize: none;
+            margin-bottom: 7px;
+            box-shadow: 0px -2px 4px 2px grey;
+
+            textarea{
+                width: 100%;
+                height: 39px;
+                resize: none;
+                border: none;
+                outline: none;
+                background-color: #f4efef;
+                padding: 1px 5px;
+                font-size: 1rem;
+                white-space: pre-wrap;
+                border-radius: 5px 0px 0px 5px;
+                &:focus{
+                    background-color: #e5f4f5;
+                }
+            }
+            input{
+                height: 39px;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                background: #86a9a9;
+                border-radius: 0px 5px 5px 0px;
+                color: white;
+                letter-spacing: 1.5px;
+            }
+        }
+    }
+
+    // SCSS of comment.ejs
+    .post-comments-list{
+        max-height: 400px;
+        overflow-y: scroll;
+        margin-bottom: 7px;
+        box-sizing: border-box;
+        padding: 7px;
+
+        .comment-loading-animation{
+            // display: flex;
+            display: none;
+            height: 45px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            &>div{
+                transform: scale(0.5);
+                position: absolute;
+                top: -80px;
+            }
+        }
+
+        // In _comment.ejs file
+        .comment-list-container{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5px;
+            box-shadow: 0px 0px 4px 0px grey;
+            margin: 8px 0px;
+            box-sizing: border-box;
+            border-radius: 3px;
+
+            .comment-user-info{
+                width: 100%;
+                display: flex;
+                position: relative;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                .user-comment-details{
+                    position: relative;
+                    min-width: 180px;
+                    display: flex;
+                }
+                a{
+                    text-decoration: none;
+                    color: black;
+                }
+                small{
+                    position: absolute;
+                    top: 20px;
+                    left: 31px;
+                    font-size: 0.6rem;
+                }
+                .comment-user-name-pic{
+                    display: flex;
+                    align-items: center;
+                    img{
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                        margin-right: 5px;
+                    }
+                }
+                
+            }
+            .comment-content{
+                background-color: #e7f0df;
+                padding: 5px;
+                margin-left: 23px;
+                margin-right: 10px;
+                max-height: 225px;
+                overflow-y: scroll;
+                border-radius: 5px;
+                color: #413c49;
+            }
+            .comment-user-controls{
+                width: 100%;
+                display: flex;
+                // justify-content: space-between;
+                align-items: center;
+                font-size: 12px;
+                margin: 4px 0px;
+                padding: 4px;
+                &>div{
+                    width: calc(100% / 3);
+                    cursor: pointer;
+                }
+                a{
+                    color: black;
+                    text-decoration: none;
+                }
+                .likes-count{
+                    margin: auto;
+                    width: fit-content;
+                }
+            }
+        }
+    }
+}
+
+// Css common for _post.ejs and _comment.ejs
+.post-comment-more-icon{
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: grey;
+}
+.post-comment-more-options{
+    position: absolute;
+    top: 29px;
+    right: 2px;
+    display: none;
+    margin: 0px;
+    box-sizing: border-box;
+    padding: 7px 12px;
+    list-style: none;
+    line-height: 28px;
+    border-radius: 0px 5px;
+    background-color: #ffffff;
+    border: 1px solid grey;
+    z-index: 3;
+    &>a{
+        text-decoration: none;
+        color: black;
+        display: block;
+        width: 145px;
+        background-color: white;
+        padding: 5px;
+        border-radius: 3px;
+        box-shadow: 0px 1px 5px 1px grey;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+        &:hover{
+            box-shadow: none;
+            border: 1px solid grey;
+            background-color: #eff4f7;
+        }
+    }
+}
+.post-comment-close-icon{
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: grey;
+}
+
+
+
+
+
+
+
+// media query for the home page
+// Tab view
+@media screen and (max-width: 847px){
+    
+}
+// Mobile view
+@media screen and (max-width: 547px) {
+    .post-list{
+        width: 100%;
+        box-sizing: border-box;
+        .user-controls{
+            &>div{
+                width: calc(100% / 2);
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // Style of loading animation 
+
+// generated by https://loading.io/
+@keyframes ldio-zwmxbg1ll {
+    0% { transform: rotate(0deg) }
+    50% { transform: rotate(180deg) }
+    100% { transform: rotate(360deg) }
+  }
+  .ldio-zwmxbg1ll div {
+    position: absolute;
+    animation: ldio-zwmxbg1ll 1s linear infinite;
+    width: 94.56px;
+    height: 94.56px;
+    top: 51.22px;
+    left: 51.22px;
+    border-radius: 50%;
+    box-shadow: 0 3.94px 0 0 #e15b64;
+    transform-origin: 47.28px 49.25px;
+  }
+  .loadingio-spinner-eclipse-8jfbkc15oik {
+    width: 197px;
+    height: 197px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+  .ldio-zwmxbg1ll {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-zwmxbg1ll div { box-sizing: content-box; }
+
+
+//   Style for jumping ball while loading the comments 
+@keyframes ldio-96l53ffv5hg {
+    0% {
+      opacity: 1;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1.73,1.73);
+    } 100% {
+      opacity: 0;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1,1);
+    }
+  }
+  .ldio-96l53ffv5hg div > div {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #6503ff;
+    animation: ldio-96l53ffv5hg 1s linear infinite;
+  }.ldio-96l53ffv5hg div:nth-child(1) > div {
+    left: 126px;
+    top: 94px;
+    animation-delay: -0.8571428571428571s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(1) {
+    transform: rotate(0deg);
+    transform-origin: 132px 100px;
+  }.ldio-96l53ffv5hg div:nth-child(2) > div {
+    left: 114px;
+    top: 119px;
+    animation-delay: -0.7142857142857143s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(2) {
+    transform: rotate(51.42857142857143deg);
+    transform-origin: 120px 125px;
+  }.ldio-96l53ffv5hg div:nth-child(3) > div {
+    left: 87px;
+    top: 125px;
+    animation-delay: -0.5714285714285714s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(3) {
+    transform: rotate(102.85714285714286deg);
+    transform-origin: 93px 131px;
+  }.ldio-96l53ffv5hg div:nth-child(4) > div {
+    left: 65px;
+    top: 108px;
+    animation-delay: -0.42857142857142855s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(4) {
+    transform: rotate(154.28571428571428deg);
+    transform-origin: 71px 114px;
+  }.ldio-96l53ffv5hg div:nth-child(5) > div {
+    left: 65px;
+    top: 80px;
+    animation-delay: -0.2857142857142857s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(5) {
+    transform: rotate(205.71428571428572deg);
+    transform-origin: 71px 86px;
+  }.ldio-96l53ffv5hg div:nth-child(6) > div {
+    left: 87px;
+    top: 63px;
+    animation-delay: -0.14285714285714285s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(6) {
+    transform: rotate(257.14285714285717deg);
+    transform-origin: 93px 69px;
+  }.ldio-96l53ffv5hg div:nth-child(7) > div {
+    left: 114px;
+    top: 69px;
+    animation-delay: 0s;
+  }
+  .ldio-96l53ffv5hg > div:nth-child(7) {
+    transform: rotate(308.57142857142856deg);
+    transform-origin: 120px 75px;
+  }
+  .loadingio-spinner-spin-8soird73u5f {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+  .ldio-96l53ffv5hg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-96l53ffv5hg div { box-sizing: content-box; }
