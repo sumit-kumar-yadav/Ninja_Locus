@@ -1,6 +1,47 @@
 const Friendship = require('../models/friendship');
 const User = require('../models/user');
 
+module.exports.getFriends = async function(req, res) {
+    try {
+        let id = req.params.id;
+        let user = await User.findById(id)
+                        .populate({
+                            path: 'friendships',
+                            populate: [
+                                {
+                                    path: 'from_user',
+                                    select:'name avatar'   // select: '-password'
+                                },
+                                {
+                                    path: 'to_user',
+                                    select:'name avatar'
+                                }
+                            ]
+                        });
+
+        // If someone else is looking at the friends of the user 
+        if(req.user.id != id){
+            // Send only the friend whose friendship is accepted
+            user.friendships.filter((friendship) => {
+                return friendship.accepted;
+            })
+        }
+
+        return res.json(200, {
+            message: "Request successful!",
+            data: {
+                friends: user.friendships
+            }
+        })
+
+    } catch (err) {
+        console.log('Error in fetching friends', err);
+        return res.json(500, {
+            message: 'Internal Server Error'
+        });
+    }
+}
+
 module.exports.toggleFriendship = async function(req, res){
     try{
 

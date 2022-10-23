@@ -5,17 +5,13 @@ const { body, check } = require('express-validator');
 const middleware = require('../config/middleware');
 
 const usersController = require('../controllers/users_controller');
+const userInfoController = require('../controllers/userInfo_controller');
 
 router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
-router.post('/update/:id', 
+router.post('/updateAvatar/:id', 
     passport.checkAuthentication, 
     middleware.uploadAvatar,  // put file in the req  (important to use here before expressvalidator)
-    body('email').isEmail(), // email must be an valid
-    [
-        check('name', 'Name is required').trim().notEmpty(),     // Only spaces should not present in the name
-        check('name', 'Name format is wrong').isAlpha('en-US', {ignore: ' '})  // Name should be in english alphabets and white spaces can be ignored only
-    ],
-    usersController.update
+    usersController.updateAvatar
 );
 
 router.get('/sign-up', usersController.signUp);
@@ -45,5 +41,17 @@ router.get('/sign-out', usersController.destroySession);
 router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 // Route for the callback sent by the google after verifyiing the user
 router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/users/sign-in'}), usersController.createSession);
+
+router.post('/editProfile/:id', 
+    passport.checkAuthentication, 
+    [
+        check('name', 'Name is required').trim().notEmpty(),     // Only spaces should not present in the name
+        check('name', 'Name format is wrong').isAlpha('en-US', {ignore: ' '})  // Name should be in english alphabets and white spaces can be ignored only
+    ],
+    [
+        check('status', 'Status is Empty').trim().notEmpty()
+    ],
+    userInfoController.editProfile
+);
 
 module.exports = router;

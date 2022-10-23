@@ -25,7 +25,11 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Friendship' 
         }
-    ]
+    ],
+    userInfo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserInfo'
+    }
 
 }, {
     timestamps: true

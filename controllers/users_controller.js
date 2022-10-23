@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
+const UserInfo = require('../models/userInfo');
 const Post = require('../models/post');
 const path = require('path');
 const fs = require('fs');
@@ -15,6 +16,10 @@ async function findUsersPosts(profileId){
 // Render the profile
 module.exports.profile = async function(req, res){
     let profileUser = await User.findById(req.params.id);
+    let profileUserInfo = null;
+    if(profileUser.userInfo){
+        profileUserInfo = await UserInfo.findById(profileUser.userInfo);
+    }
 
     let friendship;
 
@@ -40,44 +45,26 @@ module.exports.profile = async function(req, res){
     return res.render('user_profile', {
         title: 'User Profile',
         profile_user: profileUser,
-        friendship: friendship,
-        posts: posts
+        friendship,
+        posts,
+        profileUserInfo
     });
 
 }
 
 // Action for updating the profile
-module.exports.update = async function(req, res){
+module.exports.updateAvatar = async function(req, res){
     if(req.user.id == req.params.id){
-
         let user;
-
         try{
-            // Finds the validation errors in this request and wraps them in an object with handy functions
-            const expressValidatorError = validationResult(req);
-            if (!expressValidatorError.isEmpty()) {
-                // return res.status(400).json({ expressValidatorError: expressValidatorError.array() });
-                let arrayOfErrors = expressValidatorError.array();
-                if(arrayOfErrors[0].param == 'email'){     // If email is invalid
-                    req.flash('error', 'Invalid Email');
-                }else if(arrayOfErrors[0].param == 'name'){  // If incorrect format of password 
-                    req.flash('error', 'Invalid Name');
-                }
-                return res.redirect('back');
-            }
-
             user = await User.findById(req.params.id);
             // using multer
             // User.uploadedAvatar(req, res, function(err){   // our statically created function inside user.js of models
                 // if(err){console.log('****** Multer Error: ', err)}
-
-                // console.log(req.file);
-
-                user.name = req.body.name;    // We would have not been able to use req.body without multer in case of file uploading form
-                user.email = req.body.email;
+                // user.name = req.body.name;    // We would have not been able to use req.body without multer in case of file uploading form
+                // user.email = req.body.email;
 
                 if(req.file){   // file is put by the multer
-                    
                     // If user has already uploaded profile pic
                     if(user.avatar){  
                         // delete it from the file system

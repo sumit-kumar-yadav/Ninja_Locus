@@ -1,15 +1,27 @@
-#profile-page {
+#profile-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; }
+
+#user-profile {
   border: 1px solid black;
-  max-width: 950px;
-  margin: auto; }
+  width: 100%;
+  max-width: 976px;
+  height: 100%;
+  margin: auto;
+  box-sizing: border-box;
+  overflow-y: scroll; }
 
 #cover-photo-section {
   position: relative;
   height: 50vh;
   opacity: 0.8;
-  background-image: url(/images/ninjabanner.jpg);
+  background-color: #dfbf97;
   background-size: cover;
   background-position: center; }
+  #cover-photo-section > form {
+    margin: 0px; }
   #cover-photo-section button {
     display: none; }
   #cover-photo-section .bottom-right-cover-form-buttons {
@@ -30,26 +42,33 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid #d0c4c4; }
-  #profle-section label {
+  #profle-section #update-avatar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: -60px 10px 10px 10px; }
+  #profle-section label[for="change-avatar"] {
+    display: block;
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    margin: -60px 10px 10px 10px;
     cursor: pointer;
     position: relative; }
-    #profle-section label #update-avatar {
+    #profle-section label[for="change-avatar"] img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%; }
+    #profle-section label[for="change-avatar"] span {
       position: absolute;
       bottom: 10%;
       right: 10%; }
-  #profle-section img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%; }
   #profle-section #profile-display-name {
     font-size: 2rem; }
+  #profle-section a {
+    margin: 0px 10px; }
   #profle-section button {
-    margin-left: auto;
-    margin-right: 10px;
+    cursor: pointer;
     background-color: cadetblue;
     color: white;
     padding: 6px;
@@ -64,8 +83,12 @@
     font-size: larger;
     border-radius: 5px;
     cursor: pointer; }
+  #profile-tab-section .active {
+    background-color: #ac5050;
+    color: white; }
 
-#profile-content-container {
+#profile-content-container #profile-user-posts {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center; }

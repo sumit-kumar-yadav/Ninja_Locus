@@ -7,7 +7,7 @@ class searchEngine{
     }
 
     handleSearch = ()=>{
-        console.log("input changed");
+        // console.log("input changed");
         // Fetch the searched user
         this.search = $('#search-bar-conatiner #search-bar input').val();
         let listOfUsers = $('#search-bar-conatiner #searched-users');
@@ -32,7 +32,7 @@ class searchEngine{
                                 <a href="/users/profile/${user._id}">
                                     <li>
                                             ${user.avatar ? `<img src="${user.avatar}" alt="img" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">`
-                                                        : `<img src="images/Users-avatar.png" alt="image">` 
+                                                        : `<img src="/images/Users-avatar.png" alt="image">` 
                                             }
                                             
                                             ${user.name}

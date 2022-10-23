@@ -7,7 +7,7 @@
         });
 
         // Open the blur div (#blur-screen)
-        $('#blur-screen').css('display', "initial");
+        $('#blur-screen').css('display', "inherit");
     })
 
     // When #nav-side-menu-list-close is clicked

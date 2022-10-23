@@ -5,100 +5,201 @@
 
 <!-- <svg width="26px" height="26px" viewBox="-4 -4 24 24" style=""><line x1="2" x2="14" y1="2" y2="14" stroke-linecap="round" stroke-width="2" stroke="#bec2c9"></line><line x1="2" x2="14" y1="14" y2="2" stroke-linecap="round" stroke-width="2" stroke="#bec2c9"></line></svg> -->
 
-<div id="profile-page">
-    <form id="cover-photo-section">
-        <input id="cover-photo-input" type="file" name="cover-photo" hidden accept="image/*">
-        <label for="cover-photo-input" class="bottom-right-cover-form-buttons">
-            Edit Cover Photo
-        </label>
-        <button class="bottom-right-cover-form-buttons" type="submit">Upload selected image</button>
-    </form>
-
-    <section id="profle-section">
-        <label for="change-avatar">
-            <img src="<%= profile_user.avatar %>" alt="" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
-            <span id="update-avatar"><i class="fas fa-camera"></i></span>
-        </label>
-        <input id="change-avatar" type="file" name="avatar" accept="image/*" hidden>
-        <span>
-            <span id="profile-display-name"><%= profile_user.name %></span>
-                <br><small><%= profile_user.email %></small>
-            </span>
-        <button>Edit Profile</button>
-    </section>
-
-    <section id="profile-tab-section">
-        <button class="profile-tabs">
-            Posts
-        </button>
-        <button class="profile-tabs">
-            About
-        </button>
-        <button class="profile-tabs">
-            Friends
-        </button>
-        <button class="profile-tabs">
-            More
-        </button>
-    </section>
-
-    <section id="profile-content-container">
-        <% for(post of posts){ %>
-                
-            <%- include('_post') -%>
-                
-        <%} %>
-    </section>
-</div>
+<!-- Select the background of #cover-photo-section -->
+<% if(profileUserInfo && profileUserInfo.coverPhoto){ %>
+    <% var coverPhotoBackground = profileUserInfo.coverPhoto %>
+<% }else{ %>
+    <% var coverPhotoBackground = '/images/cloudAnimation.svg' %>
+<% } %>
 
 
-
-
-
-
-
-<% if(user.id == profile_user.id){ %>
-    <!-- if user matches then show the form -->
-    <h1>You can update your name / profile picture here</h1>
-    <form action="/users/update/<%= profile_user.id %>" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
-        <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required hidden>
-        
-        <input type="file" name="avatar" accept="image/*">
-        <input type="submit"  value="Update">
-    </form>
+<div id="profile-container">
+    <div id="user-profile">
+       <div id="cover-photo-section" style="background-image: url('<%= coverPhotoBackground %>');">
+        <% if(user.id == profile_user.id){ %>
+            <form action="">
+                <input id="cover-photo-input" type="file" name="cover-photo" hidden accept="image/*">
+                <label for="cover-photo-input" class="bottom-right-cover-form-buttons">
+                    Edit Cover Photo
+                </label>
+                <button class="bottom-right-cover-form-buttons" type="submit">Upload selected image</button>
+            </form>
+        <% } %> 
+        </div>
     
-<%}else{%>    
-    <!-- else show only the profile info -->
-    <p><%= profile_user.name %></p>
-    <p><%= profile_user.email %></p>
-
-    <!-- If friendship exists -->
-    <% if(friendship){ %>
-        <% if(friendship.accepted){ %>
-            <a href="/friendship/remove-friend/<%= friendship.id %>"><button type="button">Remove Friend</button></a>
-
-        <% }else{ %>
-            <!-- Toggle friendship button for the request sender -->
-            <% if(friendship.from_user == user.id){ %>
-                <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
-                    <button type="submit">Cancel Request</button>
-                </a>
+        <div id="profle-section">
+            <% if(user.id == profile_user.id){ %>
+                <form id="update-avatar" action="/users/updateAvatar/<%= profile_user.id %>" method="POST" enctype="multipart/form-data">
+                    <label for="change-avatar">
+                        <img src="<%= profile_user.avatar %>" alt="" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                        <span><i class="fas fa-camera"></i></span>
+                    </label>
+                    <input id="change-avatar" type="file" name="avatar" accept="image/*" hidden required>
+                    <span>
+                        <button type="submit">Upload</button>
+                    </span>
+                </form>
             <% }else{ %>
-                <!-- Accept or delete friend for the receiver -->
-                <a href="/friendship/accept-request/<%= friendship.id %>"><button type="button">Accept Request</button></a>
-                <a href="/friendship/delete-request/<%= friendship.id %>"><button type="button">Delete Request</button></a>
+                <div id="update-avatar">
+                    <label for="change-avatar">
+                        <img src="<%= profile_user.avatar %>" alt="" onerror="this.onerror=null;this.src='/images/Users-avatar.png';">
+                    </label>
+                </div>
+            <% } %> 
+            <span>
+                <span id="profile-display-name"><%= profile_user.name %></span>
+                <% if(user.id == profile_user.id){ %>
+                <br><small><%= profile_user.email %></small>
+                <% } %> 
+            </span>
+    
+            <% if(user.id != profile_user.id){ %>
+            <span>
+                <!-- If friendship exists -->
+                <% if(friendship){ %>
+                    <% if(friendship.accepted){ %>
+                        <a href="/friendship/remove-friend/<%= friendship.id %>"><button type="button">Remove Friend</button></a>
+                        <button type="button">Message</button>
+                    <% }else{ %>
+                        <!-- Toggle friendship button for the request sender -->
+                        <% if(friendship.from_user == user.id){ %>
+                            <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
+                                <button type="submit">Cancel Request</button>
+                            </a>
+                        <% }else{ %>
+                            <!-- Accept or delete friend for the receiver -->
+                            <a href="/friendship/accept-request/<%= friendship.id %>"><button type="button">Accept Request</button></a>
+                            <a href="/friendship/delete-request/<%= friendship.id %>"><button type="button">Delete Request</button></a>
+                        <% } %>
+    
+                    <% } %>
+                <% }else{ %>
+                    <!-- Toggle friendship button -->
+                    <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
+                        <button type="submit">Add Friend</button>
+                    </a>
+                <% } %>
+            </span>
             <% } %>
-
-        <% } %>
-    <% }else{ %>
-        <!-- Toggle friendship button -->
-        <a class="toggle-friend-button" href="/friendship/toggle/<%= profile_user._id %>">
-            <button type="submit">Add Friend</button>
-        </a>
-    <% } %>
-
-<%} %>
+        </div>
+    
+        <section id="profile-tab-section">
+            <button class="profile-tabs active" data-display-id="profile-user-posts">
+                Posts
+            </button>
+            <button class="profile-tabs" data-display-id="profile-user-about">
+                About
+            </button>
+            <button class="profile-tabs" data-display-id="profile-user-friends">
+                Friends
+            </button>
+            <% if(user.id == profile_user.id){ %>
+            <button class="profile-tabs" data-display-id="profile-user-edit">
+                Edit profile
+            </button>
+            <% } %>
+        </section>
+    
+        <section id="profile-content-container">
+            <div id="profile-user-posts" data-visited="false">
+                <% for(post of posts){ %>
+                        
+                    <%- include('_post') -%>
+                        
+                <%} %>
+            </div>
+    
+            <div id="profile-user-about" style="display: none;" data-visited="false">
+                <div id="display-about-status">
+                    <% if(profileUserInfo && profileUserInfo.status){ %>
+                        <%= profileUserInfo.status %>
+                    <% }else{ %>
+                        Hey there!!! I am a Ninja now &#x1F60D;
+                    <% } %>
+                </div>
+                <div id="display-location">
+                    Lives in : 
+                    <% if(profileUserInfo && profileUserInfo.address.state && profileUserInfo.address.city){ %>
+                        <%= profileUserInfo.address.city %> ,
+                        <%= profileUserInfo.address.state %> , India
+                    <% }else{ %>
+                        Not Set
+                    <% } %>
+                </div>
+                <div id="display-gender">
+                    Gender:
+                    <% if(profileUserInfo && profileUserInfo.gender){ %>
+                        <%= profileUserInfo.gender %>
+                    <% }else{ %>
+                        Not Set
+                    <% } %>
+                </div>
+                <div id="display-dob">
+                    D.O.B. : 
+                    <% if(profileUserInfo && profileUserInfo.dob){ %>
+                        <%= profileUserInfo.dob.toDateString() %>
+                    <% }else{ %>
+                        Not Set
+                    <% } %>
+                </div>
+            </div>
+    
+            <div id="profile-user-friends" style="display: none;" data-visited="false" data-userId="<%= profile_user._id %>">
+    
+            </div>
+    
+            <% if(user.id == profile_user.id){ %>
+            <form id="profile-user-edit" style="display: none;" id="edit-user-profile" data-visited="false" action="/users/editProfile/<%= profile_user.id %>" method="POST">
+                <div>
+                    <span>Edit your Name: </span>
+                    <input type="text" name="name" value="<%= profile_user.name %>" required>
+                </div>
+                <div>
+                    <span>Edit your status: </span>
+                    <% if(profileUserInfo && profileUserInfo.status){ %>
+                        <textarea name="status" id="" cols="30" rows="5" required><%= profileUserInfo.status %></textarea>
+                    <% }else{ %>
+                        <textarea name="status" id="" cols="30" rows="5" required>Hey there!!! I am a Ninja now &#x1F60D;</textarea>
+                    <% } %>
+                </div>
+                <div>
+                    <span>Edit your Location: </span>
+                    <select name="country">
+                        <option value="India" selected>India</option>
+                    </select>
+                    <select id="state" name="state"> 
+                        <% if(profileUserInfo && profileUserInfo.address.state){ %>
+                            <option value="<%= profileUserInfo.address.state %>"><%= profileUserInfo.address.state %></option>
+                        <% }else{ %>
+                            <option value="">State</option> 
+                        <% } %>   
+                    </select>
+                    <select id="city" name="city"> 
+                        <% if(profileUserInfo && profileUserInfo.address.city){ %>
+                            <option class="cities" value="<%= profileUserInfo.address.city %>"><%= profileUserInfo.address.city %></option>
+                        <% }else{ %>
+                            <option class="cities" value="">City</option>  
+                        <% } %>    
+                    </select>
+                </div>
+                <div>
+                    <span>Edit your Gender: </span>
+                    Male: <input type="radio" name="gender" value="Male">
+                    Female: <input type="radio" name="gender" value="Female">
+                    Other: <input type="radio" name="gender" value="Other">
+                </div>
+                <div>
+                    <span>Edit your dob: </span>
+                    <input type="date" name="dob">
+                </div>
+    
+                <button type="submit"> Save changes </button>
+            </form>
+            <% } %>
+    
+        </section>
+    </div>
+</div>
 
 
 <!-- Blur the screen when side menu of nav bar is clicked -->
@@ -107,10 +208,13 @@
 
 
 
+
+
+
 <script src="<%= assetPath('js/toggle_friendship.js') %>"></script>
 
 <!-- Import the js file for styling -->
-<script src="<%= assetPath('js/home_style.js') %>"></script>
+<script src="<%= assetPath('js/post_style.js') %>"></script>
 
 <!-- importing this script for creating the post and comments through AJAX-->
 <script src="<%= assetPath('js/home_post_comments.js') %>" ></script>
@@ -126,3 +230,5 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
+
+<script src="<%= assetPath('js/user_profile.js') %>"></script>

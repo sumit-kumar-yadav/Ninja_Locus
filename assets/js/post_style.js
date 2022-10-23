@@ -265,6 +265,14 @@
 
     // Lazy loading of post's images and videos
     (function lazyLoadingOfPostImageVideo() {
+        // Decide if it's home page or it's profile page 
+        if(document.getElementById('feed-posts')){
+            // it's home page and #feed-posts is scrolled
+            var scrollContainerID = 'feed-posts';
+        }else{
+            // it's profile page and #layout-main is scrolled 
+            var scrollContainerID = 'user-profile';
+        }
 
         // If IntersectionObserver is working fine in the user's vrowser
         if ("IntersectionObserver" in window) {
@@ -272,7 +280,7 @@
             let lazyloadElements = document.querySelectorAll(".post-list [data-src]");
 
             let options = {
-                root: document.getElementById('feed-posts'),    // Scrollable element
+                root: document.getElementById(scrollContainerID),    // Scrollable element
                 // threshold: 0,
                 rootMargin: "400px"      // Start Observing before 400px
             };
@@ -321,9 +329,9 @@
                     if(lazyloadElements.length == 0) { 
                         console.log("All are visited")
                         // Remove the event Listeners
-                        $('#feed-posts').off('scroll', lazyload);
-                        $('#feed-posts').off('resize', lazyload);
-                        $('#feed-posts').off('orientationchange', lazyload);
+                        $('#'+scrollContainerID).off('scroll', lazyload);
+                        $('#'+scrollContainerID).off('resize', lazyload);
+                        $('#'+scrollContainerID).off('orientationchange', lazyload);
                     }
                 }, 20);
             }
@@ -331,7 +339,7 @@
             lazyload();
 
             // Add event listener
-            $('#feed-posts').on('scroll resize orientationchange', lazyload);
+            $('#'+scrollContainerID).on('scroll resize orientationchange', lazyload);
 
         }
 
